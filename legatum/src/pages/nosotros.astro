@@ -57,9 +57,9 @@ const schema = {
       <div class="shell abt-founder">
         <a class="page-back" href="/">← Inicio</a>
 
-        <div class="portrait-panel abt-portrait">
+        <div class={`portrait-panel abt-portrait${founder.image ? ' has-photo' : ''}`}>
           {founder.image
-            ? <img class="abt-photo" src={founder.image} alt={`${founder.name}, ${founder.role} de ${site.name}`} width="380" height="480" loading="eager" />
+            ? <img class="portrait-photo" src={founder.image} alt={`${founder.name}, ${founder.role} de ${site.name}`} width="709" height="1063" loading="eager" />
             : <span class="portrait-mark" aria-hidden="true">LI</span>}
           <div class="portrait-badge">
             <strong>{founder.name}</strong>
@@ -146,8 +146,6 @@ const schema = {
 
   /* Portrait: sticky so acompaña el scroll del texto */
   .abt-portrait { position: sticky; top: calc(var(--header) + 28px); }
-  /* Cuando se agregue la foto */
-  .abt-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 
   /* — Texto del founder — */
   .abt-founder-text h2 { font-size: clamp(2rem, 3.8vw, 3rem); line-height: 1.08; margin: .25em 0 .7em; }

@@ -1,5 +1,10 @@
-export async function onRequestPost(context) {
-  const { request, env } = context;
+import type { APIRoute } from 'astro';
+
+// On-demand endpoint (runs on the Cloudflare Worker, not prerendered).
+export const prerender = false;
+
+export const POST: APIRoute = async ({ request, locals }) => {
+  const env = locals.runtime.env as Record<string, string | undefined>;
 
   const formData = await request.formData();
   const token = formData.get('cf-turnstile-response');
@@ -18,12 +23,12 @@ export async function onRequestPost(context) {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams({
           secret: env.TURNSTILE_SECRET_KEY,
-          response: token,
+          response: String(token ?? ''),
           remoteip: request.headers.get('CF-Connecting-IP') ?? '',
         }),
       }
     );
-    const result = await verification.json();
+    const result = (await verification.json()) as { success?: boolean };
     if (!result.success) {
       return Response.json(
         { success: false, message: 'Verificación de seguridad fallida. Intente de nuevo.' },
@@ -45,4 +50,4 @@ export async function onRequestPost(context) {
 
   const data = await response.json();
   return Response.json(data, { status: response.status });
-}
+};

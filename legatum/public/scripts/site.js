@@ -4,9 +4,14 @@
   const menu = document.querySelector('[data-mobile-menu]');
   const close = document.querySelector('[data-menu-close]');
 
+  let headerTicking = false;
   function setHeader() {
-    if (!header) return;
-    header.classList.toggle('is-scrolled', window.scrollY > 24);
+    if (!header || headerTicking) return;
+    headerTicking = true;
+    requestAnimationFrame(() => {
+      header.classList.toggle('is-scrolled', window.scrollY > 24);
+      headerTicking = false;
+    });
   }
 
   const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';

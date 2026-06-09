@@ -5,8 +5,10 @@ import { founder, site } from '../data/site';
 
 <section class="section section-paper firm" id="firma" aria-labelledby="firma-title">
   <div class="shell two-column">
-    <div class="portrait-panel reveal" aria-hidden="true">
-      <div class="portrait-mark">LI</div>
+    <div class={`portrait-panel reveal${founder.image ? ' has-photo' : ''}`} aria-hidden="true">
+      {founder.image
+        ? <img class="portrait-photo" src={founder.image} alt="" width="709" height="1063" loading="lazy" />
+        : <div class="portrait-mark">LI</div>}
       <div class="portrait-badge">
         <strong>{founder.name}</strong>
         <span>{founder.role}</span>
