@@ -29,11 +29,11 @@ const schema = {
       offers: {
         '@type': 'Offer',
         priceCurrency: 'MXN',
-        price: `${fees.minMXN}-${fees.maxMXN}`,
+        price: service.fee ? '500' : `${fees.minMXN}-${fees.maxMXN}`,
         priceSpecification: {
           '@type': 'PriceSpecification',
-          minPrice: fees.minMXN,
-          maxPrice: fees.maxMXN,
+          minPrice: service.fee ? 500 : fees.minMXN,
+          maxPrice: service.fee ? 500 : fees.maxMXN,
           priceCurrency: 'MXN',
         },
       },
@@ -70,7 +70,7 @@ const schema = {
           <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
             Iniciar mi evaluación
           </a>
-          <a class="btn btn-ghost-light" href="/#contacto">Dejar mis datos</a>
+          <a class="btn btn-ghost-light" href="/contacto/">Dejar mis datos</a>
         </div>
       </div>
     </section>
@@ -100,14 +100,23 @@ const schema = {
           {service.faqs.length > 0 && (
             <div class="svc-block">
               <h2>Preguntas frecuentes</h2>
-              <dl class="svc-faq">
-                {service.faqs.map((f) => (
-                  <div>
-                    <dt>{f.question}</dt>
-                    <dd>{f.answer}</dd>
-                  </div>
+              <div class="faq-list">
+                {service.faqs.map((f, i) => (
+                  <article class:list={['faq-item', { 'is-open': i === 0 }]}>
+                    <h3>
+                      <button type="button" aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`svc-faq-${i}`} data-faq-trigger>
+                        {f.question}
+                        <span aria-hidden="true"></span>
+                      </button>
+                    </h3>
+                    <div id={`svc-faq-${i}`} class="faq-panel" data-faq-panel>
+                      <div class="faq-panel-inner">
+                        <p>{f.answer}</p>
+                      </div>
+                    </div>
+                  </article>
                 ))}
-              </dl>
+              </div>
             </div>
           )}
         </div>
@@ -115,12 +124,14 @@ const schema = {
         <aside class="svc-aside">
           <div class="svc-card">
             <p class="svc-card-label">Honorarios de referencia</p>
-            <p class="svc-fee">{fees.display}</p>
-            <p class="svc-fee-usd">{fees.displayUSD}</p>
+            <p class="svc-fee">{service.fee?.display ?? fees.display}</p>
+            <p class="svc-fee-usd">{service.fee?.displayUSD ?? fees.displayUSD}</p>
+            <hr class="svc-divider" />
             <p class="svc-fee-note">{fees.note}</p>
-            <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
-              Conversar por WhatsApp
+            <a class="btn btn-whatsapp svc-btn" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+              Iniciar mi evaluación
             </a>
+            <p class="svc-btn-sub">Sin compromiso — respuesta el mismo día hábil</p>
           </div>
 
           {service.requirements.length > 0 && (
@@ -182,19 +193,16 @@ const schema = {
   .svc-steps strong { color: var(--navy); font-family: var(--serif); font-size: 1.2rem; font-weight: 600; }
   .svc-steps span { color: var(--muted); line-height: 1.55; }
 
-  .svc-faq > div { padding: 18px 0; border-bottom: 1px solid var(--line); }
-  .svc-faq dt { color: var(--navy); font-family: var(--serif); font-size: 1.18rem; font-weight: 600; margin-bottom: .5rem; }
-  .svc-faq dd { margin: 0; color: var(--muted); line-height: 1.6; }
-
-  .svc-aside { position: sticky; top: calc(var(--header) + 28px); display: grid; gap: 18px; }
-  .svc-card { padding: 28px; background: var(--navy); color: var(--cream); border-top: 2px solid var(--gold); }
+.svc-aside { position: sticky; top: calc(var(--header) + 28px); display: grid; gap: 18px; }
+  .svc-card { padding: 28px; background: var(--cream); color: var(--ink); border: 1px solid var(--line); border-top: 2px solid var(--gold); }
   .svc-card--plain { background: var(--white); color: var(--ink); border: 1px solid var(--line); border-top: 2px solid var(--gold); }
-  .svc-card-label { font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-300); }
-  .svc-card--plain .svc-card-label { color: #7c6549; }
-  .svc-fee { font-family: var(--serif); font-size: 2rem; font-weight: 600; margin-top: .6rem; color: var(--white); }
-  .svc-fee-usd { color: var(--gold-300); font-size: .92rem; margin-top: .2rem; }
-  .svc-fee-note { color: rgba(245, 240, 232, .68); font-size: .82rem; line-height: 1.5; margin-top: 1rem; }
-  .svc-card .btn { margin-top: 1.4rem; width: 100%; }
+  .svc-card-label { font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #7c6549; }
+  .svc-fee { font-family: var(--serif); font-size: 2.2rem; font-weight: 600; margin-top: .55rem; color: var(--navy); line-height: 1; }
+  .svc-fee-usd { color: var(--gold); font-size: .9rem; margin-top: .35rem; }
+  .svc-divider { border: none; border-top: 1px solid var(--line); margin: 1.2rem 0; }
+  .svc-fee-note { color: var(--muted); font-size: .8rem; line-height: 1.55; }
+  .svc-btn { margin-top: 1.4rem; width: 100%; justify-content: center; }
+  .svc-btn-sub { margin-top: .65rem; text-align: center; color: var(--muted); font-size: .78rem; line-height: 1.4; }
   .svc-req { display: grid; gap: 10px; margin-top: 1rem; }
   .svc-req li { position: relative; padding-left: 1.4rem; color: var(--ink); font-size: .95rem; line-height: 1.5; }
   .svc-req li::before { content: ""; position: absolute; left: 0; top: .5em; width: 8px; height: 8px; border: 1px solid var(--gold); }

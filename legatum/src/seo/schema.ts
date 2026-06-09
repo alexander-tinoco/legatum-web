@@ -1,4 +1,4 @@
-import { site } from '../data/site';
+import { founder, site } from '../data/site';
 
 type SchemaOptions = {
   isHome?: boolean;
@@ -6,6 +6,15 @@ type SchemaOptions = {
 
 export function buildSchema(options: SchemaOptions = {}) {
   const { isHome = false } = options;
+
+  const person = {
+    '@type': 'Person',
+    '@id': `${site.url}/#founder`,
+    name: founder.name,
+    jobTitle: founder.role,
+    description: founder.shortBio,
+    worksFor: { '@id': `${site.url}/#organization` },
+  };
 
   const organization = {
     '@type': 'Organization',
@@ -19,12 +28,13 @@ export function buildSchema(options: SchemaOptions = {}) {
     email: site.email,
     telephone: site.phone,
     slogan: site.tagline,
+    founder: { '@id': `${site.url}/#founder` },
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Durango',
       addressCountry: 'MX',
     },
-    areaServed: ['MX', 'United States', 'Canada', 'European Union', 'China', 'Australia'],
+    areaServed: ['MX', 'US', 'CA'],
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: site.phone,
@@ -37,7 +47,7 @@ export function buildSchema(options: SchemaOptions = {}) {
   if (!isHome) {
     return {
       '@context': 'https://schema.org',
-      '@graph': [organization],
+      '@graph': [organization, person],
     };
   }
 
@@ -78,7 +88,7 @@ export function buildSchema(options: SchemaOptions = {}) {
       addressLocality: 'Durango',
       addressCountry: 'MX',
     },
-    areaServed: ['MX', 'United States', 'Canada', 'European Union', 'China', 'Australia'],
+    areaServed: ['MX', 'US', 'CA'],
     parentOrganization: {
       '@id': `${site.url}/#organization`,
     },
@@ -86,6 +96,6 @@ export function buildSchema(options: SchemaOptions = {}) {
 
   return {
     '@context': 'https://schema.org',
-    '@graph': [organization, website, webPage, professionalService],
+    '@graph': [organization, person, website, webPage, professionalService],
   };
 }

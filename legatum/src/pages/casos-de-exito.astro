@@ -1,0 +1,188 @@
+---
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Footer from '../components/Footer.astro';
+import Navbar from '../components/Navbar.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { caseStudies, site, testimonials } from '../data/site';
+
+const canonical = `${site.url}/casos-de-exito/`;
+---
+
+<BaseLayout
+  title={`Casos de éxito | Expedientes reales, resultados reales | ${site.name}`}
+  description="Expedientes anonimizados que muestran cómo trabajamos: entender el caso, ejecutar con precisión y acompañar hasta la resolución. Visa americana, renovación sin entrevista, pasaporte urgente."
+  canonical={canonical}
+>
+  <Navbar />
+  <main id="main-content">
+
+    <section class="cas-hero section-navy">
+      <div class="shell">
+        <Breadcrumb crumbs={[{ label: 'Casos de éxito' }]} variant="dark" />
+        <span class="eyebrow">Casos reales</span>
+        <h1>Situación, proceso y resultado.</h1>
+        <p class="cas-lead">
+          Expedientes anonimizados que muestran cómo trabajamos: entender el caso,
+          ejecutar con precisión y acompañar hasta la resolución.
+        </p>
+      </div>
+    </section>
+
+    <section class="section section-paper">
+      <div class="shell">
+        <a class="page-back" href="/">← Inicio</a>
+        <div class="cas-grid">
+          {caseStudies.map((item, index) => (
+            <article class={`cas-card reveal${index > 0 ? ` d${Math.min(index, 3)}` : ''}`}>
+              <span class="cas-service">{item.service}</span>
+              <h2>{item.title}</h2>
+              <dl>
+                <div>
+                  <dt>Situación</dt>
+                  <dd>{item.situation}</dd>
+                </div>
+                <div>
+                  <dt>Proceso</dt>
+                  <dd>{item.process}</dd>
+                </div>
+                <div class="cas-result">
+                  <dt>Resultado</dt>
+                  <dd>{item.result}</dd>
+                </div>
+              </dl>
+              <p class="cas-anon">Caso real anonimizado — {item.location}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-cream">
+      <div class="shell">
+        <span class="eyebrow">Lo que dicen nuestros clientes</span>
+        <h2 class="cas-h2">Resultados reales, palabras reales.</h2>
+        <div class="cas-testimonials">
+          {testimonials.map((t, index) => (
+            <figure class={`cas-testimonial reveal${index > 0 ? ` d${Math.min(index, 3)}` : ''}`}>
+              <div class="cas-stars" aria-label="5 estrellas">
+                {[...Array(5)].map(() => (
+                  <svg viewBox="0 0 12 12" width="14" height="14" fill="currentColor" aria-hidden="true">
+                    <path d="M6 .5l1.5 3 3.3.5-2.4 2.3.6 3.2L6 8l-2.9 1.5.6-3.2L1.2 4l3.3-.5z"/>
+                  </svg>
+                ))}
+              </div>
+              <blockquote>"{t.quote}"</blockquote>
+              <figcaption>
+                <strong>{t.author}</strong>
+                <span>{t.context}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-navy">
+      <div class="shell cas-cta">
+        <span class="eyebrow">Su caso es el siguiente</span>
+        <h2>¿Listo para construir su expediente?</h2>
+        <p>Cuéntenos su situación. El mismo día hábil recibe una evaluación honesta y los siguientes pasos.</p>
+        <div class="cas-actions">
+          <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+            Iniciar mi evaluación
+          </a>
+          <a class="btn btn-ghost-light" href="/servicios/">Ver servicios</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>
+
+<style>
+  .cas-hero {
+    padding-top: calc(var(--header) + clamp(40px, 6vw, 72px));
+    padding-bottom: clamp(48px, 7vw, 84px);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .cas-hero .eyebrow { color: var(--gold-300); }
+  .cas-hero h1 { color: var(--white); font-size: clamp(2.3rem, 5vw, 4rem); margin-top: .35em; max-width: 18ch; }
+  .cas-lead { max-width: 58ch; margin-top: 1.1rem; color: rgba(245, 240, 232, .82); font-size: clamp(1.05rem, 1.6vw, 1.22rem); line-height: 1.6; }
+
+  .cas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .cas-card {
+    padding: 32px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-top: 2px solid var(--gold);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .cas-service {
+    color: var(--gold);
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .cas-card h2 { font-size: clamp(1.2rem, 1.8vw, 1.5rem); }
+  .cas-card dl { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+  .cas-card dt {
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .cas-card dd { color: var(--ink); line-height: 1.6; font-size: .95rem; }
+  .cas-result dt { color: var(--gold); }
+  .cas-result dd { font-weight: 500; }
+  .cas-anon {
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    font-size: .72rem;
+    color: var(--muted);
+    letter-spacing: .04em;
+  }
+
+  .cas-h2 { font-size: clamp(1.7rem, 3vw, 2.6rem); margin-top: .35em; margin-bottom: clamp(28px, 4vw, 48px); }
+  .section-cream .eyebrow { color: #7c6549; }
+  .cas-testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .cas-testimonial {
+    padding: 28px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .cas-stars { display: flex; gap: 3px; color: var(--gold); }
+  .cas-testimonial blockquote {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0;
+    font-style: italic;
+  }
+  .cas-testimonial figcaption { margin-top: auto; }
+  .cas-testimonial strong { display: block; font-size: .85rem; color: var(--navy); }
+  .cas-testimonial span { font-size: .78rem; color: var(--muted); }
+
+  .cas-cta { text-align: center; max-width: 720px; margin-inline: auto; }
+  .cas-cta .eyebrow { color: var(--gold-300); justify-content: center; }
+  .cas-cta h2 { color: var(--white); font-size: clamp(1.8rem, 3.6vw, 2.9rem); margin-top: .35em; }
+  .cas-cta p { color: rgba(245, 240, 232, .78); margin-top: 1rem; font-size: 1.1rem; }
+  .cas-actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 1.8rem; }
+
+  @media (max-width: 900px) {
+    .cas-grid { grid-template-columns: 1fr; }
+    .cas-testimonials { grid-template-columns: 1fr; }
+  }
+</style>

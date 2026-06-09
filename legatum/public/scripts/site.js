@@ -9,12 +9,42 @@
     header.classList.toggle('is-scrolled', window.scrollY > 24);
   }
 
+  const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+  function trapFocus(e) {
+    if (e.key !== 'Tab' || !menu) return;
+    const items = menu.querySelectorAll(FOCUSABLE);
+    if (!items.length) return;
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
+
+  function onKeydown(e) {
+    if (e.key === 'Escape') setMenu(false);
+    else trapFocus(e);
+  }
+
   function setMenu(open) {
     if (!menu || !toggle) return;
     menu.classList.toggle('is-open', open);
     menu.setAttribute('aria-hidden', String(!open));
     toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
     document.body.classList.toggle('menu-open', open);
+    if (open) {
+      document.addEventListener('keydown', onKeydown);
+      (close || menu.querySelector(FOCUSABLE))?.focus();
+    } else {
+      document.removeEventListener('keydown', onKeydown);
+      toggle.focus();
+    }
   }
 
   window.addEventListener('scroll', setHeader, { passive: true });
@@ -22,26 +52,6 @@
   toggle?.addEventListener('click', () => setMenu(true));
   close?.addEventListener('click', () => setMenu(false));
   menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
-
-  const megaToggle = document.querySelector('[data-mega-toggle]');
-  const megaMenu = megaToggle?.closest('.nav-services')?.querySelector('.mega-menu');
-  if (megaToggle && megaMenu) {
-    megaToggle.addEventListener('click', () => {
-      const open = megaToggle.getAttribute('aria-expanded') === 'true';
-      megaToggle.setAttribute('aria-expanded', String(!open));
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && megaToggle.getAttribute('aria-expanded') === 'true') {
-        megaToggle.setAttribute('aria-expanded', 'false');
-        megaToggle.focus();
-      }
-    });
-    document.addEventListener('click', (e) => {
-      if (!megaToggle.closest('.nav-services').contains(e.target)) {
-        megaToggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-  }
 
   const faqButtons = document.querySelectorAll('[data-faq-trigger]');
   faqButtons.forEach((button) => {
@@ -59,7 +69,6 @@
       }
     });
   });
-
 
   // Scroll reveal via IntersectionObserver
   const revealEls = document.querySelectorAll('.reveal');

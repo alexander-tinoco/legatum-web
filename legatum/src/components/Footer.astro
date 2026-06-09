@@ -31,11 +31,13 @@ const a = (href: string) => href.startsWith('/') ? href : isHome ? href : `/${hr
     <div>
       <p class="footer-col-title">Firma</p>
       <ul>
+        <li><a href="/servicios/">Servicios</a></li>
+        <li><a href="/metodo/">Método</a></li>
         <li><a href="/nosotros/">Nosotros</a></li>
-        <li><a href={a('#metodo')}>Método</a></li>
-        <li><a href="/blog/">Guías</a></li>
+        <li><a href="/casos-de-exito/">Casos de éxito</a></li>
         <li><a href="/preguntas-frecuentes/">Preguntas frecuentes</a></li>
-        <li><a href={a('#contacto')}>Contacto</a></li>
+        <li><a href="/contacto/">Contacto</a></li>
+        <li><a href="/blog/">Guías</a></li>
       </ul>
     </div>
     <div class="footer-contact">

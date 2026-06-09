@@ -5,7 +5,6 @@ import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import CaseStudiesSection from '../sections/CaseStudiesSection.astro';
 import ContactSection from '../sections/ContactSection.astro';
 import CoverageSection from '../sections/CoverageSection.astro';
 import CTASection from '../sections/CTASection.astro';
@@ -16,6 +15,7 @@ import MethodSection from '../sections/MethodSection.astro';
 import PrinciplesTicker from '../sections/PrinciplesTicker.astro';
 import ResourcesSection from '../sections/ResourcesSection.astro';
 import ServicesSection from '../sections/ServicesSection.astro';
+import TestimonialsSection from '../sections/TestimonialsSection.astro';
 import TrustSection from '../sections/TrustSection.astro';
 import { site } from '../data/site';
 
@@ -30,7 +30,7 @@ const optimizedHero = await getImage({
 <BaseLayout
   title="Visas y movilidad internacional | LEGATUM INTERNACIONAL"
   description={site.description}
-  canonical={site.url}
+  canonical={`${site.url}/`}
 >
   <Fragment slot="head">
     <link
@@ -51,7 +51,7 @@ const optimizedHero = await getImage({
     <FirmSection />
     <CoverageSection />
     <TrustSection />
-    <CaseStudiesSection />
+    <TestimonialsSection />
     <FAQSection />
     <ResourcesSection />
     <ContactSection />

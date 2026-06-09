@@ -4,7 +4,7 @@ import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { fees, founder, services, site, trustItems } from '../data/site';
+import { founder, site, trustItems } from '../data/site';
 
 const canonical = `${site.url}/nosotros/`;
 
@@ -55,20 +55,36 @@ const schema = {
 
     <section class="section section-paper">
       <div class="shell abt-founder">
-        <div class="abt-founder-card">
-          <span class="abt-monogram" aria-hidden="true">LI</span>
-          <p class="abt-name">{founder.name}</p>
-          <p class="abt-role">{founder.role}</p>
+        <a class="page-back" href="/">← Inicio</a>
+
+        <div class="portrait-panel abt-portrait">
+          {/* Cuando tenga foto: <img class="abt-photo" src="/foto-alexander.jpg" alt={founder.name} /> */}
+          <span class="portrait-mark" aria-hidden="true">LI</span>
+          <div class="portrait-badge">
+            <strong>{founder.name}</strong>
+            <span>{founder.role}</span>
+          </div>
         </div>
+
         <div class="abt-founder-text">
           <span class="eyebrow">Especialista y fundador</span>
           <h2>{founder.name}</h2>
+          <blockquote class="abt-quote">
+            Un trámite migratorio bien preparado no se improvisa.
+          </blockquote>
           <p>{founder.longBio}</p>
           <p>
             Atendemos a personas, familias, profesionistas y empresas de todo México y desde el
             extranjero, con el mismo nivel de seriedad y claridad sin importar el perfil. No prometemos
             decisiones consulares: preparamos cada caso con rigor y explicamos los límites reales.
           </p>
+          <div class="abt-creds">
+            <span>Visas B1/B2</span>
+            <span>Renovaciones</span>
+            <span>Visa Canadiense</span>
+            <span>Pasaportes</span>
+            <span>Trámites Consulares</span>
+          </div>
           <div class="abt-actions">
             <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
               Hablar con {founder.name.split(' ')[0]}
@@ -94,30 +110,6 @@ const schema = {
       </div>
     </section>
 
-    <section class="section section-paper">
-      <div class="shell abt-fees-wrap">
-        <div class="abt-fees-text">
-          <span class="eyebrow">Honorarios con transparencia</span>
-          <h2 class="abt-h2">Sin cargos ocultos ni sorpresas.</h2>
-          <p>
-            Nuestros honorarios profesionales de referencia van de <strong>{fees.display}</strong>
-            (<span class="abt-usd">{fees.displayUSD}</span>), según la complejidad del trámite. El alcance
-            y el monto exacto se confirman por escrito tras la evaluación inicial, antes de que usted
-            decida contratar.
-          </p>
-          <p class="abt-fee-note">{fees.note}</p>
-        </div>
-        <div class="abt-fees-card">
-          <p class="abt-fees-label">Honorarios de referencia</p>
-          <p class="abt-fees-amount">{fees.display}</p>
-          <p class="abt-fees-usd">{fees.displayUSD}</p>
-          <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
-            Solicitar evaluación
-          </a>
-        </div>
-      </div>
-    </section>
-
     <section class="section section-navy">
       <div class="shell abt-cta">
         <span class="eyebrow">Empecemos</span>
@@ -127,7 +119,7 @@ const schema = {
           <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
             Iniciar mi evaluación
           </a>
-          <a class="btn btn-ghost-light" href="/#contacto">Dejar mis datos</a>
+          <a class="btn btn-ghost-light" href="/contacto/">Dejar mis datos</a>
         </div>
       </div>
     </section>
@@ -147,15 +139,37 @@ const schema = {
   .abt-hero h1 { color: var(--white); font-size: clamp(2.3rem, 5vw, 4rem); margin-top: .35em; max-width: 16ch; }
   .abt-lead { max-width: 58ch; margin-top: 1.1rem; color: rgba(245, 240, 232, .82); font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.6; }
 
-  .abt-founder { display: grid; grid-template-columns: 320px 1fr; gap: clamp(36px, 5vw, 72px); align-items: start; }
-  .abt-founder-card { position: sticky; top: calc(var(--header) + 28px); padding: 40px 28px; background: var(--navy); color: var(--cream); border-top: 2px solid var(--gold); text-align: center; }
-  .abt-monogram { display: inline-flex; align-items: center; justify-content: center; width: 92px; height: 92px; margin-bottom: 1.2rem; border: 1px solid var(--gold-300); border-radius: 50%; font-family: var(--serif); font-size: 2.2rem; color: var(--gold-300); letter-spacing: .04em; }
-  .abt-name { font-family: var(--serif); font-size: 1.6rem; font-weight: 600; color: var(--white); }
-  .abt-role { color: var(--gold-300); font-size: .82rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; margin-top: .4rem; }
-  .abt-founder-text h2 { font-size: clamp(1.8rem, 3.4vw, 2.7rem); margin: .3em 0 .6em; }
-  .abt-founder-text p { color: var(--muted); line-height: 1.7; margin-bottom: 1.1rem; max-width: 62ch; }
+  /* — Founder layout — */
+  .abt-founder { display: grid; grid-template-columns: 380px 1fr; gap: clamp(40px, 6vw, 80px); align-items: start; }
+  .abt-founder > .page-back { grid-column: 1 / -1; margin-bottom: .4rem; }
+
+  /* Portrait: sticky so acompaña el scroll del texto */
+  .abt-portrait { position: sticky; top: calc(var(--header) + 28px); }
+  /* Cuando se agregue la foto */
+  .abt-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+
+  /* — Texto del founder — */
+  .abt-founder-text h2 { font-size: clamp(2rem, 3.8vw, 3rem); line-height: 1.08; margin: .25em 0 .7em; }
+  .abt-founder-text p { color: var(--muted); line-height: 1.75; margin-bottom: 1.1rem; max-width: 60ch; }
+
+  .abt-quote {
+    margin: 0 0 1.4rem;
+    padding: 1.1rem 1.4rem;
+    border-left: 3px solid var(--gold);
+    background: var(--cream);
+    font-family: var(--serif);
+    font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+    font-style: italic;
+    color: var(--navy);
+    line-height: 1.45;
+  }
+
+  .abt-creds { display: flex; flex-wrap: wrap; gap: 8px; margin: 1.4rem 0 .4rem; }
+  .abt-creds span { padding: 4px 12px; border: 1px solid var(--line); color: var(--gold); font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: var(--white); }
+
   .abt-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 1.6rem; }
 
+  /* — Valores — */
   .abt-h2 { font-size: clamp(1.7rem, 3vw, 2.6rem); margin-top: .35em; }
   .abt-values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: clamp(28px, 4vw, 48px); }
   .abt-value { padding: 28px; background: var(--white); border: 1px solid var(--line); border-top: 2px solid var(--gold); }
@@ -163,26 +177,19 @@ const schema = {
   .abt-value p { color: var(--muted); line-height: 1.6; }
   .section-cream .eyebrow { color: #7c6549; }
 
-  .abt-fees-wrap { display: grid; grid-template-columns: 1fr 320px; gap: clamp(36px, 5vw, 64px); align-items: center; }
-  .abt-fees-text p { color: var(--muted); line-height: 1.7; margin-top: 1rem; max-width: 60ch; }
-  .abt-fees-text strong { color: var(--navy); }
-  .abt-usd { color: #7c6549; font-weight: 600; }
-  .abt-fee-note { font-size: .85rem; }
-  .abt-fees-card { padding: 32px 28px; background: var(--navy); color: var(--cream); border-top: 2px solid var(--gold); text-align: center; }
-  .abt-fees-label { font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-300); }
-  .abt-fees-amount { font-family: var(--serif); font-size: 2.4rem; font-weight: 600; color: var(--white); margin-top: .6rem; }
-  .abt-fees-usd { color: var(--gold-300); font-size: .95rem; margin-top: .3rem; margin-bottom: 1.4rem; }
-
+  /* — CTA — */
   .abt-cta { text-align: center; max-width: 720px; margin-inline: auto; }
   .abt-cta .eyebrow { color: var(--gold-300); justify-content: center; }
   .abt-cta h2 { color: var(--white); font-size: clamp(1.8rem, 3.6vw, 2.9rem); margin-top: .35em; }
   .abt-cta p { color: rgba(245, 240, 232, .78); margin-top: 1rem; font-size: 1.1rem; }
   .abt-cta .abt-actions { justify-content: center; }
 
-  @media (max-width: 900px) {
+  @media (max-width: 960px) {
     .abt-founder { grid-template-columns: 1fr; }
-    .abt-founder-card { position: static; }
+    .abt-portrait { position: static; max-width: 440px; }
+    .abt-values { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
     .abt-values { grid-template-columns: 1fr; }
-    .abt-fees-wrap { grid-template-columns: 1fr; }
   }
 </style>

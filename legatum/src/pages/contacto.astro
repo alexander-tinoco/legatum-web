@@ -1,0 +1,187 @@
+---
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+import Navbar from '../components/Navbar.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+
+const canonical = `${site.url}/contacto/`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ContactPage',
+      '@id': `${canonical}#contactpage`,
+      url: canonical,
+      name: `Contacto | ${site.name}`,
+      isPartOf: { '@id': `${site.url}/#website` },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={`Contacto — Inicie su evaluación | ${site.name}`}
+  description="Cuéntenos su caso por WhatsApp o formulario. Reciba orientación honesta el mismo día hábil, sin compromiso. Atendemos desde cualquier estado de México y desde el extranjero."
+  canonical={canonical}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </Fragment>
+  <Navbar />
+  <main id="main-content">
+
+    <section class="cnt-hero section-navy">
+      <div class="shell">
+        <Breadcrumb crumbs={[{ label: 'Contacto' }]} variant="dark" />
+        <span class="eyebrow">Inicie su evaluación</span>
+        <h1>Cuéntenos su caso.</h1>
+        <p class="cnt-lead">
+          Reciba una orientación honesta el mismo día hábil, sin compromiso y sin tecnicismos vacíos.
+          Atendemos desde cualquier estado de México y desde el extranjero.
+        </p>
+      </div>
+    </section>
+
+    <section class="section section-paper">
+      <div class="shell cnt-layout">
+        <a class="page-back" href="/">← Inicio</a>
+
+        <div class="cnt-sidebar">
+          <div class="cnt-channels">
+            <p class="cnt-channels-title">Canales directos</p>
+            <a class="cnt-channel" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+              <span class="cnt-channel-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+              </span>
+              <div>
+                <strong>WhatsApp {site.phoneDisplay}</strong>
+                <span>La vía más rápida — respuesta el mismo día hábil</span>
+              </div>
+            </a>
+            <a class="cnt-channel" href={`tel:${site.phone}`}>
+              <span class="cnt-channel-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </span>
+              <div>
+                <strong>Llamar al {site.phoneDisplay}</strong>
+                <span>Atención telefónica directa en horario hábil</span>
+              </div>
+            </a>
+            <a class="cnt-channel" href={`mailto:${site.email}`}>
+              <span class="cnt-channel-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <path d="m2 7 10 7 10-7"/>
+                </svg>
+              </span>
+              <div>
+                <strong>{site.email}</strong>
+                <span>Para documentación y consultas formales</span>
+              </div>
+            </a>
+          </div>
+
+          <div class="cnt-note">
+            <p>
+              Toda la orientación inicial es gratuita y sin compromiso. El alcance y el honorario
+              se presentan por escrito antes de que usted decida contratar.
+            </p>
+          </div>
+        </div>
+
+        <div class="cnt-form-wrap">
+          <ContactForm />
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>
+
+<style>
+  .cnt-hero {
+    padding-top: calc(var(--header) + clamp(40px, 6vw, 72px));
+    padding-bottom: clamp(48px, 7vw, 84px);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .cnt-hero .bc { margin-bottom: 1.4rem; }
+  .cnt-hero .eyebrow { color: var(--gold-300); }
+  .cnt-hero h1 {
+    color: var(--white);
+    font-size: clamp(2.3rem, 5vw, 4rem);
+    margin-top: .35em;
+    max-width: 16ch;
+  }
+  .cnt-lead {
+    max-width: 58ch;
+    margin-top: 1.1rem;
+    color: rgba(245, 240, 232, .82);
+    font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+    line-height: 1.6;
+  }
+
+  .cnt-layout > .page-back { grid-column: 1 / -1; margin-bottom: 1.4rem; }
+  .cnt-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: start;
+  }
+
+  .cnt-channels { display: flex; flex-direction: column; gap: 14px; }
+  .cnt-channels-title {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .cnt-channel {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 16px;
+    border: 1px solid var(--line);
+    background: var(--cream);
+    transition: border-color .2s, background .2s;
+  }
+  .cnt-channel:hover { border-color: var(--gold); background: var(--white); }
+  .cnt-channel-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    color: var(--gold);
+  }
+  .cnt-channel-icon svg { width: 22px; height: 22px; }
+  .cnt-channel strong { display: block; color: var(--navy); font-size: .92rem; font-weight: 700; }
+  .cnt-channel span { display: block; margin-top: 2px; color: var(--muted); font-size: .82rem; line-height: 1.45; }
+
+  .cnt-note {
+    margin-top: 28px;
+    padding: 20px;
+    border-left: 3px solid var(--gold);
+    background: var(--cream);
+  }
+  .cnt-note p { color: var(--muted); font-size: .9rem; line-height: 1.65; }
+
+  @media (max-width: 900px) {
+    .cnt-layout { grid-template-columns: 1fr; }
+    .cnt-sidebar { order: 2; }
+    .cnt-form-wrap { order: 1; }
+  }
+</style>

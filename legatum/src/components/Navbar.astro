@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import monogramCream from '../assets/brand/li-monogram-cream.png';
 import monogramNavy from '../assets/brand/li-monogram-navy.png';
-import { navItems, services, site } from '../data/site';
+import { navItems, site } from '../data/site';
 
 const isHome = Astro.url.pathname === '/';
 const a = (href: string) => href.startsWith('/') ? href : isHome ? href : `/${href}`;
@@ -19,21 +19,7 @@ const a = (href: string) => href.startsWith('/') ? href : isHome ? href : `/${hr
     </a>
 
     <nav class="desktop-nav" aria-label="Principal">
-      <div class="nav-services">
-        <button type="button" aria-haspopup="menu" aria-expanded="false" data-mega-toggle>Servicios</button>
-        <nav class="mega-menu" aria-label="Servicios de movilidad internacional">
-          <div class="mega-grid">
-            <a class="mega-title" href="/servicios/">Ver todos los servicios →</a>
-            {services.map((service) => (
-              <a href={`/servicios/${service.slug}/`}>
-                <strong>{service.title}</strong>
-                <span>{service.megaDesc}</span>
-              </a>
-            ))}
-          </div>
-        </nav>
-      </div>
-      {navItems.slice(1).map((item) => <a href={a(item.href)}>{item.label}</a>)}
+      {navItems.map((item) => <a href={a(item.href)}>{item.label}</a>)}
       <a href="/blog/">Guías</a>
     </nav>
 

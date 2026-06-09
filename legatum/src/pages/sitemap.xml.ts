@@ -35,9 +35,12 @@ export async function GET() {
 
   const pages = [
     { url: `${site.url}/`, lastmod: mostRecentPost, changefreq: 'weekly', priority: '1.0' },
-    { url: `${site.url}/nosotros/`, lastmod: now, changefreq: 'monthly', priority: '0.8' },
     { url: `${site.url}/servicios/`, lastmod: now, changefreq: 'monthly', priority: '0.9' },
     ...servicePages,
+    { url: `${site.url}/metodo/`, lastmod: now, changefreq: 'monthly', priority: '0.7' },
+    { url: `${site.url}/nosotros/`, lastmod: now, changefreq: 'monthly', priority: '0.8' },
+    { url: `${site.url}/casos-de-exito/`, lastmod: now, changefreq: 'monthly', priority: '0.7' },
+    { url: `${site.url}/contacto/`, lastmod: now, changefreq: 'monthly', priority: '0.8' },
     { url: `${site.url}/preguntas-frecuentes/`, lastmod: now, changefreq: 'monthly', priority: '0.6' },
     { url: `${site.url}/aviso-de-privacidad/`, lastmod: '2026-06-01', changefreq: 'yearly', priority: '0.3' },
     { url: `${site.url}/terminos/`, lastmod: '2026-06-01', changefreq: 'yearly', priority: '0.3' },

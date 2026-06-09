@@ -1,0 +1,255 @@
+---
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Footer from '../components/Footer.astro';
+import Navbar from '../components/Navbar.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { processSteps, site, trustItems } from '../data/site';
+
+const canonical = `${site.url}/metodo/`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${canonical}#webpage`,
+  url: canonical,
+  name: `El Método Legatum | ${site.name}`,
+  description:
+    'Cuatro fases con un especialista que responde por cada decisión. Antes de contratar, ya sabe cómo avanza su caso.',
+  isPartOf: { '@id': `${site.url}/#website` },
+};
+---
+
+<BaseLayout
+  title={`El Método Legatum | Proceso transparente de principio a fin | ${site.name}`}
+  description="Cuatro fases con un especialista que responde por cada decisión. Evaluación honesta, estrategia documental, preparación y acompañamiento. Conozca el proceso completo antes de contratar."
+  canonical={canonical}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </Fragment>
+  <Navbar />
+  <main id="main-content">
+
+    <section class="met-hero section-navy">
+      <div class="shell">
+        <Breadcrumb crumbs={[{ label: 'El Método' }]} variant="dark" />
+        <span class="eyebrow">El Método Legatum</span>
+        <h1>La certeza no se promete: se hace visible.</h1>
+        <p class="met-lead">
+          Antes de contratar, ya sabe cómo avanza su caso en cada etapa. Cuatro fases,
+          con un especialista que responde por cada decisión.
+        </p>
+      </div>
+    </section>
+
+    <section class="section section-paper">
+      <div class="shell">
+        <a class="page-back" href="/">← Inicio</a>
+        <div class="met-intro">
+          <span class="eyebrow">Por qué importa el método</span>
+          <h2>Le mostramos el proceso completo antes de que decida.</h2>
+          <p>
+            La mayoría de las firmas de gestión migratoria le piden que confíe primero y pregunten después.
+            En Legatum funciona al revés: antes de contratar, le explicamos con exactitud qué haremos,
+            por qué, cuánto costará y qué depende de usted. Sin sorpresas, sin promesas que no dependan de nosotros.
+          </p>
+        </div>
+
+        <ol class="met-steps">
+          {processSteps.map((step, index) => (
+            <li class="met-step reveal">
+              <div class="met-step-num">
+                <span>{String(index + 1).padStart(2, '0')}</span>
+              </div>
+              <div class="met-step-body">
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section-cream">
+      <div class="shell">
+        <span class="eyebrow">Principios que sostienen cada caso</span>
+        <h2 class="met-h2">Lo que puede esperar siempre de nosotros.</h2>
+        <div class="met-principles">
+          {trustItems.map((item) => (
+            <article class="met-principle">
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-paper">
+      <div class="shell met-quote-wrap">
+        <blockquote class="met-blockquote">
+          <p>
+            "Un trámite migratorio bien preparado no se improvisa. Cada expediente se construye con
+            criterio jurídico, honestidad sobre los riesgos reales y acompañamiento directo de
+            principio a fin, sin intermediarios ni promesas que no dependan de nosotros."
+          </p>
+          <cite>Alexander Tinoco Sánchez — Especialista y fundador</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="section section-navy">
+      <div class="shell met-cta">
+        <span class="eyebrow">Empecemos</span>
+        <h2>¿Listo para conocer su ruta con honestidad?</h2>
+        <p>Cuéntenos su caso. El mismo día hábil recibe una orientación real sobre su situación y los siguientes pasos.</p>
+        <div class="met-actions">
+          <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+            Iniciar mi evaluación
+          </a>
+          <a class="btn btn-ghost-light" href="/servicios/">Ver servicios</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>
+
+<style>
+  .met-hero {
+    padding-top: calc(var(--header) + clamp(40px, 6vw, 72px));
+    padding-bottom: clamp(48px, 7vw, 84px);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .met-hero .bc { margin-bottom: 1.4rem; }
+  .met-hero .eyebrow { color: var(--gold-300); }
+  .met-hero h1 {
+    color: var(--white);
+    font-size: clamp(2.3rem, 5vw, 4rem);
+    margin-top: .35em;
+    max-width: 18ch;
+  }
+  .met-lead {
+    max-width: 58ch;
+    margin-top: 1.1rem;
+    color: rgba(245, 240, 232, .82);
+    font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+    line-height: 1.6;
+  }
+
+  .met-intro {
+    max-width: 720px;
+    margin-bottom: clamp(48px, 7vw, 80px);
+  }
+  .met-intro h2 {
+    font-size: clamp(1.8rem, 3.4vw, 2.7rem);
+    margin-top: .35em;
+  }
+  .met-intro p {
+    margin-top: .9rem;
+    color: var(--muted);
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    line-height: 1.65;
+    max-width: 62ch;
+  }
+
+  .met-steps {
+    display: grid;
+    gap: 0;
+    counter-reset: step;
+    list-style: none;
+  }
+  .met-step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0 32px;
+    padding: 36px 0;
+    border-top: 1px solid var(--line);
+    align-items: start;
+  }
+  .met-step:last-child { border-bottom: 1px solid var(--line); }
+  .met-step-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .met-step-num span {
+    color: var(--gold);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+  }
+  .met-step-body h3 {
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
+    margin-bottom: .55rem;
+  }
+  .met-step-body p {
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: 60ch;
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+  }
+
+  .met-h2 { font-size: clamp(1.7rem, 3vw, 2.6rem); margin-top: .35em; margin-bottom: clamp(28px, 4vw, 48px); }
+  .section-cream .eyebrow { color: #7c6549; }
+  .met-principles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .met-principle {
+    padding: 28px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-top: 2px solid var(--gold);
+  }
+  .met-principle h3 { font-size: 1.3rem; margin-bottom: .6rem; }
+  .met-principle p { color: var(--muted); line-height: 1.6; }
+
+  .met-quote-wrap { max-width: 800px; margin-inline: auto; }
+  .met-blockquote {
+    border-left: 3px solid var(--gold);
+    padding: 32px 40px;
+    background: var(--cream);
+    margin: 0;
+  }
+  .met-blockquote p {
+    font-family: var(--serif);
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
+    font-style: italic;
+    color: var(--navy);
+    line-height: 1.5;
+  }
+  .met-blockquote cite {
+    display: block;
+    margin-top: 1.2rem;
+    font-style: normal;
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .met-cta { text-align: center; max-width: 720px; margin-inline: auto; }
+  .met-cta .eyebrow { color: var(--gold-300); justify-content: center; }
+  .met-cta h2 { color: var(--white); font-size: clamp(1.8rem, 3.6vw, 2.9rem); margin-top: .35em; }
+  .met-cta p { color: rgba(245, 240, 232, .78); margin-top: 1rem; font-size: 1.1rem; }
+  .met-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 1.8rem; justify-content: center; }
+
+  @media (max-width: 760px) {
+    .met-step { grid-template-columns: 1fr; gap: 16px; }
+    .met-step-num { width: 46px; height: 46px; }
+    .met-principles { grid-template-columns: 1fr; }
+    .met-blockquote { padding: 24px 20px; }
+  }
+</style>

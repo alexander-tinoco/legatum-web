@@ -4,7 +4,7 @@ import Footer from '../../components/Footer.astro';
 import Navbar from '../../components/Navbar.astro';
 import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { additionalDestinations, fees, services, site } from '../../data/site';
+import { additionalDestinations, services, site } from '../../data/site';
 
 const canonical = `${site.url}/servicios/`;
 
@@ -55,13 +55,14 @@ const schema = {
           <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
             Iniciar mi evaluación
           </a>
-          <a class="btn btn-ghost-light" href="/#contacto">Dejar mis datos</a>
+          <a class="btn btn-ghost-light" href="/contacto/">Dejar mis datos</a>
         </div>
       </div>
     </section>
 
     <section class="section section-paper">
       <div class="shell">
+        <a class="page-back" href="/">← Inicio</a>
         <div class="srvi-grid">
           {services.map((service, index) => (
             <a class="srvi-card" href={`/servicios/${service.slug}/`}>
@@ -69,32 +70,33 @@ const schema = {
               <h2><span class="srvi-flag" aria-hidden="true">{service.flag}</span>{service.title}</h2>
               <p>{service.summary}</p>
               <ul class="srvi-tags">{service.tags.map((tag) => <li>{tag}</li>)}</ul>
-              <span class="srvi-link">Ver el servicio →</span>
             </a>
           ))}
         </div>
 
-        <div class="srvi-extra">
-          <div class="srvi-extra-text">
-            <span class="eyebrow">Destinos adicionales</span>
-            <h2 class="srvi-extra-h2">¿Su destino no está en la lista?</h2>
-            <p>
-              También gestionamos {additionalDestinations.join(', ')} y otros destinos como Europa
-              Schengen. Cuéntenos su caso y evaluamos los requisitos reales con honestidad, sin compromiso.
-            </p>
-            <a class="btn" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
-              Consultar otro destino
-            </a>
-          </div>
-          <div class="srvi-fee-card">
-            <p class="srvi-fee-label">Honorarios de referencia</p>
-            <p class="srvi-fee-amount">{fees.display}</p>
-            <p class="srvi-fee-usd">{fees.displayUSD}</p>
-            <p class="srvi-fee-note">{fees.note}</p>
-          </div>
-        </div>
       </div>
     </section>
+
+    <section class="section srvi-extra-section">
+      <div class="shell srvi-extra">
+        <span class="eyebrow">Destinos adicionales</span>
+        <h2 class="srvi-extra-h2">¿Su destino no está en la lista?</h2>
+        <p>
+          También gestionamos {additionalDestinations.join(', ')} y otros destinos.
+          Cuéntenos su caso y evaluamos los requisitos reales con honestidad, sin compromiso.
+        </p>
+        <div class="srvi-extra-tags">
+          <span>Visa Australia</span>
+          <span>Visa China</span>
+
+          <span>Otros destinos</span>
+        </div>
+        <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+          Consultar otro destino
+        </a>
+      </div>
+    </section>
+
   </main>
   <Footer />
   <WhatsAppFloat />
@@ -123,19 +125,16 @@ const schema = {
   .srvi-tags li { padding: 3px 9px; border: 1px solid var(--line); color: var(--gold); font-size: .67rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
   .srvi-link { color: var(--gold); font-size: .82rem; font-weight: 650; letter-spacing: .04em; margin-top: .4rem; }
 
-  .srvi-extra { display: grid; grid-template-columns: 1fr 320px; gap: clamp(36px, 5vw, 64px); align-items: center; margin-top: clamp(48px, 7vw, 84px); padding-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--line); }
-  .srvi-extra .eyebrow { color: #7c6549; }
+  .srvi-extra-section { background: var(--cream); }
+  .srvi-extra { text-align: center; max-width: 680px; margin-inline: auto; }
+  .srvi-extra-section .eyebrow { color: #7c6549; justify-content: center; }
   .srvi-extra-h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); margin-top: .35em; }
-  .srvi-extra-text p { color: var(--muted); line-height: 1.7; margin: 1rem 0 1.6rem; max-width: 56ch; }
-  .srvi-fee-card { padding: 32px 28px; background: var(--navy); color: var(--cream); border-top: 2px solid var(--gold); }
-  .srvi-fee-label { font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-300); }
-  .srvi-fee-amount { font-family: var(--serif); font-size: 2.2rem; font-weight: 600; color: var(--white); margin-top: .6rem; }
-  .srvi-fee-usd { color: var(--gold-300); font-size: .92rem; margin-top: .2rem; }
-  .srvi-fee-note { color: rgba(245, 240, 232, .68); font-size: .8rem; line-height: 1.5; margin-top: 1rem; }
+  .srvi-extra p { color: var(--muted); line-height: 1.7; margin: 1rem auto 1.6rem; max-width: 52ch; }
+  .srvi-extra-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 1.8rem; }
+  .srvi-extra-tags span { padding: 5px 14px; border: 1px solid var(--line); color: var(--gold); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: var(--white); }
 
   @media (max-width: 900px) {
     .srvi-grid { grid-template-columns: 1fr 1fr; }
-    .srvi-extra { grid-template-columns: 1fr; }
   }
   @media (max-width: 600px) {
     .srvi-grid { grid-template-columns: 1fr; }

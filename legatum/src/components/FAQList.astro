@@ -1,9 +1,13 @@
 ---
 import { faqs } from '../data/site';
+
+interface Props { limit?: number; }
+const { limit } = Astro.props;
+const items = limit ? faqs.slice(0, limit) : faqs;
 ---
 
 <div class="faq-list">
-  {faqs.map((faq, index) => (
+  {items.map((faq, index) => (
     <article class:list={['faq-item', { 'is-open': index === 0 }]}>
       <h3>
         <button type="button" aria-expanded={index === 0 ? 'true' : 'false'} aria-controls={`faq-${index}`} data-faq-trigger>
