@@ -1,0 +1,41 @@
+---
+import SectionHeader from '../components/SectionHeader.astro';
+import { resources } from '../data/site';
+
+const featured = resources[0];
+const rest = resources.slice(1);
+---
+
+<section class="section section-navy resources" id="recursos">
+  <div class="shell">
+    <SectionHeader
+      eyebrow="Centro de conocimiento"
+      title="Compartimos lo que sabemos."
+      lead="Guías escritas por quien ha procesado estos expedientes de primera mano. Sin promesas optimistas ni relleno."
+      invert
+    />
+    <div class="resource-layout">
+      <article class="resource-feature reveal">
+        <span>Guía completa</span>
+        <h3>{featured.title}</h3>
+        <p>La guía institucional completa para llenar correctamente su solicitud de visa americana y evitar los errores que más cuestan tiempo.</p>
+        <a href={`/blog/${featured.slug}/`}>Leer la guía →</a>
+      </article>
+      <div class="resource-list reveal d1">
+        {rest.map((resource) => (
+          <a href={resource.slug ? `/blog/${resource.slug}/` : '/blog/'}>
+            <span>Guía</span>
+            <strong>{resource.title}</strong>
+          </a>
+        ))}
+      </div>
+    </div>
+    <div class="resource-cta reveal d2">
+      <a class="btn btn-ghost-light" href="/blog/">Ver todas las guías</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .resource-cta { margin-top: clamp(32px, 4vw, 48px); }
+</style>

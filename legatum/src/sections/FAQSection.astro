@@ -1,0 +1,26 @@
+---
+import FAQList from '../components/FAQList.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { site } from '../data/site';
+---
+
+<section class="section section-paper faq" id="faq">
+  <div class="shell two-column">
+    <div>
+      <SectionHeader
+        eyebrow="Preguntas frecuentes"
+        title="Lo que conviene saber antes de empezar."
+        lead="¿No encuentra su pregunta? Escríbanos por WhatsApp y la resolvemos hoy."
+      />
+      <div class="faq-links">
+        <a class="text-link" href="/preguntas-frecuentes/">Ver todas las preguntas frecuentes →</a>
+        <a class="text-link" href={site.whatsapp} target="_blank" rel="noopener noreferrer">Preguntar mi caso</a>
+      </div>
+    </div>
+    <FAQList />
+  </div>
+</section>
+
+<style>
+  .faq-links { display: flex; flex-wrap: wrap; gap: 1rem 1.6rem; margin-top: 1.4rem; }
+</style>

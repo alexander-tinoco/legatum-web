@@ -1,0 +1,22 @@
+---
+import SectionHeader from '../components/SectionHeader.astro';
+import { coverageStates } from '../data/site';
+---
+
+<section class="section section-navy coverage" id="cobertura">
+  <div class="shell two-column">
+    <div>
+      <SectionHeader
+        eyebrow="Cobertura"
+        title="Donde esté usted, está la firma."
+        lead="La evaluación y el acompañamiento se realizan por WhatsApp y correo. Atendemos con la misma seriedad desde cualquier estado de México o desde el extranjero."
+        invert
+      />
+    </div>
+    <div class="state-panel reveal d1">
+      <h3>Atención en los principales estados</h3>
+      <div>{coverageStates.map((state) => <span>{state}</span>)}</div>
+      <p>¿Su estado no aparece? Atendemos a todo el país. Escríbanos y revisamos su caso.</p>
+    </div>
+  </div>
+</section>

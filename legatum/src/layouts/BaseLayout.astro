@@ -1,0 +1,31 @@
+---
+import SEO from '../components/SEO.astro';
+import '../styles/global.css';
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/500-italic.css';
+import '@fontsource/cormorant-garamond/600.css';
+import '@fontsource/cormorant-garamond/600-italic.css';
+import '@fontsource-variable/jost/index.css';
+
+type Props = {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogType?: string;
+  pubDate?: string;
+  author?: string;
+};
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <SEO {...Astro.props} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+    <slot />
+    <script src="/scripts/site.js" defer></script>
+  </body>
+</html>

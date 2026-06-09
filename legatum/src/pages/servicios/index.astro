@@ -1,0 +1,143 @@
+---
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Footer from '../../components/Footer.astro';
+import Navbar from '../../components/Navbar.astro';
+import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { additionalDestinations, fees, services, site } from '../../data/site';
+
+const canonical = `${site.url}/servicios/`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${canonical}#collection`,
+      url: canonical,
+      name: `Servicios de movilidad internacional | ${site.name}`,
+      isPartOf: { '@id': `${site.url}/#website` },
+    },
+    {
+      '@type': 'ItemList',
+      '@id': `${canonical}#list`,
+      itemListElement: services.map((service, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: service.title,
+        url: `${site.url}/servicios/${service.slug}/`,
+      })),
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="Servicios de visas, pasaportes y movilidad internacional | LEGATUM INTERNACIONAL"
+  description="Servicios de movilidad internacional desde México: visa americana, renovación, visa canadiense, ETA Canadá, pasaporte mexicano y estadounidense. Expedientes preparados con rigor."
+  canonical={canonical}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </Fragment>
+  <Navbar />
+  <main id="main-content">
+    <section class="srvi-hero section-navy">
+      <div class="shell">
+        <Breadcrumb crumbs={[{ label: 'Servicios' }]} variant="dark" />
+        <span class="eyebrow">Servicios núcleo de movilidad internacional</span>
+        <h1>Cada proceso, una especialidad.</h1>
+        <p class="srvi-lead">
+          No administramos papeles: analizamos su caso, trazamos la ruta y acompañamos cada paso.
+          Elija el trámite que necesita y conozca exactamente qué incluye, qué requiere y cuánto cuesta.
+        </p>
+        <div class="srvi-actions">
+          <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+            Iniciar mi evaluación
+          </a>
+          <a class="btn btn-ghost-light" href="/#contacto">Dejar mis datos</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-paper">
+      <div class="shell">
+        <div class="srvi-grid">
+          {services.map((service, index) => (
+            <a class="srvi-card" href={`/servicios/${service.slug}/`}>
+              <span class="srvi-num">{String(index + 1).padStart(2, '0')}</span>
+              <h2><span class="srvi-flag" aria-hidden="true">{service.flag}</span>{service.title}</h2>
+              <p>{service.summary}</p>
+              <ul class="srvi-tags">{service.tags.map((tag) => <li>{tag}</li>)}</ul>
+              <span class="srvi-link">Ver el servicio →</span>
+            </a>
+          ))}
+        </div>
+
+        <div class="srvi-extra">
+          <div class="srvi-extra-text">
+            <span class="eyebrow">Destinos adicionales</span>
+            <h2 class="srvi-extra-h2">¿Su destino no está en la lista?</h2>
+            <p>
+              También gestionamos {additionalDestinations.join(', ')} y otros destinos como Europa
+              Schengen. Cuéntenos su caso y evaluamos los requisitos reales con honestidad, sin compromiso.
+            </p>
+            <a class="btn" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+              Consultar otro destino
+            </a>
+          </div>
+          <div class="srvi-fee-card">
+            <p class="srvi-fee-label">Honorarios de referencia</p>
+            <p class="srvi-fee-amount">{fees.display}</p>
+            <p class="srvi-fee-usd">{fees.displayUSD}</p>
+            <p class="srvi-fee-note">{fees.note}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>
+
+<style>
+  .srvi-hero {
+    padding-top: calc(var(--header) + clamp(40px, 6vw, 72px));
+    padding-bottom: clamp(48px, 7vw, 84px);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .srvi-hero .bc { margin-bottom: 1.4rem; }
+  .srvi-hero .eyebrow { color: var(--gold-300); }
+  .srvi-hero h1 { color: var(--white); font-size: clamp(2.3rem, 5vw, 4rem); margin-top: .35em; max-width: 16ch; }
+  .srvi-lead { max-width: 60ch; margin-top: 1.1rem; color: rgba(245, 240, 232, .82); font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.6; }
+  .srvi-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 2rem; }
+
+  .srvi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .srvi-card { display: flex; flex-direction: column; gap: 12px; padding: 30px; background: var(--white); border: 1px solid var(--line); border-top: 2px solid transparent; transition: border-color .2s, transform .2s; }
+  .srvi-card:hover { border-top-color: var(--gold); transform: translateY(-4px); }
+  .srvi-num { font-family: var(--serif); font-size: 1rem; color: var(--gold); letter-spacing: .1em; }
+  .srvi-card h2 { display: flex; align-items: center; gap: .6rem; font-size: clamp(1.3rem, 2vw, 1.6rem); color: var(--navy); }
+  .srvi-flag { font-size: 1.4rem; }
+  .srvi-card p { color: var(--muted); font-size: .95rem; line-height: 1.55; flex: 1; }
+  .srvi-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .srvi-tags li { padding: 3px 9px; border: 1px solid var(--line); color: var(--gold); font-size: .67rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .srvi-link { color: var(--gold); font-size: .82rem; font-weight: 650; letter-spacing: .04em; margin-top: .4rem; }
+
+  .srvi-extra { display: grid; grid-template-columns: 1fr 320px; gap: clamp(36px, 5vw, 64px); align-items: center; margin-top: clamp(48px, 7vw, 84px); padding-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--line); }
+  .srvi-extra .eyebrow { color: #7c6549; }
+  .srvi-extra-h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); margin-top: .35em; }
+  .srvi-extra-text p { color: var(--muted); line-height: 1.7; margin: 1rem 0 1.6rem; max-width: 56ch; }
+  .srvi-fee-card { padding: 32px 28px; background: var(--navy); color: var(--cream); border-top: 2px solid var(--gold); }
+  .srvi-fee-label { font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-300); }
+  .srvi-fee-amount { font-family: var(--serif); font-size: 2.2rem; font-weight: 600; color: var(--white); margin-top: .6rem; }
+  .srvi-fee-usd { color: var(--gold-300); font-size: .92rem; margin-top: .2rem; }
+  .srvi-fee-note { color: rgba(245, 240, 232, .68); font-size: .8rem; line-height: 1.5; margin-top: 1rem; }
+
+  @media (max-width: 900px) {
+    .srvi-grid { grid-template-columns: 1fr 1fr; }
+    .srvi-extra { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .srvi-grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,17 @@
+---
+type Props = {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  invert?: boolean;
+  center?: boolean;
+  id?: string;
+};
+const { eyebrow, title, lead, invert = false, center = false, id } = Astro.props;
+---
+
+<div class:list={['section-header', 'reveal', { invert, center }]}>
+  <span class="eyebrow">{eyebrow}</span>
+  <h2 id={id}>{title}</h2>
+  {lead && <p>{lead}</p>}
+</div>

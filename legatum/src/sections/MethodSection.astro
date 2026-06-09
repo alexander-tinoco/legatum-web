@@ -1,0 +1,27 @@
+---
+import SectionHeader from '../components/SectionHeader.astro';
+import { processSteps } from '../data/site';
+---
+
+<section class="section section-navy method" id="metodo" aria-labelledby="metodo-title">
+  <div class="shell two-column">
+    <div>
+      <SectionHeader
+        eyebrow="El Método Legatum"
+        title="La certeza no se promete: se hace visible."
+        lead="Antes de contratar, ya sabe cómo avanza su caso en cada etapa. Cuatro fases, con un especialista que responde por cada decisión."
+        invert
+        id="metodo-title"
+      />
+      <blockquote>Le mostramos el proceso completo antes de que decida si trabaja con nosotros. Así de simple.</blockquote>
+    </div>
+    <ol class="method-list">
+      {processSteps.map((step, index) => (
+        <li class={`reveal${index > 0 ? ` d${Math.min(index, 3)}` : ''}`}>
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          <div><h3>{step.title}</h3><p>{step.text}</p></div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

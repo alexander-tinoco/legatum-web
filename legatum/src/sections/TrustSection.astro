@@ -1,0 +1,23 @@
+---
+import SectionHeader from '../components/SectionHeader.astro';
+import { trustItems } from '../data/site';
+---
+
+<section class="section section-paper trust" id="confianza">
+  <div class="shell">
+    <SectionHeader eyebrow="Por qué confiar" title="La seriedad se demuestra, no se declara." />
+    <div class="trust-grid">
+      {trustItems.map((item, index) => (
+        <article class={`reveal${index > 0 ? ` d${Math.min(index, 3)}` : ''}`}>
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))}
+    </div>
+    <blockquote class="institutional-quote reveal d1">
+      No garantizamos la decisión del consulado. Garantizamos que usted llegue preparado, informado y acompañado en cada paso.
+      <cite>El compromiso Legatum</cite>
+    </blockquote>
+  </div>
+</section>

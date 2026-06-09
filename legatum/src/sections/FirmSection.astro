@@ -1,0 +1,32 @@
+---
+import SectionHeader from '../components/SectionHeader.astro';
+import { founder, site } from '../data/site';
+---
+
+<section class="section section-paper firm" id="firma" aria-labelledby="firma-title">
+  <div class="shell two-column">
+    <div class="portrait-panel reveal" aria-hidden="true">
+      <div class="portrait-mark">LI</div>
+      <div class="portrait-badge">
+        <strong>{founder.name}</strong>
+        <span>{founder.role}</span>
+      </div>
+    </div>
+    <div class="reveal d1">
+      <SectionHeader
+        eyebrow="Quiénes somos"
+        title="Detrás de cada expediente, un especialista real."
+        lead={`La mayoría de quienes ofrecen estos servicios en México son anónimos. En Legatum hay una persona real detrás de cada expediente: ${founder.name}, ${founder.role.toLowerCase()}, con nombre, trayectoria y experiencia de primera mano.`}
+        id="firma-title"
+      />
+      <div class="firm-actions">
+        <a class="btn" href="/nosotros/">Conocer a la firma</a>
+        <a class="btn btn-ghost" href={site.whatsapp} target="_blank" rel="noopener noreferrer">Hablar con un especialista</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .firm-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 1.6rem; }
+</style>

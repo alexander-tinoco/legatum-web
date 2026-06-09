@@ -1,0 +1,226 @@
+---
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Footer from '../components/Footer.astro';
+import Navbar from '../components/Navbar.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title="Aviso de Privacidad | LEGATUM INTERNACIONAL"
+  description="Aviso de privacidad de LEGATUM INTERNACIONAL conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares."
+  canonical={`${site.url}/aviso-de-privacidad/`}
+>
+  <Navbar />
+  <main id="main-content">
+    <div class="legal-hero">
+      <div class="shell">
+        <Breadcrumb crumbs={[{ label: 'Aviso de Privacidad' }]} variant="dark" />
+        <span class="eyebrow">Documentos legales</span>
+        <h1>Aviso de Privacidad</h1>
+        <p class="legal-date">Última actualización: junio de 2026</p>
+      </div>
+    </div>
+
+    <div class="legal-wrap">
+      <div class="shell">
+        <article class="legal-body">
+
+          <section>
+            <h2>1. Responsable del tratamiento</h2>
+            <p>
+              <strong>LEGATUM INTERNACIONAL</strong> (en adelante "la Firma"), con domicilio en
+              Durango, Durango, México, y correo electrónico de contacto
+              <a href={`mailto:${site.email}`}>{site.email}</a>, es responsable del tratamiento
+              de sus datos personales en términos de la Ley Federal de Protección de Datos
+              Personales en Posesión de los Particulares (LFPDPPP) y su Reglamento.
+            </p>
+          </section>
+
+          <section>
+            <h2>2. Datos personales que recabamos</h2>
+            <p>La Firma recaba los siguientes datos personales:</p>
+            <ul class="legal-list">
+              <li><strong>Identificación y contacto:</strong> nombre completo, número de teléfono, dirección de correo electrónico.</li>
+              <li><strong>Situación migratoria:</strong> tipo de visa o trámite de interés, historial de viaje relevante, destino y propósito del viaje.</li>
+              <li><strong>Datos proporcionados voluntariamente</strong> durante la prestación del servicio (documentos de arraigo, estado civil, situación laboral).</li>
+            </ul>
+            <p>No recabamos datos sensibles (origen racial, religión, salud, biométricos) a menos que sea estrictamente necesario para el trámite contratado, en cuyo caso se solicita consentimiento expreso.</p>
+          </section>
+
+          <section>
+            <h2>3. Finalidades del tratamiento</h2>
+            <h3>Finalidades primarias (necesarias para el servicio)</h3>
+            <ul class="legal-list">
+              <li>Evaluar su caso y determinar la viabilidad del trámite solicitado.</li>
+              <li>Elaborar expedientes, formularios y documentación consular.</li>
+              <li>Dar seguimiento al estado de su trámite y comunicarle avances.</li>
+              <li>Emitir propuestas de honorarios y documentar la relación de servicio.</li>
+            </ul>
+            <h3>Finalidades secundarias (puede oponerse)</h3>
+            <ul class="legal-list">
+              <li>Enviarle información sobre servicios o actualizaciones migratorias que puedan ser de su interés.</li>
+            </ul>
+            <p>
+              Si no desea que sus datos sean tratados para las finalidades secundarias, puede
+              manifestarlo en cualquier momento escribiendo a <a href={`mailto:${site.email}`}>{site.email}</a>.
+            </p>
+          </section>
+
+          <section>
+            <h2>4. Transferencias de datos</h2>
+            <p>
+              Sus datos personales no son compartidos, vendidos ni cedidos a terceros, salvo en
+              los casos siguientes:
+            </p>
+            <ul class="legal-list">
+              <li>Cuando sea requerido por autoridad competente (embajadas, consulados, SRE, INM) para la tramitación del servicio contratado.</li>
+              <li>Cuando lo exija una disposición legal o resolución judicial.</li>
+            </ul>
+            <p>Estas transferencias no requieren su consentimiento conforme al artículo 37 de la LFPDPPP.</p>
+          </section>
+
+          <section>
+            <h2>5. Derechos ARCO</h2>
+            <p>
+              Usted tiene derecho a <strong>Acceder</strong>, <strong>Rectificar</strong>,
+              <strong>Cancelar</strong> u <strong>Oponerse</strong> (derechos ARCO) al
+              tratamiento de sus datos personales. Para ejercerlos:
+            </p>
+            <ul class="legal-list">
+              <li>Envíe su solicitud a <a href={`mailto:${site.email}`}>{site.email}</a> con el asunto "Derechos ARCO".</li>
+              <li>Incluya nombre completo, descripción del derecho a ejercer y copia de identificación oficial.</li>
+              <li>Recibirá respuesta en un plazo máximo de 20 días hábiles.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>6. Revocación del consentimiento</h2>
+            <p>
+              Puede revocar en cualquier momento el consentimiento otorgado para el tratamiento
+              de sus datos, siempre que no exista una obligación legal que impida el ejercicio
+              de ese derecho. Envíe su solicitud a
+              <a href={`mailto:${site.email}`}>{site.email}</a>.
+            </p>
+          </section>
+
+          <section>
+            <h2>7. Uso de cookies y tecnologías similares</h2>
+            <p>
+              Este sitio web puede utilizar cookies técnicas necesarias para su funcionamiento
+              (sesión, preferencias de navegación). No empleamos cookies de rastreo publicitario
+              ni compartimos datos de navegación con terceros para fines comerciales.
+            </p>
+          </section>
+
+          <section>
+            <h2>8. Seguridad de los datos</h2>
+            <p>
+              La Firma adopta medidas técnicas y organizativas razonables para proteger sus
+              datos frente a acceso no autorizado, pérdida, alteración o divulgación indebida.
+              La comunicación con este sitio se realiza bajo protocolo HTTPS.
+            </p>
+          </section>
+
+          <section>
+            <h2>9. Cambios al aviso de privacidad</h2>
+            <p>
+              Este aviso puede actualizarse periódicamente. Cualquier modificación se publicará
+              en esta misma URL. Le recomendamos consultarlo con regularidad.
+            </p>
+          </section>
+
+          <section>
+            <h2>10. Contacto</h2>
+            <p>
+              Para cualquier duda sobre el tratamiento de sus datos personales, escriba a
+              <a href={`mailto:${site.email}`}>{site.email}</a> o comuníquese al
+              <a href={`tel:${site.phone}`}>{site.phoneDisplay}</a>.
+            </p>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>
+
+<style>
+  /* ── Legal hero ──────────────────────────────────────────── */
+  .legal-hero {
+    background: var(--navy);
+    color: var(--cream);
+    padding-top: calc(var(--header) + clamp(52px, 7vw, 84px));
+    padding-bottom: clamp(52px, 7vw, 84px);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .legal-hero .eyebrow { color: var(--gold-300); }
+  .legal-hero h1 {
+    color: var(--white);
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    max-width: none;
+    margin-top: .35em;
+    line-height: 1.1;
+  }
+  .legal-date {
+    margin-top: .75rem;
+    color: rgba(196, 168, 130, .72);
+    font-size: .88rem;
+  }
+
+  /* ── Legal content ───────────────────────────────────────── */
+  .legal-wrap {
+    background: var(--paper);
+    padding-block: clamp(56px, 8vw, 100px);
+  }
+  .legal-back { margin-bottom: 2.5rem; }
+  .legal-back a {
+    color: var(--gold);
+    font-size: .88rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    border-bottom: 1px solid rgba(139, 115, 85, .3);
+    padding-bottom: 1px;
+    transition: color .2s, border-color .2s;
+  }
+  .legal-back a:hover { color: var(--navy); border-color: var(--navy); }
+
+  .legal-body { max-width: 760px; }
+  .legal-body section { padding-block: 1.8rem; border-bottom: 1px solid var(--line); }
+  .legal-body section:last-child { border-bottom: none; }
+  .legal-body h2 {
+    color: var(--navy);
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    margin-bottom: .75rem;
+  }
+  .legal-body h3 {
+    font-size: 1rem;
+    color: var(--navy);
+    margin-block: 1rem .4rem;
+  }
+  .legal-body p {
+    color: var(--muted);
+    font-size: .97rem;
+    line-height: 1.7;
+    margin-top: .5rem;
+  }
+  .legal-body p strong { color: var(--ink); }
+  .legal-body a { color: var(--gold); border-bottom: 1px solid rgba(139, 115, 85, .3); }
+  .legal-body a:hover { color: var(--navy); }
+  .legal-list {
+    margin-top: .6rem;
+    display: grid;
+    gap: .55rem;
+    padding-left: 1.2rem;
+  }
+  .legal-list li {
+    list-style: disc;
+    color: var(--muted);
+    font-size: .97rem;
+    line-height: 1.6;
+  }
+  .legal-list li strong { color: var(--ink); }
+</style>

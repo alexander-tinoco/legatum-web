@@ -1,0 +1,28 @@
+---
+import ContactForm from '../components/ContactForm.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { site } from '../data/site';
+---
+
+<section class="section section-cream contact" id="contacto">
+  <div class="shell two-column">
+    <div>
+      <SectionHeader
+        eyebrow="Inicie su evaluación"
+        title="Cuéntenos su caso."
+        lead="Complete el formulario y reciba una orientación honesta el mismo día hábil, sin compromiso y sin tecnicismos vacíos."
+      />
+      <div class="contact-channels">
+        <a href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+          <strong>WhatsApp {site.phoneDisplay}</strong>
+          <span>La vía más rápida — respuesta el mismo día hábil</span>
+        </a>
+        <a href={`mailto:${site.email}`}>
+          <strong>{site.email}</strong>
+          <span>Para documentación y consultas formales</span>
+        </a>
+      </div>
+    </div>
+    <ContactForm />
+  </div>
+</section>

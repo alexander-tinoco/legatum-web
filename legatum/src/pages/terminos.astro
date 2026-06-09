@@ -1,0 +1,252 @@
+---
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Footer from '../components/Footer.astro';
+import Navbar from '../components/Navbar.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title="Términos y Condiciones | LEGATUM INTERNACIONAL"
+  description="Términos y condiciones de uso y contratación de servicios de LEGATUM INTERNACIONAL, firma especializada en movilidad internacional desde México."
+  canonical={`${site.url}/terminos/`}
+>
+  <Navbar />
+  <main id="main-content">
+    <div class="legal-hero">
+      <div class="shell">
+        <Breadcrumb crumbs={[{ label: 'Términos y Condiciones' }]} variant="dark" />
+        <span class="eyebrow">Documentos legales</span>
+        <h1>Términos y Condiciones</h1>
+        <p class="legal-date">Última actualización: junio de 2026</p>
+      </div>
+    </div>
+
+    <div class="legal-wrap">
+      <div class="shell">
+        <article class="legal-body">
+
+          <section>
+            <h2>1. Identificación</h2>
+            <p>
+              El presente documento regula el uso del sitio web
+              <a href={site.url}>{site.url}</a> y la contratación de servicios de
+              <strong>LEGATUM INTERNACIONAL</strong> (en adelante "la Firma"), con domicilio
+              en Durango, Durango, México. Correo institucional:
+              <a href={`mailto:${site.email}`}>{site.email}</a>.
+            </p>
+          </section>
+
+          <section>
+            <h2>2. Naturaleza del servicio</h2>
+            <p>
+              LEGATUM INTERNACIONAL ofrece servicios de asesoría, preparación documental y
+              acompañamiento en procesos de movilidad internacional (visas, pasaportes,
+              autorizaciones de viaje electrónicas y trámites consulares relacionados).
+            </p>
+            <p>
+              La Firma <strong>no es una firma de abogados</strong> y sus servicios no
+              constituyen asesoría jurídica en el sentido del ejercicio profesional del
+              Derecho. Las decisiones finales sobre visas y autorizaciones corresponden
+              exclusivamente a las autoridades consulares y migratorias de cada país.
+            </p>
+          </section>
+
+          <section>
+            <h2>3. Alcance del servicio y limitaciones</h2>
+            <p>Al contratar un servicio, la Firma se compromete a:</p>
+            <ul class="legal-list">
+              <li>Evaluar el caso del cliente con honestidad y comunicar las posibilidades reales.</li>
+              <li>Preparar la documentación y los formularios con la mayor precisión posible.</li>
+              <li>Acompañar al cliente durante el proceso hasta la resolución.</li>
+              <li>Informar al cliente sobre el estado de su trámite en cada etapa.</li>
+            </ul>
+            <p>
+              La Firma <strong>no garantiza</strong> la aprobación de visas ni ningún resultado
+              específico por parte de autoridades consulares o migratorias. La decisión final
+              corresponde a dichas autoridades y depende de factores fuera del control de la Firma.
+            </p>
+          </section>
+
+          <section>
+            <h2>4. Honorarios y forma de pago</h2>
+            <p>
+              Los honorarios de cada servicio se presentan por escrito al cliente antes del
+              inicio del trabajo. No se realizan cargos adicionales sin previa comunicación
+              y aceptación expresa del cliente.
+            </p>
+            <p>
+              Los honorarios de la Firma son independientes de los derechos consulares,
+              costos de solicitud, mensajería y demás gastos de terceros que el trámite
+              pueda requerir, los cuales se informan con anticipación.
+            </p>
+          </section>
+
+          <section>
+            <h2>5. Obligaciones del cliente</h2>
+            <ul class="legal-list">
+              <li>Proporcionar información veraz, completa y actualizada para la elaboración del expediente.</li>
+              <li>Entregar los documentos solicitados en los plazos acordados.</li>
+              <li>Comunicar cualquier cambio en su situación que pueda afectar el trámite.</li>
+              <li>Cubrir los honorarios acordados en los términos pactados.</li>
+            </ul>
+            <p>
+              La Firma no se hace responsable por errores, retrasos o denegaciones derivados
+              de información incorrecta o incompleta proporcionada por el cliente.
+            </p>
+          </section>
+
+          <section>
+            <h2>6. Confidencialidad</h2>
+            <p>
+              La Firma trata toda la información del cliente con estricta confidencialidad.
+              Los datos e información del expediente no son compartidos con terceros salvo
+              las autoridades y organismos directamente involucrados en el trámite o cuando
+              exista obligación legal. Para más información, consulte nuestro
+              <a href="/aviso-de-privacidad/">Aviso de Privacidad</a>.
+            </p>
+          </section>
+
+          <section>
+            <h2>7. Propiedad intelectual</h2>
+            <p>
+              Los contenidos del sitio web (textos, diseño, logotipos, imágenes) son
+              propiedad de LEGATUM INTERNACIONAL o se usan bajo licencia. Queda prohibida
+              su reproducción total o parcial sin autorización escrita de la Firma.
+            </p>
+          </section>
+
+          <section>
+            <h2>8. Limitación de responsabilidad</h2>
+            <p>La Firma no será responsable por daños directos o indirectos derivados de:</p>
+            <ul class="legal-list">
+              <li>Decisiones de autoridades consulares o migratorias.</li>
+              <li>Cambios en políticas migratorias o requisitos consulares posteriores a la contratación.</li>
+              <li>Retrasos en tiempos de procesamiento atribuibles a las autoridades.</li>
+              <li>Información incorrecta proporcionada por el cliente.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>9. Uso del sitio web</h2>
+            <p>
+              El uso de este sitio web es para fines informativos y de contacto. La
+              información publicada es referencial y puede cambiar sin previo aviso.
+              Para consultas específicas sobre su caso, contacte directamente a la Firma.
+            </p>
+          </section>
+
+          <section>
+            <h2>10. Legislación aplicable y jurisdicción</h2>
+            <p>
+              Los presentes términos se rigen por las leyes vigentes de los Estados Unidos
+              Mexicanos. Para la resolución de cualquier controversia, las partes se someten
+              a la jurisdicción de los tribunales competentes de la ciudad de Durango,
+              Durango, renunciando a cualquier otro fuero que pudiera corresponderles.
+            </p>
+          </section>
+
+          <section>
+            <h2>11. Modificaciones</h2>
+            <p>
+              La Firma se reserva el derecho de modificar estos términos en cualquier
+              momento. Los cambios se publicarán en esta URL con la fecha de actualización.
+              El uso continuado del sitio o de los servicios tras la publicación de cambios
+              implica la aceptación de los términos actualizados.
+            </p>
+          </section>
+
+          <section>
+            <h2>12. Contacto</h2>
+            <p>
+              Para cualquier consulta sobre estos términos:
+              <a href={`mailto:${site.email}`}>{site.email}</a> /
+              <a href={`tel:${site.phone}`}>{site.phoneDisplay}</a>.
+            </p>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>
+
+<style>
+  /* ── Legal hero ──────────────────────────────────────────── */
+  .legal-hero {
+    background: var(--navy);
+    color: var(--cream);
+    padding-top: calc(var(--header) + clamp(52px, 7vw, 84px));
+    padding-bottom: clamp(52px, 7vw, 84px);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .legal-hero .eyebrow { color: var(--gold-300); }
+  .legal-hero h1 {
+    color: var(--white);
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    max-width: none;
+    margin-top: .35em;
+    line-height: 1.1;
+  }
+  .legal-date {
+    margin-top: .75rem;
+    color: rgba(196, 168, 130, .72);
+    font-size: .88rem;
+  }
+
+  /* ── Legal content ───────────────────────────────────────── */
+  .legal-wrap {
+    background: var(--paper);
+    padding-block: clamp(56px, 8vw, 100px);
+  }
+  .legal-back { margin-bottom: 2.5rem; }
+  .legal-back a {
+    color: var(--gold);
+    font-size: .88rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    border-bottom: 1px solid rgba(139, 115, 85, .3);
+    padding-bottom: 1px;
+    transition: color .2s, border-color .2s;
+  }
+  .legal-back a:hover { color: var(--navy); border-color: var(--navy); }
+
+  .legal-body { max-width: 760px; }
+  .legal-body section { padding-block: 1.8rem; border-bottom: 1px solid var(--line); }
+  .legal-body section:last-child { border-bottom: none; }
+  .legal-body h2 {
+    color: var(--navy);
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    margin-bottom: .75rem;
+  }
+  .legal-body h3 {
+    font-size: 1rem;
+    color: var(--navy);
+    margin-block: 1rem .4rem;
+  }
+  .legal-body p {
+    color: var(--muted);
+    font-size: .97rem;
+    line-height: 1.7;
+    margin-top: .5rem;
+  }
+  .legal-body p strong { color: var(--ink); }
+  .legal-body a { color: var(--gold); border-bottom: 1px solid rgba(139, 115, 85, .3); }
+  .legal-body a:hover { color: var(--navy); }
+  .legal-list {
+    margin-top: .6rem;
+    display: grid;
+    gap: .55rem;
+    padding-left: 1.2rem;
+  }
+  .legal-list li {
+    list-style: disc;
+    color: var(--muted);
+    font-size: .97rem;
+    line-height: 1.6;
+  }
+  .legal-list li strong { color: var(--ink); }
+</style>

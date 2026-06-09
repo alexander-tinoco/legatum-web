@@ -1,0 +1,14 @@
+{
+  "name": "LEGATUM INTERNACIONAL",
+  "short_name": "Legatum",
+  "description": "Firma de movilidad internacional: visas, pasaportes y trámites consulares desde México.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbf9f5",
+  "theme_color": "#0c182e",
+  "lang": "es-MX",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "/apple-touch-icon.png", "type": "image/png", "sizes": "180x180" }
+  ]
+}

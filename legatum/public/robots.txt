@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://legatum-internacional.com/sitemap.xml

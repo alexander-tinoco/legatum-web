@@ -1,0 +1,62 @@
+---
+import { getImage } from 'astro:assets';
+import heroImage from '../assets/brand/hero-arquitectura.png';
+import Footer from '../components/Footer.astro';
+import Navbar from '../components/Navbar.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CaseStudiesSection from '../sections/CaseStudiesSection.astro';
+import ContactSection from '../sections/ContactSection.astro';
+import CoverageSection from '../sections/CoverageSection.astro';
+import CTASection from '../sections/CTASection.astro';
+import FAQSection from '../sections/FAQSection.astro';
+import FirmSection from '../sections/FirmSection.astro';
+import Hero from '../sections/Hero.astro';
+import MethodSection from '../sections/MethodSection.astro';
+import PrinciplesTicker from '../sections/PrinciplesTicker.astro';
+import ResourcesSection from '../sections/ResourcesSection.astro';
+import ServicesSection from '../sections/ServicesSection.astro';
+import TrustSection from '../sections/TrustSection.astro';
+import { site } from '../data/site';
+
+const optimizedHero = await getImage({
+  src: heroImage,
+  format: 'webp',
+  widths: [480, 768, 1200, 1672],
+  sizes: '100vw',
+});
+---
+
+<BaseLayout
+  title="Visas y movilidad internacional | LEGATUM INTERNACIONAL"
+  description={site.description}
+  canonical={site.url}
+>
+  <Fragment slot="head">
+    <link
+      rel="preload"
+      as="image"
+      imagesrcset={optimizedHero.srcSet.attribute}
+      imagesizes="100vw"
+      fetchpriority="high"
+      type="image/webp"
+    />
+  </Fragment>
+  <Navbar />
+  <main id="main-content">
+    <Hero />
+    <PrinciplesTicker />
+    <ServicesSection />
+    <MethodSection />
+    <FirmSection />
+    <CoverageSection />
+    <TrustSection />
+    <CaseStudiesSection />
+    <FAQSection />
+    <ResourcesSection />
+    <ContactSection />
+    <CTASection />
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>

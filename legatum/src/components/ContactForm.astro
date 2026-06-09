@@ -1,0 +1,106 @@
+---
+import { services } from '../data/site';
+---
+
+<form class="contact-form" id="lead-form" action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="10bdf0b7-464e-4943-a3c4-83c4cd8f8b70" />
+  <input type="hidden" name="subject" value="Nueva consulta — Legatum Internacional" />
+  <input type="hidden" name="from_name" value="Legatum Internacional Web" />
+  <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true" />
+  <div class="form-grid">
+    <label>
+      <span>Nombre completo</span>
+      <input name="nombre" type="text" autocomplete="name" required />
+    </label>
+    <label>
+      <span>Teléfono / WhatsApp</span>
+      <input name="telefono" type="tel" autocomplete="tel" pattern="[\d\s\+\-\(\)]{7,20}" title="Ingrese un número de teléfono válido" required />
+    </label>
+    <label>
+      <span>Correo electrónico</span>
+      <input name="email" type="email" autocomplete="email" required />
+    </label>
+    <label>
+      <span>Servicio de interés</span>
+      <select name="servicio" required>
+        <option value="">Seleccione un servicio</option>
+        {services.map((service) => <option value={service.title}>{service.title}</option>)}
+        <option value="Otro">Otro destino / consulta</option>
+      </select>
+    </label>
+    <label class="full">
+      <span>Cuéntenos brevemente su situación</span>
+      <textarea name="mensaje" rows="5" required></textarea>
+    </label>
+  </div>
+  <label class="consent-label">
+    <input type="checkbox" name="consentimiento" required />
+    <span>He leído y acepto el <a href="/aviso-de-privacidad/">Aviso de Privacidad</a>. Autorizo el tratamiento de mis datos para recibir orientación sobre mi caso.</span>
+  </label>
+  <div class="form-actions">
+    <button class="btn btn-whatsapp" type="submit">Enviar y recibir orientación</button>
+    <p>Sus datos se tratan con confidencialidad institucional. No compartimos su información.</p>
+  </div>
+  <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+</form>
+
+<style>
+  .form-grid label span::after {
+    content: " *";
+    color: #c62828;
+  }
+</style>
+
+<script>
+  const COOLDOWN_MS = 60 * 60 * 1000; // 1 hora
+  const STORAGE_KEY = 'legatum_form_last_submit';
+
+  const form = document.getElementById('lead-form') as HTMLFormElement;
+  const status = form.querySelector('[data-form-status]') as HTMLElement;
+  const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+  function setStatus(text: string, color: string) {
+    status.textContent = text;
+    status.style.color = color;
+  }
+
+  function isOnCooldown(): boolean {
+    const last = localStorage.getItem(STORAGE_KEY);
+    if (!last) return false;
+    return Date.now() - parseInt(last, 10) < COOLDOWN_MS;
+  }
+
+  if (isOnCooldown()) {
+    btn.disabled = true;
+    setStatus('Ya nos enviaste un mensaje. Te contactaremos pronto.', 'var(--color-success, #2e7d32)');
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (isOnCooldown()) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+    setStatus('', '');
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: new FormData(form),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        localStorage.setItem(STORAGE_KEY, String(Date.now()));
+        setStatus('¡Mensaje enviado! Le contactaremos pronto.', 'var(--color-success, #2e7d32)');
+        form.reset();
+      } else {
+        throw new Error(data.message ?? 'Error desconocido');
+      }
+    } catch (err) {
+      setStatus('Ocurrió un error al enviar. Intente de nuevo o escríbanos por WhatsApp.', 'var(--color-error, #c62828)');
+      btn.disabled = false;
+      btn.textContent = 'Enviar y recibir orientación';
+    }
+  });
+</script>

@@ -1,0 +1,188 @@
+---
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Footer from '../components/Footer.astro';
+import Navbar from '../components/Navbar.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { fees, founder, services, site, trustItems } from '../data/site';
+
+const canonical = `${site.url}/nosotros/`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'AboutPage',
+      '@id': `${canonical}#aboutpage`,
+      url: canonical,
+      name: `Nosotros | ${site.name}`,
+      isPartOf: { '@id': `${site.url}/#website` },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${site.url}/#founder`,
+      name: founder.name,
+      jobTitle: founder.role,
+      description: founder.shortBio,
+      worksFor: { '@id': `${site.url}/#organization` },
+      url: canonical,
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={`Nosotros — ${founder.name}, ${founder.role} | ${site.name}`}
+  description={`Conozca a ${founder.name}, ${founder.role} de ${site.name}. Especialista en visas, pasaportes y trámites consulares con preparación rigurosa de cada expediente.`}
+  canonical={canonical}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </Fragment>
+  <Navbar />
+  <main id="main-content">
+    <section class="abt-hero section-navy">
+      <div class="shell">
+        <Breadcrumb crumbs={[{ label: 'Nosotros' }]} variant="dark" />
+        <span class="eyebrow">La firma</span>
+        <h1>Una institución con nombre y rostro.</h1>
+        <p class="abt-lead">
+          En movilidad internacional, la confianza no se delega en un sistema anónimo. Detrás de cada
+          expediente hay una persona que responde por él de principio a fin.
+        </p>
+      </div>
+    </section>
+
+    <section class="section section-paper">
+      <div class="shell abt-founder">
+        <div class="abt-founder-card">
+          <span class="abt-monogram" aria-hidden="true">LI</span>
+          <p class="abt-name">{founder.name}</p>
+          <p class="abt-role">{founder.role}</p>
+        </div>
+        <div class="abt-founder-text">
+          <span class="eyebrow">Especialista y fundador</span>
+          <h2>{founder.name}</h2>
+          <p>{founder.longBio}</p>
+          <p>
+            Atendemos a personas, familias, profesionistas y empresas de todo México y desde el
+            extranjero, con el mismo nivel de seriedad y claridad sin importar el perfil. No prometemos
+            decisiones consulares: preparamos cada caso con rigor y explicamos los límites reales.
+          </p>
+          <div class="abt-actions">
+            <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+              Hablar con {founder.name.split(' ')[0]}
+            </a>
+            <a class="btn btn-ghost" href="/servicios/">Ver servicios</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-cream">
+      <div class="shell">
+        <span class="eyebrow">Cómo trabajamos</span>
+        <h2 class="abt-h2">Principios que sostienen cada caso</h2>
+        <div class="abt-values">
+          {trustItems.map((item) => (
+            <article class="abt-value">
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-paper">
+      <div class="shell abt-fees-wrap">
+        <div class="abt-fees-text">
+          <span class="eyebrow">Honorarios con transparencia</span>
+          <h2 class="abt-h2">Sin cargos ocultos ni sorpresas.</h2>
+          <p>
+            Nuestros honorarios profesionales de referencia van de <strong>{fees.display}</strong>
+            (<span class="abt-usd">{fees.displayUSD}</span>), según la complejidad del trámite. El alcance
+            y el monto exacto se confirman por escrito tras la evaluación inicial, antes de que usted
+            decida contratar.
+          </p>
+          <p class="abt-fee-note">{fees.note}</p>
+        </div>
+        <div class="abt-fees-card">
+          <p class="abt-fees-label">Honorarios de referencia</p>
+          <p class="abt-fees-amount">{fees.display}</p>
+          <p class="abt-fees-usd">{fees.displayUSD}</p>
+          <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+            Solicitar evaluación
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-navy">
+      <div class="shell abt-cta">
+        <span class="eyebrow">Empecemos</span>
+        <h2>Cuéntenos su caso. Le respondemos con honestidad.</h2>
+        <p>El mismo día hábil recibe una orientación real sobre su situación y los siguientes pasos.</p>
+        <div class="abt-actions">
+          <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+            Iniciar mi evaluación
+          </a>
+          <a class="btn btn-ghost-light" href="/#contacto">Dejar mis datos</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>
+
+<style>
+  .abt-hero {
+    padding-top: calc(var(--header) + clamp(40px, 6vw, 72px));
+    padding-bottom: clamp(48px, 7vw, 84px);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .abt-hero .bc { margin-bottom: 1.4rem; }
+  .abt-hero .eyebrow { color: var(--gold-300); }
+  .abt-hero h1 { color: var(--white); font-size: clamp(2.3rem, 5vw, 4rem); margin-top: .35em; max-width: 16ch; }
+  .abt-lead { max-width: 58ch; margin-top: 1.1rem; color: rgba(245, 240, 232, .82); font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.6; }
+
+  .abt-founder { display: grid; grid-template-columns: 320px 1fr; gap: clamp(36px, 5vw, 72px); align-items: start; }
+  .abt-founder-card { position: sticky; top: calc(var(--header) + 28px); padding: 40px 28px; background: var(--navy); color: var(--cream); border-top: 2px solid var(--gold); text-align: center; }
+  .abt-monogram { display: inline-flex; align-items: center; justify-content: center; width: 92px; height: 92px; margin-bottom: 1.2rem; border: 1px solid var(--gold-300); border-radius: 50%; font-family: var(--serif); font-size: 2.2rem; color: var(--gold-300); letter-spacing: .04em; }
+  .abt-name { font-family: var(--serif); font-size: 1.6rem; font-weight: 600; color: var(--white); }
+  .abt-role { color: var(--gold-300); font-size: .82rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; margin-top: .4rem; }
+  .abt-founder-text h2 { font-size: clamp(1.8rem, 3.4vw, 2.7rem); margin: .3em 0 .6em; }
+  .abt-founder-text p { color: var(--muted); line-height: 1.7; margin-bottom: 1.1rem; max-width: 62ch; }
+  .abt-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 1.6rem; }
+
+  .abt-h2 { font-size: clamp(1.7rem, 3vw, 2.6rem); margin-top: .35em; }
+  .abt-values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: clamp(28px, 4vw, 48px); }
+  .abt-value { padding: 28px; background: var(--white); border: 1px solid var(--line); border-top: 2px solid var(--gold); }
+  .abt-value h3 { font-size: 1.3rem; margin-bottom: .6rem; }
+  .abt-value p { color: var(--muted); line-height: 1.6; }
+  .section-cream .eyebrow { color: #7c6549; }
+
+  .abt-fees-wrap { display: grid; grid-template-columns: 1fr 320px; gap: clamp(36px, 5vw, 64px); align-items: center; }
+  .abt-fees-text p { color: var(--muted); line-height: 1.7; margin-top: 1rem; max-width: 60ch; }
+  .abt-fees-text strong { color: var(--navy); }
+  .abt-usd { color: #7c6549; font-weight: 600; }
+  .abt-fee-note { font-size: .85rem; }
+  .abt-fees-card { padding: 32px 28px; background: var(--navy); color: var(--cream); border-top: 2px solid var(--gold); text-align: center; }
+  .abt-fees-label { font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-300); }
+  .abt-fees-amount { font-family: var(--serif); font-size: 2.4rem; font-weight: 600; color: var(--white); margin-top: .6rem; }
+  .abt-fees-usd { color: var(--gold-300); font-size: .95rem; margin-top: .3rem; margin-bottom: 1.4rem; }
+
+  .abt-cta { text-align: center; max-width: 720px; margin-inline: auto; }
+  .abt-cta .eyebrow { color: var(--gold-300); justify-content: center; }
+  .abt-cta h2 { color: var(--white); font-size: clamp(1.8rem, 3.6vw, 2.9rem); margin-top: .35em; }
+  .abt-cta p { color: rgba(245, 240, 232, .78); margin-top: 1rem; font-size: 1.1rem; }
+  .abt-cta .abt-actions { justify-content: center; }
+
+  @media (max-width: 900px) {
+    .abt-founder { grid-template-columns: 1fr; }
+    .abt-founder-card { position: static; }
+    .abt-values { grid-template-columns: 1fr; }
+    .abt-fees-wrap { grid-template-columns: 1fr; }
+  }
+</style>
