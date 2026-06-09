@@ -13,6 +13,8 @@ export function buildSchema(options: SchemaOptions = {}) {
     name: founder.name,
     jobTitle: founder.role,
     description: founder.shortBio,
+    url: `${site.url}/nosotros/`,
+    ...(founder.image ? { image: `${site.url}${founder.image}` } : {}),
     worksFor: { '@id': `${site.url}/#organization` },
   };
 
@@ -23,7 +25,9 @@ export function buildSchema(options: SchemaOptions = {}) {
     url: site.url,
     logo: {
       '@type': 'ImageObject',
-      url: `${site.url}/favicon.svg`,
+      url: `${site.url}/og-image.png`,
+      width: 1200,
+      height: 630,
     },
     email: site.email,
     telephone: site.phone,

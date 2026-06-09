@@ -2,8 +2,7 @@
 import { services } from '../data/site';
 ---
 
-<form class="contact-form" id="lead-form" action="https://api.web3forms.com/submit" method="POST">
-  <input type="hidden" name="access_key" value="10bdf0b7-464e-4943-a3c4-83c4cd8f8b70" />
+<form class="contact-form" id="lead-form" action="/api/contact" method="POST">
   <input type="hidden" name="subject" value="Nueva consulta — Legatum Internacional" />
   <input type="hidden" name="from_name" value="Legatum Internacional Web" />
   <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true" />
@@ -37,6 +36,7 @@ import { services } from '../data/site';
     <input type="checkbox" name="consentimiento" required />
     <span>He leído y acepto el <a href="/aviso-de-privacidad/">Aviso de Privacidad</a>. Autorizo el tratamiento de mis datos para recibir orientación sobre mi caso.</span>
   </label>
+  <div class="cf-turnstile" data-sitekey="0x4AAAAAADhf4iNWEUS-4rkb" data-language="es"></div>
   <div class="form-actions">
     <button class="btn btn-whatsapp" type="submit">Enviar y recibir orientación</button>
     <p>Sus datos se tratan con confidencialidad institucional. No compartimos su información.</p>
@@ -44,10 +44,20 @@ import { services } from '../data/site';
   <p class="form-status" role="status" aria-live="polite" data-form-status></p>
 </form>
 
+<script
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  async
+  defer
+  is:inline
+></script>
+
 <style>
   .form-grid label span::after {
     content: " *";
     color: #c62828;
+  }
+  .cf-turnstile {
+    margin-top: 20px;
   }
 </style>
 
@@ -84,7 +94,7 @@ import { services } from '../data/site';
     setStatus('', '');
 
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         body: new FormData(form),
       });
@@ -92,7 +102,7 @@ import { services } from '../data/site';
 
       if (data.success) {
         localStorage.setItem(STORAGE_KEY, String(Date.now()));
-        setStatus('¡Mensaje enviado! Le contactaremos pronto.', 'var(--color-success, #2e7d32)');
+        setStatus('¡Mensaje enviado! Le contactaremos el mismo día hábil.', 'var(--color-success, #2e7d32)');
         form.reset();
       } else {
         throw new Error(data.message ?? 'Error desconocido');

@@ -1,0 +1,184 @@
+---
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+import Navbar from '../components/Navbar.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { fees, services, site } from '../data/site';
+
+const canonical = `${site.url}/visa-americana-durango/`;
+const visaService = services.find((s) => s.slug === 'visa-americana');
+
+const localFaqs = [
+  {
+    question: '¿Atienden trámites de visa americana en Durango?',
+    answer:
+      'Sí. Somos una firma con base en Durango y atendemos a personas y familias de la ciudad y de todo el estado. Preparamos su DS-160, construimos el expediente de arraigo y le preparamos para la entrevista consular, sin importar en qué consulado tenga su cita.',
+  },
+  {
+    question: '¿En qué consulado tendré la entrevista si vivo en Durango?',
+    answer:
+      'Los solicitantes de Durango suelen ser asignados a consulados del norte del país según disponibilidad de citas. Le orientamos sobre la mejor opción según los tiempos vigentes y preparamos su expediente para ese consulado en particular.',
+  },
+  {
+    question: '¿Necesito ir a sus oficinas o pueden atenderme a distancia?',
+    answer:
+      'Trabajamos de ambas formas. Podemos atenderle de manera presencial en Durango o íntegramente a distancia por WhatsApp, correo y videollamada. El nivel de rigor del expediente es el mismo en los dos casos.',
+  },
+  ...(visaService?.faqs.slice(0, 3) ?? []),
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': `${canonical}#service`,
+      name: 'Visa Americana en Durango',
+      serviceType: 'Asesoría para visa americana B1/B2',
+      description:
+        'Asesoría para la visa americana B1/B2 en Durango: preparación del DS-160, expediente de arraigo y entrevista consular.',
+      url: canonical,
+      provider: { '@id': `${site.url}/#organization` },
+      areaServed: {
+        '@type': 'City',
+        name: 'Durango',
+        '@id': 'https://www.wikidata.org/wiki/Q662540',
+      },
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: 'MXN',
+        price: `${fees.minMXN}-${fees.maxMXN}`,
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${canonical}#faq`,
+      mainEntity: localFaqs.map((f) => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="Visa Americana en Durango | Asesoría B1/B2 y entrevista consular"
+  description="Asesoría para la visa americana B1/B2 en Durango: llenado del DS-160, expediente de arraigo y preparación para la entrevista. Firma local, atención presencial o a distancia."
+  canonical={canonical}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </Fragment>
+  <Navbar />
+  <main id="main-content">
+    <section class="vad-hero section-navy">
+      <div class="shell">
+        <Breadcrumb crumbs={[{ label: 'Visa Americana en Durango' }]} variant="dark" />
+        <span class="eyebrow">Firma de movilidad internacional en Durango</span>
+        <h1>Visa Americana en Durango, preparada con rigor.</h1>
+        <p class="vad-lead">
+          Somos una firma con base en Durango. Preparamos su solicitud de visa B1/B2 de principio a fin:
+          el DS-160 correcto, un expediente de arraigo sólido y la preparación real para su entrevista consular.
+        </p>
+        <div class="vad-actions">
+          <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+            Evaluar mi caso
+          </a>
+          <a class="btn btn-ghost-light" href="#contacto-durango">Dejar mis datos</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-paper">
+      <div class="shell vad-body">
+        <a class="page-back" href="/servicios/visa-americana/">← Ver el servicio completo</a>
+        <div class="vad-intro">
+          <span class="eyebrow">Por qué una firma local importa</span>
+          <h2>La visa no se gana llenando un formulario.</h2>
+          <p>
+            La visa de turista B1/B2 se gana demostrando que su vida está en México y que su viaje tiene un
+            propósito claro. Para quien vive en Durango, eso significa construir un expediente que comunique
+            arraigo laboral, familiar y patrimonial de forma verificable. Conocemos el contexto local y
+            preparamos cada caso con la seriedad de quien sabe qué evalúa realmente un oficial consular.
+          </p>
+        </div>
+
+        {visaService && (
+          <div class="vad-includes">
+            <h3>Qué incluye nuestra asesoría</h3>
+            <ul>
+              {visaService.includes.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <section class="section section-cream">
+      <div class="shell">
+        <span class="eyebrow">Preguntas frecuentes en Durango</span>
+        <h2 class="vad-faq-title">Lo que conviene saber antes de empezar.</h2>
+        <div class="vad-faq">
+          {localFaqs.map((f) => (
+            <details class="vad-faq-item">
+              <summary>{f.question}</summary>
+              <p>{f.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-paper" id="contacto-durango">
+      <div class="shell two-column">
+        <div>
+          <span class="eyebrow">Inicie su evaluación</span>
+          <h2>Cuéntenos su caso.</h2>
+          <p class="vad-contact-lead">
+            Reciba una orientación honesta el mismo día hábil, sin compromiso. Atendemos en Durango de forma
+            presencial o a distancia, como prefiera.
+          </p>
+        </div>
+        <ContactForm />
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>
+
+<style>
+  .vad-hero {
+    padding-top: calc(var(--header) + clamp(40px, 6vw, 72px));
+    padding-bottom: clamp(48px, 7vw, 84px);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .vad-hero .bc { margin-bottom: 1.4rem; }
+  .vad-hero .eyebrow { color: var(--gold-300); }
+  .vad-hero h1 { color: var(--white); font-size: clamp(2.3rem, 5vw, 4rem); margin-top: .35em; max-width: 18ch; }
+  .vad-lead { max-width: 62ch; margin-top: 1.1rem; color: rgba(245, 240, 232, .82); font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.6; }
+  .vad-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 2rem; }
+
+  .vad-body { max-width: 820px; }
+  .vad-intro h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-top: .35em; }
+  .vad-intro p { color: var(--muted); line-height: 1.75; margin-top: 1.1rem; max-width: 64ch; }
+  .vad-includes { margin-top: clamp(36px, 5vw, 56px); padding-top: clamp(28px, 4vw, 40px); border-top: 1px solid var(--line); }
+  .vad-includes h3 { color: var(--navy); }
+  .vad-includes ul { display: grid; gap: 14px; margin-top: 1.2rem; }
+  .vad-includes li { position: relative; padding-left: 26px; color: var(--ink); line-height: 1.6; }
+  .vad-includes li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--gold); font-weight: 700; }
+
+  .vad-faq-title { margin-top: .35em; margin-bottom: clamp(28px, 4vw, 44px); }
+  .vad-faq { display: grid; gap: 12px; max-width: 820px; }
+  .vad-faq-item { background: var(--white); border: 1px solid var(--line); border-left: 2px solid var(--gold); padding: 20px 24px; }
+  .vad-faq-item summary { color: var(--navy); font-family: var(--serif); font-size: 1.2rem; cursor: pointer; list-style: none; }
+  .vad-faq-item summary::-webkit-details-marker { display: none; }
+  .vad-faq-item[open] summary { margin-bottom: .6rem; }
+  .vad-faq-item p { color: var(--muted); line-height: 1.7; }
+
+  .vad-contact-lead { color: var(--muted); line-height: 1.7; margin-top: 1rem; max-width: 48ch; }
+</style>

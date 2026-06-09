@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../data/site';
+import { emailEntity, emailHref, site } from '../data/site';
 
 const canonical = `${site.url}/contacto/`;
 
@@ -75,7 +75,7 @@ const schema = {
                 <span>Atención telefónica directa en horario hábil</span>
               </div>
             </a>
-            <a class="cnt-channel" href={`mailto:${site.email}`}>
+            <a class="cnt-channel" href={emailHref}>
               <span class="cnt-channel-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
                   <rect x="2" y="4" width="20" height="16" rx="2"/>
@@ -83,7 +83,7 @@ const schema = {
                 </svg>
               </span>
               <div>
-                <strong>{site.email}</strong>
+                <strong set:html={emailEntity}></strong>
                 <span>Para documentación y consultas formales</span>
               </div>
             </a>

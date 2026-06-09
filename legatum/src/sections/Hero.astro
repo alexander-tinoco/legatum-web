@@ -1,17 +1,17 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import heroImage from '../assets/brand/hero-arquitectura.png';
 import { site } from '../data/site';
 ---
 
 <section class="hero" id="top" aria-labelledby="hero-title">
-  <Image
+  <Picture
     src={heroImage}
     alt="Arquitectura institucional con columnas iluminadas"
     class="hero-image"
     widths={[480, 768, 1200, 1672]}
     sizes="100vw"
-    format="webp"
+    formats={['avif', 'webp']}
     loading="eager"
     fetchpriority="high"
   />

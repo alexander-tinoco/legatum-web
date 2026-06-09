@@ -14,6 +14,17 @@ export const site = {
     'https://wa.me/526182706071?text=Hola%2C%20deseo%20iniciar%20mi%20evaluaci%C3%B3n%20de%20movilidad%20internacional.',
 };
 
+// Ofuscación de email contra cosechadores de spam (funciona sin JS).
+// El href usa percent-encoding (válido en mailto y transparente al navegador);
+// el texto visible se renderiza con entidades HTML vía set:html.
+const pctEncode = (s: string) =>
+  s.split('').map((c) => '%' + c.charCodeAt(0).toString(16).padStart(2, '0')).join('');
+const entityEncode = (s: string) =>
+  s.split('').map((c) => '&#' + c.charCodeAt(0) + ';').join('');
+
+export const emailHref = 'mailto:' + pctEncode(site.email);
+export const emailEntity = entityEncode(site.email);
+
 // Honorarios de referencia. El alcance final se confirma por escrito tras la evaluación.
 export const fees = {
   minMXN: 2000,
@@ -28,6 +39,7 @@ export const fees = {
 export const founder = {
   name: 'Alexander Tinoco Sánchez',
   role: 'Especialista y fundador',
+  image: '/equipo/alexander-tinoco.webp',
   shortBio:
     'Fundador de LEGATUM INTERNACIONAL. Especialista en movilidad internacional dedicado a la preparación rigurosa de expedientes de visas, pasaportes y trámites consulares.',
   longBio:

@@ -1,7 +1,7 @@
 ---
 import ContactForm from '../components/ContactForm.astro';
 import SectionHeader from '../components/SectionHeader.astro';
-import { site } from '../data/site';
+import { emailEntity, emailHref, site } from '../data/site';
 ---
 
 <section class="section section-cream contact" id="contacto">
@@ -17,8 +17,8 @@ import { site } from '../data/site';
           <strong>WhatsApp {site.phoneDisplay}</strong>
           <span>La vía más rápida — respuesta el mismo día hábil</span>
         </a>
-        <a href={`mailto:${site.email}`}>
-          <strong>{site.email}</strong>
+        <a href={emailHref}>
+          <strong set:html={emailEntity}></strong>
           <span>Para documentación y consultas formales</span>
         </a>
       </div>

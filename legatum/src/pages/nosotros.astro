@@ -58,8 +58,9 @@ const schema = {
         <a class="page-back" href="/">← Inicio</a>
 
         <div class="portrait-panel abt-portrait">
-          {/* Cuando tenga foto: <img class="abt-photo" src="/foto-alexander.jpg" alt={founder.name} /> */}
-          <span class="portrait-mark" aria-hidden="true">LI</span>
+          {founder.image
+            ? <img class="abt-photo" src={founder.image} alt={`${founder.name}, ${founder.role} de ${site.name}`} width="380" height="480" loading="eager" />
+            : <span class="portrait-mark" aria-hidden="true">LI</span>}
           <div class="portrait-badge">
             <strong>{founder.name}</strong>
             <span>{founder.role}</span>

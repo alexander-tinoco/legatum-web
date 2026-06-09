@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import monogramCream from '../assets/brand/li-monogram-cream.png';
 import monogramNavy from '../assets/brand/li-monogram-navy.png';
 import { navItems, site } from '../data/site';
+import SocialLinks from './SocialLinks.astro';
 
 const isHome = Astro.url.pathname === '/';
 const a = (href: string) => href.startsWith('/') ? href : isHome ? href : `/${href}`;
@@ -45,4 +46,5 @@ const a = (href: string) => href.startsWith('/') ? href : isHome ? href : `/${hr
     <a href="/blog/">Guías</a>
   </nav>
   <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">Iniciar evaluación</a>
+  <SocialLinks class="mobile-social" />
 </div>

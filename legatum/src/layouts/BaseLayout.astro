@@ -1,10 +1,11 @@
 ---
 import SEO from '../components/SEO.astro';
+import Clarity from '../components/analytics/Clarity.astro';
 import '../styles/global.css';
-import '@fontsource/cormorant-garamond/500.css';
-import '@fontsource/cormorant-garamond/500-italic.css';
-import '@fontsource/cormorant-garamond/600.css';
-import '@fontsource/cormorant-garamond/600-italic.css';
+import '@fontsource/cormorant-garamond/latin-500.css';
+import '@fontsource/cormorant-garamond/latin-500-italic.css';
+import '@fontsource/cormorant-garamond/latin-600.css';
+import '@fontsource/cormorant-garamond/latin-600-italic.css';
 import '@fontsource-variable/jost/index.css';
 
 type Props = {
@@ -22,6 +23,7 @@ type Props = {
   <head>
     <SEO {...Astro.props} />
     <slot name="head" />
+    <Clarity />
   </head>
   <body>
     <a class="skip-link" href="#main-content">Saltar al contenido principal</a>

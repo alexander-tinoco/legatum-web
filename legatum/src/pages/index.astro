@@ -21,7 +21,7 @@ import { site } from '../data/site';
 
 const optimizedHero = await getImage({
   src: heroImage,
-  format: 'webp',
+  format: 'avif',
   widths: [480, 768, 1200, 1672],
   sizes: '100vw',
 });
@@ -39,7 +39,7 @@ const optimizedHero = await getImage({
       imagesrcset={optimizedHero.srcSet.attribute}
       imagesizes="100vw"
       fetchpriority="high"
-      type="image/webp"
+      type="image/avif"
     />
   </Fragment>
   <Navbar />

@@ -37,6 +37,7 @@ export async function GET() {
     { url: `${site.url}/`, lastmod: mostRecentPost, changefreq: 'weekly', priority: '1.0' },
     { url: `${site.url}/servicios/`, lastmod: now, changefreq: 'monthly', priority: '0.9' },
     ...servicePages,
+    { url: `${site.url}/visa-americana-durango/`, lastmod: now, changefreq: 'monthly', priority: '0.8' },
     { url: `${site.url}/metodo/`, lastmod: now, changefreq: 'monthly', priority: '0.7' },
     { url: `${site.url}/nosotros/`, lastmod: now, changefreq: 'monthly', priority: '0.8' },
     { url: `${site.url}/casos-de-exito/`, lastmod: now, changefreq: 'monthly', priority: '0.7' },
