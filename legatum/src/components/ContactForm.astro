@@ -44,13 +44,6 @@ import { services } from '../data/site';
   <p class="form-status" role="status" aria-live="polite" data-form-status></p>
 </form>
 
-<script
-  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-  async
-  defer
-  is:inline
-></script>
-
 <style>
   .form-grid label span::after {
     content: " *";
@@ -68,6 +61,34 @@ import { services } from '../data/site';
   const form = document.getElementById('lead-form') as HTMLFormElement;
   const status = form.querySelector('[data-form-status]') as HTMLElement;
   const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+  // Carga diferida de Turnstile: solo cuando el formulario se acerca al viewport.
+  const turnstile = form.querySelector('.cf-turnstile');
+  if (turnstile) {
+    const loadTurnstile = () => {
+      if (document.getElementById('cf-turnstile-script')) return;
+      const s = document.createElement('script');
+      s.id = 'cf-turnstile-script';
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+      s.async = true;
+      s.defer = true;
+      document.head.appendChild(s);
+    };
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            loadTurnstile();
+            io.disconnect();
+          }
+        },
+        { rootMargin: '300px' }
+      );
+      io.observe(turnstile);
+    } else {
+      loadTurnstile();
+    }
+  }
 
   function setStatus(text: string, color: string) {
     status.textContent = text;

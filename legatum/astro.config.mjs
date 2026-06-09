@@ -7,6 +7,8 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   site: 'https://legatum-internacional.com',
   output: 'static',
+  // Inlinea el CSS para sacarlo de la ruta crítica de render (no más request bloqueante).
+  build: { inlineStylesheets: 'always' },
   integrations: [mdx()],
   adapter: cloudflare({
     // Optimiza las imágenes en build (estáticas), no en runtime vía /_image.
