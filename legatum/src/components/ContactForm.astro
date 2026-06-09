@@ -2,7 +2,8 @@
 import { services } from '../data/site';
 ---
 
-<form class="contact-form" id="lead-form" action="/api/contact" method="POST">
+<form class="contact-form" id="lead-form" action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="10bdf0b7-464e-4943-a3c4-83c4cd8f8b70" />
   <input type="hidden" name="subject" value="Nueva consulta — Legatum Internacional" />
   <input type="hidden" name="from_name" value="Legatum Internacional Web" />
   <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true" />
@@ -13,7 +14,7 @@ import { services } from '../data/site';
     </label>
     <label>
       <span>Teléfono / WhatsApp</span>
-      <input name="telefono" type="tel" autocomplete="tel" pattern="[\d\s\+\-\(\)]{7,20}" title="Ingrese un número de teléfono válido" required />
+      <input name="telefono" type="tel" autocomplete="tel" pattern={"[0-9 +\\(\\)\\-]{7,20}"} title="Ingrese un número de teléfono válido" required />
     </label>
     <label>
       <span>Correo electrónico</span>
@@ -36,7 +37,6 @@ import { services } from '../data/site';
     <input type="checkbox" name="consentimiento" required />
     <span>He leído y acepto el <a href="/aviso-de-privacidad/">Aviso de Privacidad</a>. Autorizo el tratamiento de mis datos para recibir orientación sobre mi caso.</span>
   </label>
-  <div class="cf-turnstile" data-sitekey="0x4AAAAAADhf4iNWEUS-4rkb" data-language="es"></div>
   <div class="form-actions">
     <button class="btn btn-whatsapp" type="submit">Enviar y recibir orientación</button>
     <p>Sus datos se tratan con confidencialidad institucional. No compartimos su información.</p>
@@ -49,9 +49,6 @@ import { services } from '../data/site';
     content: " *";
     color: #c62828;
   }
-  .cf-turnstile {
-    margin-top: 20px;
-  }
 </style>
 
 <script>
@@ -61,34 +58,6 @@ import { services } from '../data/site';
   const form = document.getElementById('lead-form') as HTMLFormElement;
   const status = form.querySelector('[data-form-status]') as HTMLElement;
   const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-
-  // Carga diferida de Turnstile: solo cuando el formulario se acerca al viewport.
-  const turnstile = form.querySelector('.cf-turnstile');
-  if (turnstile) {
-    const loadTurnstile = () => {
-      if (document.getElementById('cf-turnstile-script')) return;
-      const s = document.createElement('script');
-      s.id = 'cf-turnstile-script';
-      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-      s.async = true;
-      s.defer = true;
-      document.head.appendChild(s);
-    };
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver(
-        (entries) => {
-          if (entries.some((e) => e.isIntersecting)) {
-            loadTurnstile();
-            io.disconnect();
-          }
-        },
-        { rootMargin: '300px' }
-      );
-      io.observe(turnstile);
-    } else {
-      loadTurnstile();
-    }
-  }
 
   function setStatus(text: string, color: string) {
     status.textContent = text;
@@ -115,8 +84,9 @@ import { services } from '../data/site';
     setStatus('', '');
 
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
+        headers: { Accept: 'application/json' },
         body: new FormData(form),
       });
       const data = await res.json();
