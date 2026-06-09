@@ -13,8 +13,8 @@ const a = (href: string) => href.startsWith('/') ? href : isHome ? href : `/${hr
   <div class="shell header-shell">
     <a class="brand" href={isHome ? '#top' : '/'} aria-label="Legatum Internacional, inicio">
       <span class="brand-mark" aria-hidden="true">
-        <Image src={monogramCream} alt="" width={34} height={42} class="mark-light" loading="eager" />
-        <Image src={monogramNavy} alt="" width={34} height={42} class="mark-dark" loading="eager" />
+        <Image src={monogramCream} alt="" width={34} height={42} densities={[1, 2]} class="mark-light" loading="eager" />
+        <Image src={monogramNavy} alt="" width={34} height={42} densities={[1, 2]} class="mark-dark" loading="eager" />
       </span>
       <span class="wordmark"><strong>LEGATUM</strong><small>INTERNACIONAL</small></span>
     </a>

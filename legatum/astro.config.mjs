@@ -1,6 +1,6 @@
 // @ts-check
 import mdx from '@astrojs/mdx';
-import { defineConfig, sessionDrivers } from 'astro/config';
+import { defineConfig, fontProviders, sessionDrivers } from 'astro/config';
 
 import cloudflare from '@astrojs/cloudflare';
 
@@ -17,4 +17,25 @@ export default defineConfig({
   session: {
     driver: sessionDrivers.memory(),
   },
+  // Fonts API: self-host + preload + fallbacks con métricas ajustadas (CLS ~0).
+  fonts: [
+    {
+      provider: fontProviders.fontsource(),
+      name: 'Cormorant Garamond',
+      cssVariable: '--font-serif',
+      weights: [500, 600],
+      styles: ['normal', 'italic'],
+      subsets: ['latin'],
+      fallbacks: ['Georgia', 'Times New Roman', 'serif'],
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: 'Jost',
+      cssVariable: '--font-sans',
+      weights: ['400 700'],
+      styles: ['normal'],
+      subsets: ['latin'],
+      fallbacks: ['Avenir Next', 'Segoe UI', 'system-ui', 'sans-serif'],
+    },
+  ],
 });

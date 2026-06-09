@@ -1,12 +1,8 @@
 ---
+import { Font } from 'astro:assets';
 import SEO from '../components/SEO.astro';
 import Clarity from '../components/analytics/Clarity.astro';
 import '../styles/global.css';
-import '@fontsource/cormorant-garamond/latin-500.css';
-import '@fontsource/cormorant-garamond/latin-500-italic.css';
-import '@fontsource/cormorant-garamond/latin-600.css';
-import '@fontsource/cormorant-garamond/latin-600-italic.css';
-import '@fontsource-variable/jost/index.css';
 
 type Props = {
   title?: string;
@@ -21,6 +17,8 @@ type Props = {
 <!doctype html>
 <html lang="es">
   <head>
+    <Font cssVariable="--font-serif" preload />
+    <Font cssVariable="--font-sans" preload />
     <SEO {...Astro.props} />
     <slot name="head" />
     <Clarity />
