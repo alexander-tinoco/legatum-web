@@ -1,4 +1,0 @@
-# Canonicaliza el dominio: apex (sin www) -> www con 301 permanente.
-# Conserva la ruta completa y transfiere la autoridad SEO de las URLs ya indexadas.
-https://legatum-internacional.com/* https://www.legatum-internacional.com/:splat 301
-http://legatum-internacional.com/* https://www.legatum-internacional.com/:splat 301
