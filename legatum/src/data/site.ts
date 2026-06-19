@@ -1,10 +1,11 @@
 export const site = {
-  name: 'LEGATUM INTERNACIONAL',
+  name: 'Legatum Internacional',
+  legalName: 'LEGATUM INTERNACIONAL',
   shortName: 'Legatum',
   tagline: 'Movilidad internacional con la certeza de una institución',
   description:
     'Firma especializada en movilidad global, asesoría migratoria, visas, pasaportes y procesos internacionales para personas, familias y empresas desde México.',
-  url: 'https://legatum-internacional.com',
+  url: 'https://www.legatum-internacional.com',
   locale: 'es_MX',
   phone: '+526182706071',
   phoneDisplay: '618 270 6071',

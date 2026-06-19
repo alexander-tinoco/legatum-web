@@ -3,7 +3,7 @@ import mdx from '@astrojs/mdx';
 import { defineConfig, fontProviders } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://legatum-internacional.com',
+  site: 'https://www.legatum-internacional.com',
   // Sitio 100% estático (sin adapter): el formulario se envía desde el cliente.
   // Inlinea el CSS para sacarlo de la ruta crítica de render.
   build: { inlineStylesheets: 'always' },

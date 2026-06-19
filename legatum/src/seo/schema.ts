@@ -22,6 +22,8 @@ export function buildSchema(options: SchemaOptions = {}) {
     '@type': 'Organization',
     '@id': `${site.url}/#organization`,
     name: site.name,
+    legalName: site.legalName,
+    alternateName: site.shortName,
     url: site.url,
     logo: {
       '@type': 'ImageObject',
@@ -60,6 +62,7 @@ export function buildSchema(options: SchemaOptions = {}) {
     '@id': `${site.url}/#website`,
     url: site.url,
     name: site.name,
+    alternateName: site.shortName,
     publisher: { '@id': `${site.url}/#organization` },
     inLanguage: 'es-MX',
   };
@@ -68,7 +71,7 @@ export function buildSchema(options: SchemaOptions = {}) {
     '@type': 'WebPage',
     '@id': `${site.url}/`,
     url: site.url,
-    name: 'Visas y movilidad internacional | LEGATUM INTERNACIONAL',
+    name: 'Visas y movilidad internacional | Legatum Internacional',
     description: site.description,
     isPartOf: { '@id': `${site.url}/#website` },
     primaryImageOfPage: {
