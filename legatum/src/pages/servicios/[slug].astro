@@ -66,10 +66,10 @@ const schema = {
           crumbs={[{ label: 'Servicios', href: '/servicios/' }, { label: service.title }]}
           variant="dark"
         />
-        <span class="eyebrow"><abbr class="service-code" style="color:var(--gold-300)">{service.flag}</abbr> Servicio de movilidad internacional</span>
-        <h1>{service.title}</h1>
-        <p class="svc-intro">{service.intro}</p>
-        <div class="svc-actions">
+        <span class="eyebrow svc-ey"><abbr class="service-code" style="color:var(--gold-300)">{service.flag}</abbr> Servicio de movilidad internacional</span>
+        <h1 class="svc-h1">{service.title}</h1>
+        <p class="svc-intro svc-intr">{service.intro}</p>
+        <div class="svc-actions svc-act">
           <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="servicio_hero" data-wa-service={service.slug}>
             Iniciar mi evaluación
           </a>
@@ -80,7 +80,7 @@ const schema = {
 
     <section class="section section-paper">
       <div class="shell svc-body">
-        <div class="svc-main">
+        <div class="svc-main reveal">
           <div class="svc-block">
             <h2>Qué incluye este servicio</h2>
             <ul class="svc-list">
@@ -124,7 +124,7 @@ const schema = {
           )}
         </div>
 
-        <aside class="svc-aside">
+        <aside class="svc-aside reveal d1">
           <div class="svc-card">
             <p class="svc-card-label">Honorarios de referencia</p>
             <p class="svc-fee">{service.fee?.display ?? fees.display}</p>
@@ -173,8 +173,8 @@ const schema = {
         <span class="eyebrow">Otros servicios</span>
         <h2>Explore el resto de nuestras especialidades</h2>
         <div class="svc-others-grid">
-          {others.map((s) => (
-            <a class="svc-other-card" href={`/servicios/${s.slug}/`}>
+          {others.map((s, i) => (
+            <a class={`svc-other-card reveal${i > 0 ? ` d${Math.min(i, 3)}` : ''}`} href={`/servicios/${s.slug}/`}>
               <span class="svc-flag" aria-hidden="true">{s.flag}</span>
               <strong>{s.title}</strong>
               <span class="svc-other-desc">{s.megaDesc}</span>
@@ -195,6 +195,10 @@ const schema = {
     padding-bottom: clamp(48px, 7vw, 84px);
     border-bottom: 1px solid var(--line-light);
   }
+  .svc-ey   { animation: hero-enter .65s var(--ease) .1s both; }
+  .svc-h1   { animation: hero-enter .75s var(--ease) .26s both; }
+  .svc-intr { animation: hero-enter .65s var(--ease) .44s both; }
+  .svc-act  { animation: hero-enter .6s var(--ease) .62s both; }
   .svc-hero .bc { margin-bottom: 1.4rem; }
   .svc-hero .eyebrow { color: var(--gold-300); margin-top: 1.2rem; }
   .svc-hero h1 { color: var(--white); font-size: clamp(2.3rem, 5vw, 3.9rem); margin-top: .35em; max-width: 18ch; }

@@ -1,7 +1,7 @@
 ---
 import ContactForm from '../../components/ContactForm.astro';
-import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import WaIcon from '../../components/WaIcon.astro';
+import LpLayout from '../../layouts/LpLayout.astro';
 import { fees, services, site, testimonials } from '../../data/site';
 
 const service = services.find((s) => s.slug === 'visa-canadiense')!;
@@ -67,317 +67,257 @@ const schema = {
 };
 ---
 
-<BaseLayout
+<LpLayout
   title="Asesoría Visa Canadiense de Visitante (TRV) | Expediente IRCC — Legatum Internacional"
   description="IRCC evalúa su solicitud sobre papel: no hay entrevista donde explicarse. Preparamos su expediente de vínculos, solvencia y propósito de viaje para que cada documento comunique correctamente."
   canonical={canonical}
+  schema={schema}
+  footerDisclaimer="Legatum Internacional es un servicio privado de consultoría en movilidad internacional. No somos una entidad gubernamental, no estamos afiliados al gobierno de Canadá, México ni ningún otro país, y no somos representantes de IRCC. Los derechos consulares se pagan directamente ante las autoridades canadienses y no forman parte de nuestros honorarios. No garantizamos resultados."
+  footerServiceHref="/servicios/visa-canadiense/"
+  footerServiceLabel="Ver el servicio completo"
 >
-  <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-    <meta name="robots" content="noindex, nofollow" />
-  </Fragment>
 
-  <main id="main-content">
-
-    <!-- ── HEADER ── -->
-    <header class="lp-header">
-      <div class="shell lp-header-inner">
-        <a href="/" class="lp-logo" aria-label="Legatum Internacional — inicio">
-          <img src="/favicon.svg" width="26" height="26" alt="" aria-hidden="true" />
-          <span class="wordmark">
-            <strong>LEGATUM</strong>
-            <small>INTERNACIONAL</small>
-          </span>
-        </a>
-        <p class="lp-disclaimer-tag">Servicio privado de consultoría · No somos entidad gubernamental</p>
-      </div>
-    </header>
-
-    <!-- ── HERO ── -->
-    <section class="lp-hero section-navy">
-      <div class="shell">
-        <span class="eyebrow">Visa Canadiense TRV · Asesoría especializada</span>
-        <h1>
-          IRCC no tiene entrevista.<br />
-          El expediente lo decide todo.
-        </h1>
-        <p class="lp-hero-lead">
-          Su solicitud de visa canadiense se evalúa sobre papel.
-          No hay oficial al que explicarle. Si el expediente no comunica solvencia,
-          vínculos con México y un propósito de viaje claro, la decisión ya está tomada.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-whatsapp" href={waUrl} target="_blank" rel="noopener noreferrer">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
-            Evaluar mi caso — sin costo
-          </a>
-        </div>
-        <p class="hero-reassurance">Responde el especialista · Mismo día hábil · Sin compromiso</p>
-        <dl class="hero-metrics">
-          <div><dt>100&nbsp;%</dt><dd>Honorarios claros<br>antes de iniciar</dd></div>
-          <div><dt>24&nbsp;h</dt><dd>Para su primera<br>respuesta</dd></div>
-          <div><dt>2–10</dt><dd>Semanas de<br>resolución IRCC</dd></div>
-          <div><dt>CAN&nbsp;$100</dt><dd>Derechos consulares<br>(+$85 biométricos)</dd></div>
-        </dl>
-      </div>
-    </section>
-
-    <!-- ── ETA VS VISA ── -->
-    <section class="section section-cream">
-      <div class="shell">
-        <div class="section-header">
-          <span class="eyebrow">Antes de empezar</span>
-          <h2>¿Necesita visa de visitante o solo una ETA?</h2>
-          <p>Muchos mexicanos inician el proceso de visa cuando en realidad solo necesitaban una ETA — o al revés. Lo primero que hacemos es confirmar cuál le aplica para no perder tiempo ni dinero en el proceso equivocado.</p>
-        </div>
-        <div class="trust-grid lp-eta-grid">
-          <article class="lp-eta-eta">
-            <span>ETA — Autorización electrónica</span>
-            <ul class="lp-eta-list">
-              {etaPoints.map((item) => <li>{item}</li>)}
-            </ul>
-            <p class="lp-eta-note">Aplica si tiene visa americana vigente o visa canadiense de los últimos 10 años.</p>
-          </article>
-          <article class="lp-eta-visa">
-            <span>Visa TRV — Visa de visitante</span>
-            <ul class="lp-eta-list">
-              {visaPoints.map((item) => <li>{item}</li>)}
-            </ul>
-            <p class="lp-eta-note">La evaluamos en la primera consulta y preparamos el expediente completo.</p>
-          </article>
-        </div>
-        <div class="lp-eta-cta">
-          <a class="btn btn-whatsapp" href={waUrl} target="_blank" rel="noopener noreferrer">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
-            Confirmar cuál me aplica
-          </a>
-          <p>Sin compromiso — le orientamos hoy mismo</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── POR QUÉ SE NIEGAN ── -->
-    <section class="section section-paper">
-      <div class="shell">
-        <div class="section-header">
-          <span class="eyebrow">El problema</span>
-          <h2>Cómo se pierden los casos ante IRCC</h2>
-          <p>IRCC no explica por qué negó una solicitud más allá de una carta genérica. Conocer las causas reales antes de presentar es la diferencia entre primera aprobación y ciclo de negativas.</p>
-        </div>
-        <div class="trust-grid">
-          {painPoints.map((p) => (
-            <article>
-              <span>{p.tag}</span>
-              <h3>{p.title}</h3>
-              <p>{p.body}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- ── MID CTA ── -->
-    <div class="section-navy lp-mid-cta">
-      <div class="shell lp-mid-cta-inner">
-        <p>¿Alguna de esas situaciones aplica a su caso?</p>
+  <!-- ── HERO ── -->
+  <section class="lp-hero section-navy">
+    <div class="shell">
+      <span class="eyebrow lp-ey">Visa Canadiense TRV · Asesoría especializada</span>
+      <h1 class="lp-h1">
+        IRCC no tiene entrevista.<br />
+        El expediente lo decide todo.
+      </h1>
+      <p class="lp-hero-lead lp-lead-anim">
+        Su solicitud de visa canadiense se evalúa sobre papel.
+        No hay oficial al que explicarle. Si el expediente no comunica solvencia,
+        vínculos con México y un propósito de viaje claro, la decisión ya está tomada.
+      </p>
+      <div class="hero-actions">
         <a class="btn btn-whatsapp" href={waUrl} target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
-          Cuéntenos su situación
+          <WaIcon />Evaluar mi caso — sin costo
         </a>
-        <span class="lp-mid-note">Sin compromiso — le orientamos hoy</span>
+      </div>
+      <p class="hero-reassurance">Responde el especialista · Mismo día hábil · Sin compromiso</p>
+      <dl class="hero-metrics">
+        <div><dt>100&nbsp;%</dt><dd>Honorarios claros<br>antes de iniciar</dd></div>
+        <div><dt>24&nbsp;h</dt><dd>Para su primera<br>respuesta</dd></div>
+        <div><dt>2–10</dt><dd>Semanas de<br>resolución IRCC</dd></div>
+        <div><dt>CAN&nbsp;$100</dt><dd>Derechos consulares<br>(+$85 biométricos)</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ── ETA VS VISA ── -->
+  <section class="section section-cream">
+    <div class="shell">
+      <div class="section-header">
+        <span class="eyebrow">Antes de empezar</span>
+        <h2>¿Necesita visa de visitante o solo una ETA?</h2>
+        <p>Muchos mexicanos inician el proceso de visa cuando en realidad solo necesitaban una ETA — o al revés. Lo primero que hacemos es confirmar cuál le aplica para no perder tiempo ni dinero en el proceso equivocado.</p>
+      </div>
+      <div class="trust-grid lp-eta-grid">
+        <article class="lp-eta-eta">
+          <span>ETA — Autorización electrónica</span>
+          <ul class="lp-eta-list">
+            {etaPoints.map((item) => <li>{item}</li>)}
+          </ul>
+          <p class="lp-eta-note">Aplica si tiene visa americana vigente o visa canadiense de los últimos 10 años.</p>
+        </article>
+        <article class="lp-eta-visa">
+          <span>Visa TRV — Visa de visitante</span>
+          <ul class="lp-eta-list">
+            {visaPoints.map((item) => <li>{item}</li>)}
+          </ul>
+          <p class="lp-eta-note">La evaluamos en la primera consulta y preparamos el expediente completo.</p>
+        </article>
+      </div>
+      <div class="lp-eta-cta">
+        <a class="btn btn-whatsapp" href={waUrl} target="_blank" rel="noopener noreferrer">
+          <WaIcon />Confirmar cuál me aplica
+        </a>
+        <p>Sin compromiso — le orientamos hoy mismo</p>
       </div>
     </div>
+  </section>
 
-    <!-- ── QUÉ INCLUYE ── -->
-    <section class="section section-paper">
-      <div class="shell lp-svc-grid">
-        <div>
-          <div class="section-header">
-            <span class="eyebrow">El servicio</span>
-            <h2>Qué construimos para su solicitud</h2>
-            <p>IRCC evalúa sobre papel. Por eso cada documento del expediente tiene que comunicar solvencia, arraigo y propósito de viaje de forma coherente y verificable.</p>
-          </div>
-          <ul class="credential-list lp-includes-list">
-            {service.includes.map((item) => (
-              <li><strong>{item}</strong></li>
-            ))}
-          </ul>
-          <blockquote class="institutional-quote lp-guarantee">
-            La decisión final es de IRCC y no es predecible con certeza.
-            Lo que sí está en nuestras manos es construir el expediente más sólido posible:
-            con la carta de explicación correcta, la solvencia bien documentada
-            y los vínculos con México que el sistema espera ver.
-            Un caso bien preparado tiene considerablemente mejores probabilidades que uno improvisado.
-            <cite>Una aclaración que hacemos desde el principio</cite>
-          </blockquote>
-        </div>
-        <aside class="lp-fee-card">
-          <p class="lp-fee-label">Honorarios de referencia</p>
-          <p class="lp-fee-amount">{fees.display}</p>
-          <p class="lp-fee-usd">{fees.displayUSD}</p>
-          <hr class="lp-fee-divider" />
-          <p class="lp-fee-frame">
-            Los derechos consulares ante IRCC son <strong>CAN $100</strong>
-            (más CAN $85 de biométricos si aplican). No son reembolsables si la solicitud es negada.
-            Una solicitud mal construida los pierde. El costo de hacerlo bien
-            es considerablemente menor al costo de repetir el proceso.
-          </p>
-          <a class="btn btn-whatsapp lp-fee-cta" href={waUrl} target="_blank" rel="noopener noreferrer">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
-            Iniciar mi evaluación
-          </a>
-          <p class="lp-fee-micro">El alcance y el honorario se confirman por escrito antes de contratar</p>
-        </aside>
+  <!-- ── POR QUÉ SE NIEGAN ── -->
+  <section class="section section-paper">
+    <div class="shell">
+      <div class="section-header">
+        <span class="eyebrow">El problema</span>
+        <h2>Cómo se pierden los casos ante IRCC</h2>
+        <p>IRCC no explica por qué negó una solicitud más allá de una carta genérica. Conocer las causas reales antes de presentar es la diferencia entre primera aprobación y ciclo de negativas.</p>
       </div>
-    </section>
+      <div class="trust-grid">
+        {painPoints.map((p, i) => (
+          <article class={`reveal${i > 0 ? ` d${Math.min(i, 3)}` : ''}`}>
+            <span>{p.tag}</span>
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
-    <!-- ── TESTIMONIAL ── -->
-    <section class="section section-cream">
-      <div class="shell">
-        <blockquote class="institutional-quote lp-testi">
-          "{testimonial.quote}"
-          <cite>{testimonial.author} · {testimonial.context}</cite>
+  <!-- ── MID CTA ── -->
+  <div class="section-navy lp-mid-cta">
+    <div class="shell lp-mid-cta-inner">
+      <p>¿Alguna de esas situaciones aplica a su caso?</p>
+      <a class="btn btn-whatsapp" href={waUrl} target="_blank" rel="noopener noreferrer">
+        <WaIcon />Cuéntenos su situación
+      </a>
+      <span class="lp-mid-note">Sin compromiso — le orientamos hoy</span>
+    </div>
+  </div>
+
+  <!-- ── QUÉ INCLUYE ── -->
+  <section class="section section-paper">
+    <div class="shell lp-svc-grid">
+      <div>
+        <div class="section-header">
+          <span class="eyebrow">El servicio</span>
+          <h2>Qué construimos para su solicitud</h2>
+          <p>IRCC evalúa sobre papel. Por eso cada documento del expediente tiene que comunicar solvencia, arraigo y propósito de viaje de forma coherente y verificable.</p>
+        </div>
+        <ul class="credential-list lp-includes-list">
+          {service.includes.map((item) => (
+            <li><strong>{item}</strong></li>
+          ))}
+        </ul>
+        <blockquote class="institutional-quote lp-guarantee">
+          La decisión final es de IRCC y no es predecible con certeza.
+          Lo que sí está en nuestras manos es construir el expediente más sólido posible:
+          con la carta de explicación correcta, la solvencia bien documentada
+          y los vínculos con México que el sistema espera ver.
+          Un caso bien preparado tiene considerablemente mejores probabilidades que uno improvisado.
+          <cite>Una aclaración que hacemos desde el principio</cite>
         </blockquote>
       </div>
-    </section>
-
-    <!-- ── CÓMO FUNCIONA ── -->
-    <section class="section section-navy">
-      <div class="shell">
-        <div class="section-header invert">
-          <span class="eyebrow">El proceso</span>
-          <h2>Tres pasos para un expediente sólido.</h2>
-          <p>Cada etapa tiene un propósito claro. No avanzamos si el paso anterior no está bien resuelto.</p>
-        </div>
-        <ul class="method-list">
-          <li>
-            <span>01</span>
-            <div>
-              <h3>Evaluamos su perfil y confirmamos la ruta correcta</h3>
-              <p>Determinamos si le aplica ETA o visa TRV, evaluamos su perfil migratorio y le confirmamos si el momento es adecuado para presentar — y qué tendría que cambiar si no lo es.</p>
-            </div>
-          </li>
-          <li>
-            <span>02</span>
-            <div>
-              <h3>Construimos el expediente</h3>
-              <p>Redactamos la carta de explicación, organizamos la documentación de solvencia, completamos los formularios de IRCC y revisamos que todo sea coherente antes del envío.</p>
-            </div>
-          </li>
-          <li>
-            <span>03</span>
-            <div>
-              <h3>Seguimiento hasta la resolución</h3>
-              <p>Le informamos el tiempo estimado al iniciar y damos seguimiento al estado de su solicitud. Si IRCC emite una carta de negativa, la analizamos antes de decidir si conviene reintentar y cuándo.</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ── FAQ ── -->
-    <section class="section section-cream">
-      <div class="shell">
-        <div class="section-header">
-          <span class="eyebrow">Preguntas frecuentes</span>
-          <h2>Lo que más nos preguntan sobre Canadá</h2>
-        </div>
-        <div class="faq-list">
-          {service.faqs.slice(0, 4).map((f, i) => (
-            <article class:list={['faq-item', { 'is-open': i === 0 }]}>
-              <h3>
-                <button type="button" aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`ca-faq-${i}`} data-faq-trigger>
-                  {f.question}
-                  <span aria-hidden="true"></span>
-                </button>
-              </h3>
-              <div id={`ca-faq-${i}`} class="faq-panel" data-faq-panel>
-                <div class="faq-panel-inner">
-                  <p>{f.answer}</p>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- ── FINAL CTA ── -->
-    <section class="section section-navy lp-final">
-      <div class="shell">
-        <div class="lp-final-head">
-          <span class="eyebrow">¿Listo para iniciar?</span>
-          <h2>Cuéntenos su caso hoy.</h2>
-          <p class="lp-final-lead">
-            El mismo día hábil le decimos si le aplica ETA o visa, si el momento es adecuado
-            para presentar y cuál sería la ruta correcta para su perfil. Sin compromiso.
-          </p>
-        </div>
-        <div class="lp-final-body">
-          <div class="lp-final-left">
-            <p class="lp-final-channel-label">Canal directo · WhatsApp</p>
-            <a class="btn btn-whatsapp lp-final-wa" href={waUrl} target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
-              Hablar con el especialista
-            </a>
-            <p class="lp-final-wa-note">Le responde Alexander Tinoco directamente · Mismo día hábil</p>
-            <ul class="lp-trust-list">
-              <li><span aria-hidden="true">—</span> Sin costo por la primera orientación</li>
-              <li><span aria-hidden="true">—</span> Le confirmamos si necesita ETA o visa TRV</li>
-              <li><span aria-hidden="true">—</span> El honorario se confirma por escrito antes de contratar</li>
-              <li><span aria-hidden="true">—</span> Durango, México · Atención personalizada</li>
-            </ul>
-          </div>
-          <div class="lp-final-form">
-            <p class="lp-form-label">O déjenos sus datos y le contactamos nosotros</p>
-            <ContactForm />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── FOOTER ── -->
-    <footer class="lp-footer">
-      <div class="shell lp-footer-inner">
-        <p>
-          <strong>Aviso legal:</strong> Legatum Internacional es un servicio privado de consultoría en movilidad internacional.
-          No somos una entidad gubernamental, no estamos afiliados al gobierno de Canadá, México ni ningún otro país,
-          y no somos representantes de IRCC. Los derechos consulares se pagan directamente ante las autoridades canadienses
-          y no forman parte de nuestros honorarios. No garantizamos resultados.
+      <aside class="lp-fee-card">
+        <p class="lp-fee-label">Honorarios de referencia</p>
+        <p class="lp-fee-amount">{fees.display}</p>
+        <p class="lp-fee-usd">{fees.displayUSD}</p>
+        <hr class="lp-fee-divider" />
+        <p class="lp-fee-frame">
+          Los derechos consulares ante IRCC son <strong>CAN $100</strong>
+          (más CAN $85 de biométricos si aplican). No son reembolsables si la solicitud es negada.
+          Una solicitud mal construida los pierde. El costo de hacerlo bien
+          es considerablemente menor al costo de repetir el proceso.
         </p>
-        <nav class="lp-footer-nav">
-          <a href="/aviso-de-privacidad/">Aviso de privacidad</a>
-          <a href="/terminos/">Términos de servicio</a>
-          <a href="/servicios/visa-canadiense/">Ver el servicio completo</a>
-        </nav>
-      </div>
-    </footer>
+        <a class="btn btn-whatsapp lp-fee-cta" href={waUrl} target="_blank" rel="noopener noreferrer">
+          <WaIcon />Iniciar mi evaluación
+        </a>
+        <p class="lp-fee-micro">El alcance y el honorario se confirman por escrito antes de contratar</p>
+      </aside>
+    </div>
+  </section>
 
-  </main>
-  <WhatsAppFloat />
-</BaseLayout>
+  <!-- ── TESTIMONIAL ── -->
+  <section class="section section-cream">
+    <div class="shell">
+      <blockquote class="institutional-quote lp-testi">
+        "{testimonial.quote}"
+        <cite>{testimonial.author} · {testimonial.context}</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ── CÓMO FUNCIONA ── -->
+  <section class="section section-navy">
+    <div class="shell">
+      <div class="section-header invert">
+        <span class="eyebrow">El proceso</span>
+        <h2>Tres pasos para un expediente sólido.</h2>
+        <p>Cada etapa tiene un propósito claro. No avanzamos si el paso anterior no está bien resuelto.</p>
+      </div>
+      <ul class="method-list">
+        <li class="reveal">
+          <span>01</span>
+          <div>
+            <h3>Evaluamos su perfil y confirmamos la ruta correcta</h3>
+            <p>Determinamos si le aplica ETA o visa TRV, evaluamos su perfil migratorio y le confirmamos si el momento es adecuado para presentar — y qué tendría que cambiar si no lo es.</p>
+          </div>
+        </li>
+        <li class="reveal d1">
+          <span>02</span>
+          <div>
+            <h3>Construimos el expediente</h3>
+            <p>Redactamos la carta de explicación, organizamos la documentación de solvencia, completamos los formularios de IRCC y revisamos que todo sea coherente antes del envío.</p>
+          </div>
+        </li>
+        <li class="reveal d2">
+          <span>03</span>
+          <div>
+            <h3>Seguimiento hasta la resolución</h3>
+            <p>Le informamos el tiempo estimado al iniciar y damos seguimiento al estado de su solicitud. Si IRCC emite una carta de negativa, la analizamos antes de decidir si conviene reintentar y cuándo.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section class="section section-cream">
+    <div class="shell">
+      <div class="section-header">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2>Lo que más nos preguntan sobre Canadá</h2>
+      </div>
+      <div class="faq-list">
+        {service.faqs.slice(0, 4).map((f, i) => (
+          <article class:list={['faq-item', { 'is-open': i === 0 }]}>
+            <h3>
+              <button type="button" aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`ca-faq-${i}`} data-faq-trigger>
+                {f.question}
+                <span aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div id={`ca-faq-${i}`} class="faq-panel" data-faq-panel>
+              <div class="faq-panel-inner">
+                <p>{f.answer}</p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FINAL CTA ── -->
+  <section class="section section-navy lp-final">
+    <div class="shell">
+      <div class="lp-final-head">
+        <span class="eyebrow">¿Listo para iniciar?</span>
+        <h2>Cuéntenos su caso hoy.</h2>
+        <p class="lp-final-lead">
+          El mismo día hábil le decimos si le aplica ETA o visa, si el momento es adecuado
+          para presentar y cuál sería la ruta correcta para su perfil. Sin compromiso.
+        </p>
+      </div>
+      <div class="lp-final-body">
+        <div class="lp-final-left">
+          <p class="lp-final-channel-label">Canal directo · WhatsApp</p>
+          <a class="btn btn-whatsapp lp-final-wa" href={waUrl} target="_blank" rel="noopener noreferrer">
+            <WaIcon />Hablar con el especialista
+          </a>
+          <p class="lp-final-wa-note">Le responde Alexander Tinoco directamente · Mismo día hábil</p>
+          <ul class="lp-trust-list">
+            <li><span aria-hidden="true">—</span> Sin costo por la primera orientación</li>
+            <li><span aria-hidden="true">—</span> Le confirmamos si necesita ETA o visa TRV</li>
+            <li><span aria-hidden="true">—</span> El honorario se confirma por escrito antes de contratar</li>
+            <li><span aria-hidden="true">—</span> Durango, México · Atención personalizada</li>
+          </ul>
+        </div>
+        <div class="lp-final-form">
+          <p class="lp-form-label">O déjenos sus datos y le contactamos nosotros</p>
+          <ContactForm />
+        </div>
+      </div>
+    </div>
+  </section>
+
+</LpLayout>
 
 <style>
-  /* ── Header ── */
-  .lp-header { background: var(--navy); padding: 18px 0; border-bottom: 1px solid var(--line-light); }
-  .lp-header-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-  .lp-logo { display: flex; align-items: center; gap: 12px; color: var(--cream); text-decoration: none; }
-  .lp-logo img { filter: brightness(10); opacity: .88; }
-  .lp-logo .wordmark strong { font-size: 1.18rem; letter-spacing: .13em; }
-  .lp-logo .wordmark small { font-size: .5rem; letter-spacing: .38em; color: var(--gold-300); }
-  .lp-disclaimer-tag { font-size: .68rem; color: rgba(196,168,130,.65); letter-spacing: .05em; border: 1px solid rgba(196,168,130,.2); padding: 5px 11px; line-height: 1; }
-
-  /* ── Hero ── */
-  .lp-hero { padding-block: clamp(80px, 11vw, 136px); }
-  .lp-hero .eyebrow { color: var(--gold-300); }
-  .lp-hero h1 { color: var(--white); font-size: clamp(2.8rem, 5.5vw, 4.6rem); margin-top: .7em; }
-  .lp-hero-lead { color: rgba(245,240,232,.78); font-size: clamp(1.05rem, 1.7vw, 1.28rem); line-height: 1.65; max-width: 58ch; margin-top: 1.3rem; }
-  .lp-hero .hero-actions { margin-top: 2rem; }
-  .lp-hero .hero-reassurance { margin-top: .9rem; }
-  .lp-hero .hero-metrics { margin-top: 3rem; }
-  .lp-hero .hero-metrics dt { font-size: 2rem; }
-
-  /* ── ETA vs Visa ── */
   .lp-eta-grid { grid-template-columns: 1fr 1fr; }
   .lp-eta-eta { border-top-color: #4a7c59 !important; }
   .lp-eta-list { display: grid; gap: 10px; margin-top: .9rem; }
@@ -386,77 +326,9 @@ const schema = {
   .lp-eta-note { margin-top: 1.1rem; padding-top: .9rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; line-height: 1.55; font-style: italic; }
   .lp-eta-cta { display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap; margin-top: clamp(44px, 6vw, 64px); padding-top: clamp(32px, 4vw, 48px); border-top: 1px solid var(--line); }
   .lp-eta-cta p { color: var(--muted); font-size: .85rem; }
-
-  /* ── Mid CTA band ── */
-  .lp-mid-cta { padding-block: clamp(28px, 4vw, 44px); border-block: 1px solid var(--line-light); }
-  .lp-mid-cta-inner { display: flex; align-items: center; gap: clamp(20px, 5vw, 52px); flex-wrap: wrap; }
-  .lp-mid-cta-inner > p { color: var(--cream); font-family: var(--serif); font-size: clamp(1.1rem, 2vw, 1.55rem); flex: 1; min-width: 200px; margin: 0; }
-  .lp-mid-note { color: rgba(245,240,232,.4); font-size: .78rem; white-space: nowrap; }
-
-  /* ── Service / Includes section ── */
-  .lp-svc-grid { display: grid; grid-template-columns: 1fr 330px; gap: clamp(40px, 6vw, 90px); align-items: start; }
-  .lp-svc-grid .section-header { margin-bottom: clamp(28px, 4vw, 40px); }
-  .lp-svc-grid .section-header p { color: var(--ink); }
-  .lp-includes-list { gap: 22px; }
-  .lp-includes-list li { padding-block: 8px 6px; }
-  .lp-includes-list strong { font-size: .97rem; line-height: 1.45; }
-  .lp-guarantee { margin-top: 2.6rem; font-size: .97rem; line-height: 1.7; }
-
-  /* ── Fee card ── */
-  .lp-fee-card { padding: 36px 32px; background: var(--white); border-top: 2px solid var(--gold); box-shadow: 0 28px 70px rgba(12,24,46,.09); position: sticky; top: 24px; display: flex; flex-direction: column; }
-  .lp-fee-label { font-size: .65rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
-  .lp-fee-amount { font-family: var(--serif); font-size: 2.5rem; font-weight: 600; color: var(--navy); line-height: 1; margin-top: .7rem; }
-  .lp-fee-usd { color: var(--gold); font-size: .88rem; margin-top: .6rem; }
-  .lp-fee-divider { border: none; border-top: 1px solid var(--line); margin: 1.6rem 0; }
-  .lp-fee-frame { color: var(--muted); font-size: .86rem; line-height: 1.75; }
-  .lp-fee-frame strong { color: var(--navy); }
-  .lp-fee-cta { width: 100%; justify-content: center; margin-top: 1.6rem; }
-  .lp-fee-micro { margin-top: .8rem; text-align: center; color: var(--muted); font-size: .72rem; line-height: 1.5; }
-
-  /* ── Testimonial ── */
   .lp-testi { font-size: clamp(1.15rem, 2vw, 1.5rem); }
 
-  /* ── Final CTA ── */
-  .lp-final { padding-block: clamp(72px, 10vw, 120px); }
-  .lp-final .eyebrow { color: var(--gold-300); }
-  .lp-final-head { max-width: 640px; margin-bottom: clamp(36px, 5vw, 52px); }
-  .lp-final-head h2 { color: var(--white); margin-top: .35em; }
-  .lp-final-lead { color: rgba(245,240,232,.72); line-height: 1.7; max-width: 56ch; margin-top: .85rem; font-size: 1rem; }
-  .lp-final-body { display: block; }
-  .lp-final-left { display: block; max-width: 520px; }
-  .lp-final-channel-label { color: var(--gold-300); font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; margin-bottom: .9rem; }
-  .lp-final-wa { font-size: 1.05rem; padding: 16px 24px; width: 100%; justify-content: center; }
-  .lp-final-wa-note { color: rgba(245,240,232,.42); font-size: .78rem; margin-top: .75rem; line-height: 1.4; }
-  .lp-trust-list { margin-top: 2rem; display: grid; gap: 14px; border-top: 1px solid var(--line-light); padding-top: 1.6rem; }
-  .lp-trust-list li { color: rgba(245,240,232,.65); font-size: .88rem; line-height: 1.4; display: flex; gap: .7rem; }
-  .lp-trust-list span { color: var(--gold-300); flex-shrink: 0; }
-  .lp-final-form { max-width: 720px; margin-top: clamp(36px, 5vw, 56px); border-top: 1px solid var(--line-light); padding-top: clamp(36px, 5vw, 52px); }
-  .lp-form-label { color: var(--cream); font-family: var(--serif); font-size: 1.05rem; margin-bottom: 1.2rem; opacity: .82; }
-  .lp-final-form :global(.form-grid) { grid-template-columns: repeat(2, 1fr); }
-  .lp-final-form :global(.form-grid .full) { grid-column: 1 / -1; }
-
-  /* ── Footer ── */
-  .lp-footer { background: var(--cream); border-top: 1px solid var(--line); padding-block: 28px; }
-  .lp-footer-inner { display: grid; gap: 14px; }
-  .lp-footer p { color: var(--muted); font-size: .77rem; line-height: 1.7; max-width: 860px; }
-  .lp-footer p strong { color: var(--ink); }
-  .lp-footer-nav { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; }
-  .lp-footer-nav a { color: var(--gold); font-size: .77rem; }
-
-  /* ── Responsive ── */
-  @media (max-width: 1000px) {
-    .lp-svc-grid { grid-template-columns: 1fr; }
-    .lp-fee-card { position: static; }
-  }
   @media (max-width: 760px) {
-    .lp-hero .hero-metrics { gap: 20px 28px; }
     .lp-eta-grid { grid-template-columns: 1fr; }
-    .trust-grid { grid-template-columns: 1fr; }
-    .lp-mid-cta-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
-    .lp-final-form { max-width: 100%; }
-    .lp-final-form :global(.form-grid) { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 560px) {
-    .lp-header-inner { flex-direction: column; align-items: flex-start; }
   }
 </style>

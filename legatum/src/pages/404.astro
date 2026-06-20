@@ -15,13 +15,13 @@ import { services, site } from '../data/site';
   <main id="main-content">
     <section class="nf-hero section-navy">
       <div class="shell">
-        <span class="eyebrow">Error 404</span>
-        <h1>Esta página no existe.</h1>
+        <span class="eyebrow nf-ey">Error 404</span>
+        <h1 class="nf-h1e">Esta página no existe.</h1>
         <p class="nf-lead">
           La dirección que buscaba cambió o nunca existió. No se preocupe: desde aquí
           puede volver al inicio, ver nuestros servicios o escribirnos directamente.
         </p>
-        <div class="nf-actions">
+        <div class="nf-actions nf-act">
           <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="404">
             Iniciar mi evaluación
           </a>
@@ -35,8 +35,8 @@ import { services, site } from '../data/site';
         <span class="eyebrow">Nuestros servicios</span>
         <h2 class="nf-h2">Quizá buscaba alguno de estos</h2>
         <div class="nf-grid">
-          {services.map((s) => (
-            <a class="nf-card" href={`/servicios/${s.slug}/`}>
+          {services.map((s, i) => (
+            <a class={`nf-card reveal${i > 0 ? ` d${Math.min(i % 3, 3)}` : ''}`} href={`/servicios/${s.slug}/`}>
               <span class="nf-flag" aria-hidden="true">{s.flag}</span>
               <strong>{s.title}</strong>
               <span class="nf-desc">{s.megaDesc}</span>
@@ -56,6 +56,10 @@ import { services, site } from '../data/site';
     padding-bottom: clamp(56px, 9vw, 110px);
     border-bottom: 1px solid var(--line-light);
   }
+  .nf-ey   { animation: hero-enter .65s var(--ease) .1s both; }
+  .nf-h1e  { animation: hero-enter .75s var(--ease) .26s both; }
+  .nf-lead { animation: hero-enter .65s var(--ease) .44s both; }
+  .nf-act  { animation: hero-enter .6s var(--ease) .62s both; }
   .nf-hero .eyebrow { color: var(--gold-300); }
   .nf-hero h1 { color: var(--white); font-size: clamp(2.4rem, 6vw, 4.4rem); margin-top: .35em; }
   .nf-lead {

@@ -20,8 +20,8 @@ const canonical = `${site.url}/casos-de-exito/`;
     <section class="cas-hero section-navy">
       <div class="shell">
         <Breadcrumb crumbs={[{ label: 'Casos de éxito' }]} variant="dark" />
-        <span class="eyebrow">Casos reales</span>
-        <h1>Situación, proceso y resultado.</h1>
+        <span class="eyebrow cas-ey">Casos reales</span>
+        <h1 class="cas-h1e">Situación, proceso y resultado.</h1>
         <p class="cas-lead">
           Expedientes anonimizados que muestran cómo trabajamos: entender el caso,
           ejecutar con precisión y acompañar hasta la resolución.
@@ -85,10 +85,10 @@ const canonical = `${site.url}/casos-de-exito/`;
 
     <section class="section section-navy">
       <div class="shell cas-cta">
-        <span class="eyebrow">Su caso es el siguiente</span>
-        <h2>¿Listo para construir su expediente?</h2>
-        <p>Cuéntenos su situación. El mismo día hábil recibe una evaluación y los siguientes pasos.</p>
-        <div class="cas-actions">
+        <span class="eyebrow reveal">Su caso es el siguiente</span>
+        <h2 class="reveal d1">¿Listo para construir su expediente?</h2>
+        <p class="reveal d2">Cuéntenos su situación. El mismo día hábil recibe una evaluación y los siguientes pasos.</p>
+        <div class="cas-actions reveal d2">
           <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="casos_exito">
             Iniciar mi evaluación
           </a>
@@ -108,6 +108,9 @@ const canonical = `${site.url}/casos-de-exito/`;
     padding-bottom: clamp(48px, 7vw, 84px);
     border-bottom: 1px solid var(--line-light);
   }
+  .cas-ey   { animation: hero-enter .65s var(--ease) .1s both; }
+  .cas-h1e  { animation: hero-enter .75s var(--ease) .26s both; }
+  .cas-lead { animation: hero-enter .65s var(--ease) .44s both; }
   .cas-hero .eyebrow { color: var(--gold-300); }
   .cas-hero h1 { color: var(--white); font-size: clamp(2.3rem, 5vw, 4rem); margin-top: .35em; max-width: 18ch; }
   .cas-lead { max-width: 58ch; margin-top: 1.1rem; color: rgba(245, 240, 232, .82); font-size: clamp(1.05rem, 1.6vw, 1.22rem); line-height: 1.6; }

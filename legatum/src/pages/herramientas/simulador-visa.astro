@@ -1,11 +1,11 @@
 ---
-import Footer from '../components/Footer.astro';
-import Navbar from '../components/Navbar.astro';
-import WhatsAppFloat from '../components/WhatsAppFloat.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../data/site';
+import Footer from '../../components/Footer.astro';
+import Navbar from '../../components/Navbar.astro';
+import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
 
-const canonical = `${site.url}/simulador-visa/`;
+const canonical = `${site.url}/herramientas/simulador-visa/`;
 const phone = site.phone.replace('+', '');
 ---
 
@@ -16,6 +16,11 @@ const phone = site.phone.replace('+', '');
 >
   <Navbar />
   <main id="main-content" class="sv-main">
+
+    <!-- ── BREADCRUMB ────────────────────────────────── -->
+    <div class="sv-breadcrumb">
+      <a href="/herramientas/" class="sv-bc-link">← Herramientas</a>
+    </div>
 
     <!-- ── INTRO ─────────────────────────────────────── -->
     <div id="sv-intro" class="sv-screen sv-active">
@@ -163,6 +168,22 @@ const phone = site.phone.replace('+', '');
     flex-direction: column;
     padding-top: var(--header);
   }
+
+  /* Breadcrumb */
+  .sv-breadcrumb {
+    padding: 11px var(--gutter);
+    border-bottom: 1px solid rgba(196,168,130,.1);
+    flex-shrink: 0;
+  }
+  .sv-bc-link {
+    font-size: .75rem;
+    font-weight: 650;
+    letter-spacing: .04em;
+    color: var(--gold-300);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .sv-bc-link:hover { color: var(--white); }
 
   .sv-screen {
     display: none;
@@ -505,10 +526,8 @@ const phone = site.phone.replace('+', '');
     overflow: hidden;
   }
   .sv-plan-head {
-    padding: clamp(20px, 3vw, 32px) clamp(20px, 3vw, 32px) 0;
+    padding: clamp(20px, 3vw, 32px) clamp(20px, 3vw, 32px) clamp(16px, 2vw, 24px);
     border-bottom: 1px solid var(--sv-border);
-    padding-bottom: clamp(16px, 2vw, 24px);
-    margin-bottom: 0;
   }
   .sv-plan-eyebrow {
     display: block;
@@ -534,7 +553,6 @@ const phone = site.phone.replace('+', '');
     padding: clamp(16px, 2.5vw, 28px) clamp(20px, 3vw, 32px);
     display: flex;
     flex-direction: column;
-    gap: 0;
   }
   .sv-strat {
     display: grid;
@@ -755,166 +773,44 @@ const QS = [
 
 /* ── Análisis ──────────────────────────────────────── */
 function analyze(sc) {
-  const strong = [];
-  const weak   = [];
+  const strong = [], weak = [];
 
-  if (sc.trabajo >= 8) {
-    strong.push({
-      title: 'Empleo estable con antigüedad demostrable',
-      desc: 'Dos o más años de contrato o un negocio consolidado son de los pilares más sólidos del arraigo laboral. El oficial consular lo interpreta como evidencia directa de que tienes razones económicas concretas para regresar a México. Mientras más documentación respaldes este punto (recibos de nómina, carta laboral, estados de cuenta), más fuerte es tu posición.',
-    });
-  } else if (sc.trabajo >= 5) {
-    strong.push({
-      title: 'Actividad laboral o empresarial formal',
-      desc: 'Tienes una fuente de ingresos documentable, lo cual es un punto a tu favor. Para fortalecer este elemento conviene reunir comprobantes de ingresos de los últimos 3 meses y, si es posible, una carta laboral con datos del empleador. La antigüedad es clave: cuanto más tiempo en el mismo lugar, mejor.',
-    });
-  } else {
-    weak.push({
-      title: 'Sin empleo formal que acredite arraigo económico',
-      desc: 'La ausencia de ingresos verificables es uno de los factores que más levanta alertas durante la entrevista consular. Sin una fuente de ingresos estable documentada, es difícil demostrar dos cosas fundamentales: que tienes capacidad para costear el viaje y que tienes razones económicas para regresar a México. Es un punto crítico que debe abordarse antes de solicitar.',
-    });
-  }
+  if (sc.trabajo >= 8) strong.push({ title: 'Empleo estable con antigüedad demostrable', desc: 'Dos o más años de contrato o un negocio consolidado son de los pilares más sólidos del arraigo laboral. El oficial consular lo interpreta como evidencia directa de que tienes razones económicas concretas para regresar a México. Mientras más documentación respaldes este punto (recibos de nómina, carta laboral, estados de cuenta), más fuerte es tu posición.' });
+  else if (sc.trabajo >= 5) strong.push({ title: 'Actividad laboral o empresarial formal', desc: 'Tienes una fuente de ingresos documentable, lo cual es un punto a tu favor. Para fortalecer este elemento conviene reunir comprobantes de ingresos de los últimos 3 meses y, si es posible, una carta laboral con datos del empleador. La antigüedad es clave: cuanto más tiempo en el mismo lugar, mejor.' });
+  else weak.push({ title: 'Sin empleo formal que acredite arraigo económico', desc: 'La ausencia de ingresos verificables es uno de los factores que más levanta alertas durante la entrevista consular. Sin una fuente de ingresos estable documentada, es difícil demostrar que tienes capacidad para costear el viaje y razones económicas para regresar a México.' });
 
-  if (sc.bienes >= 7) {
-    strong.push({
-      title: 'Bienes inmuebles que acreditan arraigo patrimonial',
-      desc: 'Tener una propiedad escriturada o un terreno a tu nombre es una de las señales más fuertes de arraigo que puede presentar un solicitante. Para el oficial consular, quien tiene algo valioso que perder en México difícilmente arriesga quedarse ilegalmente en EUA. Asegúrate de contar con escrituras o constancias actualizadas para incluirlas en el expediente.',
-    });
-  } else if (sc.bienes === 5) {
-    strong.push({
-      title: 'Copropietario de bien inmueble',
-      desc: 'Tener participación en una propiedad, aunque sea en copropiedad, suma al arraigo patrimonial. Es menos contundente que una propiedad exclusiva, pero ayuda a construir un perfil con vínculos materiales en México. Complementa este punto con documentación adicional de arraigo laboral o familiar.',
-    });
-  } else {
-    weak.push({
-      title: 'Sin bienes inmuebles como vínculo de arraigo',
-      desc: 'No tener propiedades a tu nombre no es un bloqueador absoluto, pero debilita el expediente de arraigo patrimonial. El oficial buscará esa evidencia de que "tienes algo que perder" en México. Cuando no existe arraigo patrimonial, los vínculos laborales y familiares deben ser especialmente sólidos y bien documentados para compensarlo.',
-    });
-  }
+  if (sc.bienes >= 7) strong.push({ title: 'Bienes inmuebles que acreditan arraigo patrimonial', desc: 'Tener una propiedad escriturada o un terreno a tu nombre es una de las señales más fuertes de arraigo. Para el oficial consular, quien tiene algo valioso que perder en México difícilmente arriesga quedarse ilegalmente en EUA. Asegúrate de contar con escrituras o constancias actualizadas para incluirlas en el expediente.' });
+  else if (sc.bienes === 5) strong.push({ title: 'Copropietario de bien inmueble', desc: 'Tener participación en una propiedad, aunque sea en copropiedad, suma al arraigo patrimonial. Es menos contundente que una propiedad exclusiva, pero ayuda a construir un perfil con vínculos materiales en México.' });
+  else weak.push({ title: 'Sin bienes inmuebles como vínculo de arraigo', desc: 'No tener propiedades a tu nombre debilita el expediente de arraigo patrimonial. El oficial buscará evidencia de que "tienes algo que perder" en México. Sin arraigo patrimonial, los vínculos laborales y familiares deben ser especialmente sólidos para compensarlo.' });
 
-  if (sc.familia >= 8) {
-    strong.push({
-      title: 'Vínculos familiares sólidos en México',
-      desc: 'Tener cónyuge e hijos viviendo en México es uno de los argumentos más poderosos ante el oficial consular. Es muy difícil argumentar que alguien con familia directa en el país tiene intención de quedarse ilegalmente en EUA. Documenta este vínculo con actas de matrimonio, actas de nacimiento de hijos y, si es posible, evidencia de que la familia depende económicamente de ti.',
-    });
-  } else if (sc.familia >= 5) {
-    strong.push({
-      title: 'Lazos familiares en México',
-      desc: 'Contar con padres, hermanos o pareja en México suma al perfil de arraigo familiar. El oficial evalúa si tienes personas que dependan de tu retorno. Para fortalecer este punto, conviene tener a la mano documentos que acrediten estos lazos y, si aplica, que eres sostén económico del hogar.',
-    });
-  } else {
-    weak.push({
-      title: 'Pocos lazos familiares en México — intención de retorno cuestionable',
-      desc: 'Sin familia directa en México, el oficial no tiene la evidencia más intuitiva de que alguien quiere regresar. Esto no impide obtener la visa, pero significa que los vínculos laborales y patrimoniales deben ser excepcionalmente fuertes. También conviene preparar respuestas claras y honestas sobre por qué México sigue siendo tu centro de vida.',
-    });
-  }
+  if (sc.familia >= 8) strong.push({ title: 'Vínculos familiares sólidos en México', desc: 'Tener cónyuge e hijos viviendo en México es uno de los argumentos más poderosos ante el oficial consular. Es muy difícil argumentar que alguien con familia directa en el país tiene intención de quedarse ilegalmente en EUA. Documenta este vínculo con actas de matrimonio, actas de nacimiento y evidencia de dependencia económica.' });
+  else if (sc.familia >= 5) strong.push({ title: 'Lazos familiares en México', desc: 'Contar con padres, hermanos o pareja en México suma al perfil de arraigo familiar. El oficial evalúa si tienes personas que dependan de tu retorno. Conviene tener documentos que acrediten estos lazos y, si aplica, que eres sostén económico del hogar.' });
+  else weak.push({ title: 'Pocos lazos familiares en México — intención de retorno cuestionable', desc: 'Sin familia directa en México, el oficial no tiene la evidencia más intuitiva de que alguien quiere regresar. Los vínculos laborales y patrimoniales deben ser excepcionalmente fuertes para compensarlo.' });
 
-  if (sc.ingresos >= 8) {
-    strong.push({
-      title: 'Capacidad económica documentada para el viaje',
-      desc: 'Ingresos mensuales altos facilitan demostrar que el viaje tiene sentido económico y que no existe presión financiera que motive quedarse ilegalmente en EUA. Es un factor positivo claro. Lo ideal es respaldarlo con estados de cuenta de al menos 3 meses que muestren ingresos consistentes y saldo suficiente.',
-    });
-  } else if (sc.ingresos >= 5) {
-    strong.push({
-      title: 'Ingresos suficientes para el viaje',
-      desc: 'Tus ingresos están dentro de un rango razonable. Conviene documentarlos bien con recibos de nómina o estados de cuenta para que el expediente no deje dudas sobre la solvencia económica. Si el viaje es largo o costoso, el contraste entre ingresos y presupuesto de viaje puede ser un punto de cuestionamiento.',
-    });
-  } else {
-    weak.push({
-      title: 'Ingresos bajos que pueden generar dudas sobre solvencia',
-      desc: 'Con ingresos muy bajos, el oficial puede cuestionar cómo se financiará el viaje y si existe riesgo de buscar trabajo ilegal en EUA. Esto es posible de mitigar documentando ahorros suficientes, presentando una carta de invitación o patrocinio económico de otra persona, o aplazando el viaje hasta tener una situación financiera más sólida.',
-    });
-  }
+  if (sc.ingresos >= 8) strong.push({ title: 'Capacidad económica documentada para el viaje', desc: 'Ingresos mensuales altos facilitan demostrar que el viaje tiene sentido económico y que no existe presión financiera que motive quedarse en EUA. Respáldalo con estados de cuenta de al menos 3 meses que muestren ingresos consistentes.' });
+  else if (sc.ingresos >= 5) strong.push({ title: 'Ingresos suficientes para el viaje', desc: 'Tus ingresos están dentro de un rango razonable. Documéntalos bien con recibos de nómina o estados de cuenta para que el expediente no deje dudas sobre la solvencia económica.' });
+  else weak.push({ title: 'Ingresos bajos que pueden generar dudas sobre solvencia', desc: 'Con ingresos muy bajos, el oficial puede cuestionar cómo se financiará el viaje. Esto puede mitigarse documentando ahorros, presentando carta de patrocinio económico, o aplazando la solicitud hasta tener una situación más sólida.' });
 
-  if (sc.viajes >= 8) {
-    strong.push({
-      title: 'Historial de viajes internacionales recientes',
-      desc: 'Haber visitado otros países recientemente y regresado a México puntualmente es una señal de bajo riesgo muy valiosa para el oficial consular. Demuestra que sabes viajar, respetar los períodos de estancia y cumplir con las normas migratorias. Si tienes sellos de entrada y salida, inclúyelos en tu expediente.',
-    });
-  } else if (sc.viajes === 5) {
-    strong.push({
-      title: 'Experiencia de viaje internacional previa',
-      desc: 'Aunque hace tiempo que no viajas al extranjero, tener historial pasado habla bien de ti. Si esos viajes incluyeron EUA o Canadá y tuviste buen comportamiento migratorio, menciónalo. El histórico no tiene fecha de caducidad inmediata, aunque pierde peso con el paso de los años.',
-    });
-  } else {
-    weak.push({
-      title: 'Sin historial de viajes al extranjero',
-      desc: 'Para una primera solicitud sin viajes previos, el oficial no tiene evidencia de comportamiento migratorio. No es un bloqueador definitivo, pero significa que el expediente de arraigo debe ser excepcionalmente sólido para demostrar que tienes intención de regresar a México.',
-    });
-  }
+  if (sc.viajes >= 8) strong.push({ title: 'Historial de viajes internacionales recientes', desc: 'Haber visitado otros países y regresado a México puntualmente es una señal de bajo riesgo muy valiosa. Demuestra que sabes respetar los períodos de estancia y cumplir con las normas migratorias.' });
+  else if (sc.viajes === 5) strong.push({ title: 'Experiencia de viaje internacional previa', desc: 'Aunque hace tiempo que no viajas al extranjero, tener historial pasado habla bien de ti. Si esos viajes incluyeron EUA o Canadá con buen comportamiento migratorio, menciónalo en la entrevista.' });
+  else weak.push({ title: 'Sin historial de viajes al extranjero', desc: 'Sin viajes previos, el oficial no tiene evidencia de comportamiento migratorio. El expediente de arraigo debe ser excepcionalmente sólido para demostrar intención de retorno.' });
 
-  if (sc.visa >= 8) {
-    strong.push({
-      title: 'Historial positivo con visas americanas',
-      desc: 'Haber tenido o tener vigente una visa americana es probablemente el indicador de bajo riesgo más poderoso en una solicitud. El consulado ya confió en ti antes, evaluó tu perfil y su decisión fue positiva. Eso pesa enormemente en una renovación o nueva solicitud.',
-    });
-  } else if (sc.visa === 6) {
-    strong.push({
-      title: 'Visa americana previa con vigencia vencida',
-      desc: 'Tener una visa anterior que venció hace tiempo es un antecedente positivo, aunque su peso disminuye con los años. La clave es mostrar que tu situación actual es al menos igual de sólida que cuando obtuviste la visa anterior, o mejor.',
-    });
-  } else if (sc.visa === 1) {
-    weak.push({
-      title: 'Negativa reciente — factor que debe atenderse con urgencia',
-      desc: 'Una negativa reciente (menos de 3 años) es el factor de mayor riesgo en una nueva solicitud. Las negativas quedan registradas en el sistema del Departamento de Estado y el oficial las verá. Solicitar de nuevo sin haber resuelto la causa raíz es prácticamente garantía de otra negativa.',
-    });
-  } else if (sc.visa === 0) {
-    weak.push({
-      title: 'Múltiples negativas — caso que requiere estrategia especializada',
-      desc: 'Más de una negativa significa que el sistema consular tiene un historial negativo acumulado sobre tu perfil. No es imposible obtener la visa en estos casos, pero el camino requiere un trabajo previo serio: identificar las causas exactas de cada negativa, construir un expediente radicalmente diferente y elegir el momento correcto.',
-    });
-  } else if (sc.visa === 3) {
-    weak.push({
-      title: 'Negativa previa que debe abordarse con estrategia clara',
-      desc: 'La negativa está en el historial, aunque fue hace tiempo. El oficial verá ese antecedente. Lo importante es poder demostrar que las circunstancias cambiaron sustancialmente desde entonces. Nunca intentes minimizar o ignorar una negativa previa durante la entrevista; siempre es mejor abordarla de frente con honestidad.',
-    });
-  }
+  if (sc.visa >= 8) strong.push({ title: 'Historial positivo con visas americanas', desc: 'Haber tenido o tener vigente una visa americana es probablemente el indicador de bajo riesgo más poderoso. El consulado ya confió en ti antes y eso pesa enormemente en una renovación o nueva solicitud.' });
+  else if (sc.visa === 6) strong.push({ title: 'Visa americana previa con vigencia vencida', desc: 'Tener una visa anterior es un antecedente positivo, aunque su peso disminuye con los años. La clave es mostrar que tu situación actual es al menos igual de sólida que cuando la obtuviste.' });
+  else if (sc.visa === 1) weak.push({ title: 'Negativa reciente — factor que debe atenderse con urgencia', desc: 'Una negativa reciente (menos de 3 años) es el factor de mayor riesgo en una nueva solicitud. Quedan registradas y el oficial las verá. Solicitar sin resolver la causa raíz es prácticamente garantía de otra negativa.' });
+  else if (sc.visa === 0) weak.push({ title: 'Múltiples negativas — caso que requiere estrategia especializada', desc: 'Más de una negativa significa un historial negativo acumulado sobre tu perfil. No es imposible, pero el camino requiere trabajo previo serio: identificar causas, construir un expediente radicalmente diferente y elegir el momento correcto.' });
+  else if (sc.visa === 3) weak.push({ title: 'Negativa previa que debe abordarse con estrategia clara', desc: 'La negativa está en el historial y el oficial la verá. Lo importante es demostrar que las circunstancias cambiaron sustancialmente. Nunca minimices ni ignores una negativa previa durante la entrevista.' });
 
-  if (sc.famEUA >= 8) {
-    strong.push({
-      title: 'Sin vínculos problemáticos en Estados Unidos',
-      desc: 'No tener familiares cercanos sin documentos o con situación migratoria irregular en EUA reduce las preguntas difíciles durante la entrevista. El perfil se percibe como de menor riesgo migratorio.',
-    });
-  } else if (sc.famEUA <= 2) {
-    weak.push({
-      title: 'Familiares sin documentos en EUA — alerta roja para el oficial',
-      desc: 'Tener familiares sin documentos en Estados Unidos es una de las señales de alerta más fuertes para el oficial consular. No es un bloqueador definitivo, pero el oficial asumirá que podría existir motivación de reunirse con ellos ilegalmente. La estrategia de respuesta en la entrevista debe prepararse con mucho cuidado.',
-    });
-  } else if (sc.famEUA === 3) {
-    weak.push({
-      title: 'Cónyuge o pareja con estatus migratorio en EUA',
-      desc: 'Esto generará preguntas directas en la entrevista sobre por qué no buscas la reunificación familiar de forma permanente. La respuesta debe ser convincente, bien preparada y respaldada por evidencia de que tu vida está en México: trabajo, hijos, propiedades.',
-    });
-  } else if (sc.famEUA === 5) {
-    weak.push({
-      title: 'Hermanos o padres con documentos regulares en EUA',
-      desc: 'Tener hermanos o padres en EUA con estatus regular puede generar preguntas sobre la intención del viaje. El oficial podría indagar si el propósito real es turismo o una estadía prolongada. Tener una respuesta clara sobre el propósito real del viaje y la duración planeada es importante.',
-    });
-  }
+  if (sc.famEUA >= 8) strong.push({ title: 'Sin vínculos problemáticos en Estados Unidos', desc: 'No tener familiares cercanos sin documentos en EUA reduce las preguntas difíciles durante la entrevista. El perfil se percibe como de menor riesgo migratorio.' });
+  else if (sc.famEUA <= 2) weak.push({ title: 'Familiares sin documentos en EUA — alerta roja para el oficial', desc: 'Esta es una de las señales de alerta más fuertes. No es un bloqueador definitivo, pero el oficial asumirá que podría existir motivación de reunirse ilegalmente con ellos. La estrategia de entrevista debe prepararse con mucho cuidado.' });
+  else if (sc.famEUA === 3) weak.push({ title: 'Cónyuge o pareja con estatus migratorio en EUA', desc: 'El oficial preguntará directamente por qué no buscas reunificación familiar permanente. La respuesta debe ser convincente y respaldada por evidencia de que tu vida está en México.' });
+  else if (sc.famEUA === 5) weak.push({ title: 'Hermanos o padres con documentos regulares en EUA', desc: 'Puede generar preguntas sobre la intención real del viaje. Prepara una respuesta clara sobre el propósito y la duración planeada de la estadía.' });
 
-  if (sc.antiguedad >= 8) {
-    strong.push({
-      title: 'Trayectoria laboral prolongada y verificable',
-      desc: 'Muchos años en el mismo empleo o negocio demuestran estabilidad y arraigo profesional. Significa que tienes un puesto o empresa que perder si te quedas en EUA, lo cual es una señal clara de intención de retorno.',
-    });
-  } else if (sc.antiguedad <= 3 && sc.trabajo < 5) {
-    weak.push({
-      title: 'Poca antigüedad laboral — arraigo económico débil',
-      desc: 'Haber cambiado de trabajo recientemente o tener poco tiempo en el empleo actual debilita la narrativa de estabilidad. El oficial puede interpretar esto como menor arraigo al trabajo. Si cambiaste recientemente, documenta bien el motivo del cambio y la solidez del nuevo empleo.',
-    });
-  }
+  if (sc.antiguedad >= 8) strong.push({ title: 'Trayectoria laboral prolongada y verificable', desc: 'Muchos años en el mismo empleo o negocio demuestran estabilidad y arraigo profesional. Significa que tienes algo que perder si te quedas en EUA — señal clara de intención de retorno.' });
+  else if (sc.antiguedad <= 3 && sc.trabajo < 5) weak.push({ title: 'Poca antigüedad laboral — arraigo económico débil', desc: 'Poco tiempo en el empleo actual debilita la narrativa de estabilidad. Si cambiaste recientemente, documenta bien el motivo y la solidez del nuevo puesto.' });
 
-  if (sc.ahorros >= 7) {
-    strong.push({
-      title: 'Respaldo financiero documentable en cuenta bancaria',
-      desc: 'Un estado de cuenta con saldo suficiente y movimientos regulares demuestra que el viaje está planeado con seriedad y que no existe presión económica que motive quedarse en EUA. Idealmente muestra al menos 3 meses de movimientos con ingresos consistentes.',
-    });
-  } else if (sc.ahorros <= 2) {
-    weak.push({
-      title: 'Sin respaldo financiero documentable',
-      desc: 'No tener cuenta bancaria o tener un saldo muy bajo complica la demostración de solvencia económica para el viaje. El oficial puede cuestionar cómo se costearán los gastos de hospedaje, transporte y estadía en EUA. Conviene abrir una cuenta, mantener movimientos regulares durante al menos 3 meses y documentar cualquier fuente de ingresos.',
-    });
-  }
+  if (sc.ahorros >= 7) strong.push({ title: 'Respaldo financiero documentable en cuenta bancaria', desc: 'Un estado de cuenta con saldo suficiente y movimientos regulares demuestra que el viaje está planeado con seriedad y que no existe presión económica. Muestra al menos 3 meses de movimientos consistentes.' });
+  else if (sc.ahorros <= 2) weak.push({ title: 'Sin respaldo financiero documentable', desc: 'Sin cuenta bancaria o con saldo muy bajo, la solvencia para el viaje es difícil de demostrar. Conviene abrir una cuenta y mantener movimientos regulares durante al menos 3 meses antes de solicitar.' });
 
   return { strong, weak };
 }
@@ -922,62 +818,15 @@ function analyze(sc) {
 /* ── Estrategias personalizadas ────────────────────── */
 function getStrategies(sc) {
   const pool = [];
-
-  if (sc.visa === 0) {
-    pool.push({ priority: 10,
-      title: 'Diagnostica las causas raíz de las negativas antes de volver a solicitar',
-      desc: 'Cada negativa queda registrada y el oficial la verá. Solicitar de nuevo sin entender qué falló y sin resolverlo es repetir el mismo error. El diagnóstico profesional del expediente anterior define exactamente qué cambió y cuándo es el momento correcto para intentarlo de nuevo.',
-    });
-  }
-  if (sc.visa === 1) {
-    pool.push({ priority: 9,
-      title: 'Resuelve la negativa reciente antes de agendar nueva cita',
-      desc: 'Una negativa de menos de 3 años es el factor de mayor peso negativo en una solicitud. El primer paso es identificar la causa exacta con un especialista, construir evidencia de que esa causa fue resuelta y elegir el momento correcto para volver. Actuar antes de estar listo casi siempre resulta en otra negativa.',
-    });
-  }
-  if (sc.trabajo < 5) {
-    pool.push({ priority: 8,
-      title: 'Construye y documenta arraigo económico antes de la cita',
-      desc: 'Los 3–6 meses anteriores a la entrevista son el período crítico para acumular documentación. Carta laboral actualizada, recibos de nómina o estados de cuenta del negocio, y movimientos bancarios regulares forman la columna vertebral del expediente. No se puede improvisar el día de la entrevista.',
-    });
-  }
-  if (sc.famEUA <= 2) {
-    pool.push({ priority: 7,
-      title: 'Prepara respuestas específicas para la entrevista sobre tus vínculos en EUA',
-      desc: 'El oficial preguntará directamente sobre tus familiares sin documentos en EUA. La respuesta debe ser honesta, directa y acompañada de evidencia sólida de que tu centro de vida está en México. Esta es una de las situaciones donde la preparación previa con un especialista marca la diferencia entre aprobación y negativa.',
-    });
-  }
-  if (sc.ahorros <= 2) {
-    pool.push({ priority: 6,
-      title: 'Crea un historial bancario verificable en los próximos 90 días',
-      desc: 'El estado de cuenta es uno de los primeros documentos que el oficial evalúa para medir solvencia. Sin historial bancario activo, la capacidad económica para el viaje es imposible de demostrar. Tres meses de movimientos regulares son el mínimo para que el expediente tenga solidez financiera.',
-    });
-  }
-  if (sc.famEUA === 3) {
-    pool.push({ priority: 6,
-      title: 'Prepara tu narrativa ante preguntas sobre la reunificación familiar',
-      desc: 'Con cónyuge o pareja en EUA, el oficial buscará entender por qué el viaje es temporal y no parte de un plan de reunificación permanente. La respuesta exige preparación: documentar por qué México es tu centro de vida, qué te ata aquí y cuál es la duración exacta y propósito del viaje.',
-    });
-  }
-  if (sc.ingresos <= 1) {
-    pool.push({ priority: 5,
-      title: 'Documenta fuentes de solvencia alternativas si los ingresos son bajos',
-      desc: 'Cuando el ingreso mensual es muy bajo, el expediente puede fortalecerse con ahorros documentados, una carta de invitación o patrocinio de quien cubrirá los gastos, o bienes que demuestren solvencia. Un especialista puede definir cuál de estas opciones aplica mejor a tu situación.',
-    });
-  }
-  if (sc.viajes <= 3 && sc.visa <= 5) {
-    pool.push({ priority: 4,
-      title: 'Construye un expediente de arraigo excepcionalmente sólido para compensar la falta de historial migratorio',
-      desc: 'Sin viajes previos ni visa anterior, el oficial no tiene evidencia de comportamiento migratorio responsable. El arraigo laboral, familiar y patrimonial debe ser impecable y estar perfectamente documentado. No es el momento de llegar con el expediente a medias.',
-    });
-  }
-
-  // Siempre agregar preparación para entrevista
-  pool.push({ priority: 3,
-    title: 'Prepárate específicamente para las preguntas de la entrevista consular',
-    desc: 'La entrevista dura entre 2 y 5 minutos. El oficial hará preguntas directas sobre tu propósito de viaje, arraigo, ingresos y planes. Las respuestas deben ser cortas, claras y coherentes con el expediente. La preparación con un especialista que conozca el perfil del oficial reduce significativamente el margen de error.',
-  });
-
+  if (sc.visa === 0) pool.push({ priority: 10, title: 'Diagnostica las causas raíz de las negativas antes de volver a solicitar', desc: 'Cada negativa queda registrada. Solicitar sin entender qué falló y resolverlo es repetir el mismo error. El diagnóstico profesional del expediente anterior define exactamente qué debe cambiar y cuándo es el momento correcto.' });
+  if (sc.visa === 1) pool.push({ priority: 9, title: 'Resuelve la negativa reciente antes de agendar nueva cita', desc: 'Una negativa de menos de 3 años es el factor de mayor peso negativo. El primer paso es identificar la causa exacta, construir evidencia de que fue resuelta y elegir el momento correcto. Actuar antes de estar listo casi siempre resulta en otra negativa.' });
+  if (sc.trabajo < 5) pool.push({ priority: 8, title: 'Construye y documenta arraigo económico antes de la cita', desc: 'Los 3–6 meses anteriores a la entrevista son el período crítico. Carta laboral actualizada, recibos de nómina o estados de cuenta del negocio, y movimientos bancarios regulares forman la columna vertebral del expediente.' });
+  if (sc.famEUA <= 2) pool.push({ priority: 7, title: 'Prepara respuestas específicas para la entrevista sobre tus vínculos en EUA', desc: 'El oficial preguntará directamente. La respuesta debe ser honesta, directa y acompañada de evidencia de que tu centro de vida está en México. Esta es una de las situaciones donde la preparación previa marca la diferencia.' });
+  if (sc.ahorros <= 2) pool.push({ priority: 6, title: 'Crea un historial bancario verificable en los próximos 90 días', desc: 'Sin historial bancario activo, la solvencia económica es imposible de demostrar. Tres meses de movimientos regulares son el mínimo para que el expediente tenga solidez financiera.' });
+  if (sc.famEUA === 3) pool.push({ priority: 6, title: 'Prepara tu narrativa ante preguntas sobre la reunificación familiar', desc: 'El oficial buscará entender por qué el viaje es temporal. La respuesta exige preparación: documentar por qué México es tu centro de vida y cuál es la duración y propósito exacto del viaje.' });
+  if (sc.ingresos <= 1) pool.push({ priority: 5, title: 'Documenta fuentes de solvencia alternativas', desc: 'Con ingresos muy bajos, el expediente puede fortalecerse con ahorros documentados, carta de patrocinio de quien cubrirá los gastos, o bienes que demuestren solvencia.' });
+  if (sc.viajes <= 3 && sc.visa <= 5) pool.push({ priority: 4, title: 'Construye un expediente de arraigo excepcionalmente sólido para compensar la falta de historial migratorio', desc: 'Sin viajes previos ni visa anterior, el oficial no tiene evidencia de comportamiento migratorio. El arraigo laboral, familiar y patrimonial debe ser impecable y perfectamente documentado.' });
+  pool.push({ priority: 3, title: 'Prepárate específicamente para las preguntas de la entrevista consular', desc: 'La entrevista dura entre 2 y 5 minutos con preguntas directas sobre propósito de viaje, arraigo e ingresos. Las respuestas deben ser cortas, claras y coherentes con el expediente. La preparación con un especialista reduce significativamente el margen de error.' });
   pool.sort((a, b) => b.priority - a.priority);
   return pool.slice(0, 3);
 }
@@ -994,33 +843,26 @@ function show(id) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* ── Estado ────────────────────────────────────────── */
 const scores = {};
 let typing = null;
 
-/* ── Inicio ────────────────────────────────────────── */
 document.getElementById('sv-btn-start').addEventListener('click', () => {
   show('sv-quiz');
   renderQ(0);
 });
 
-/* ── Render pregunta ───────────────────────────────── */
 function renderQ(idx) {
   const q = QS[idx];
   const pct = (idx / QS.length) * 100;
-
   document.getElementById('sv-pbar').style.width = `${pct}%`;
   document.getElementById('sv-pbar-wrap').setAttribute('aria-valuenow', Math.round(pct));
   document.getElementById('sv-step').textContent = `${idx + 1} / ${QS.length}`;
-
   const optsEl = document.getElementById('sv-opts');
   optsEl.innerHTML = '';
   optsEl.classList.remove('sv-visible');
-
   const dots = document.getElementById('sv-dots');
   dots.classList.remove('sv-gone');
   document.getElementById('sv-q').textContent = '';
-
   clearTimeout(typing);
   typing = setTimeout(() => {
     dots.classList.add('sv-gone');
@@ -1038,7 +880,6 @@ function renderQ(idx) {
   }, 550);
 }
 
-/* ── Efecto de escritura ───────────────────────────── */
 function type(el, text, speed, cb) {
   el.textContent = '';
   const cur = document.createElement('span');
@@ -1053,19 +894,16 @@ function type(el, text, speed, cb) {
   }, ms);
 }
 
-/* ── Seleccionar opción ────────────────────────────── */
 function pick(btn, opt, key, idx) {
   document.querySelectorAll('.sv-opt').forEach((b) => { b.disabled = true; });
   btn.classList.add('sv-selected');
   scores[key] = opt.score;
-
   setTimeout(() => {
-    if (idx + 1 < QS.length) { renderQ(idx + 1); }
-    else { analyzing(); }
+    if (idx + 1 < QS.length) renderQ(idx + 1);
+    else analyzing();
   }, 380);
 }
 
-/* ── Pantalla de análisis ──────────────────────────── */
 function analyzing() {
   document.getElementById('sv-dots').classList.remove('sv-gone');
   document.getElementById('sv-opts').innerHTML = '';
@@ -1078,98 +916,43 @@ function analyzing() {
   setTimeout(showResult, 2200);
 }
 
-/* ── Mostrar resultado ─────────────────────────────── */
 function showResult() {
   const maxScore = QS.reduce((s, q) => s + Math.max(...q.opts.map((o) => o.score)), 0);
   const total = Object.values(scores).reduce((a, b) => a + b, 0);
   const pct = Math.min(92, Math.max(8, Math.round((total / maxScore) * 84 + 8)));
 
   let levelKey, levelLabel, levelColor, levelMsg;
-  if (pct < 40) {
-    levelKey   = 'sv-bajo';
-    levelLabel = 'Perfil con áreas críticas';
-    levelColor = 'var(--sv-neg)';
-    levelMsg   = 'Tu perfil presenta factores importantes que, sin trabajarse, aumentan significativamente el riesgo de negativa. No significa que sea imposible obtener la visa, pero solicitar sin una estrategia adecuada es arriesgado. Una evaluación profesional puede mostrarte exactamente qué fortalecer y cuándo es el momento correcto para aplicar.';
-  } else if (pct < 66) {
-    levelKey   = 'sv-medio';
-    levelLabel = 'Perfil en desarrollo';
-    levelColor = 'var(--sv-mid)';
-    levelMsg   = 'Tu perfil tiene bases, pero hay elementos clave que no están completamente sólidos. La diferencia entre una aprobación y una negativa frecuentemente no está en tener o no los requisitos, sino en cómo se construye y presenta el expediente. Una evaluación puede definir exactamente qué ajustes necesitas antes de solicitar.';
-  } else {
-    levelKey   = 'sv-alto';
-    levelLabel = 'Perfil sólido';
-    levelColor = 'var(--sv-pos)';
-    levelMsg   = 'Tu perfil muestra fortalezas reales que el oficial consular valora positivamente. Con una preparación profesional adecuada, el objetivo es perfectamente alcanzable. Una evaluación confirmará tu panorama real, afinará los detalles del expediente y te preparará para la entrevista.';
-  }
+  if (pct < 40) { levelKey = 'sv-bajo'; levelLabel = 'Perfil con áreas críticas'; levelColor = 'var(--sv-neg)'; levelMsg = 'Tu perfil presenta factores importantes que, sin trabajarse, aumentan significativamente el riesgo de negativa. No significa que sea imposible, pero solicitar sin una estrategia adecuada es arriesgado. Una evaluación profesional puede mostrarte exactamente qué fortalecer y cuándo es el momento correcto para aplicar.'; }
+  else if (pct < 66) { levelKey = 'sv-medio'; levelLabel = 'Perfil en desarrollo'; levelColor = 'var(--sv-mid)'; levelMsg = 'Tu perfil tiene bases, pero hay elementos clave que no están completamente sólidos. La diferencia entre aprobación y negativa frecuentemente no está en tener o no los requisitos, sino en cómo se construye y presenta el expediente. Una evaluación puede definir exactamente qué ajustes necesitas.'; }
+  else { levelKey = 'sv-alto'; levelLabel = 'Perfil sólido'; levelColor = 'var(--sv-pos)'; levelMsg = 'Tu perfil muestra fortalezas reales que el oficial consular valora positivamente. Con una preparación profesional adecuada, el objetivo es perfectamente alcanzable. Una evaluación confirmará tu panorama real, afinará el expediente y te preparará para la entrevista.'; }
 
   const { strong, weak } = analyze(scores);
   const strategies = getStrategies(scores);
 
-  // Gauge
   const ring = document.getElementById('sv-g-ring');
   ring.style.stroke = levelColor;
   ring.style.strokeDashoffset = (314.16 * (1 - pct / 100)).toFixed(2);
 
-  // Badge
   const badge = document.getElementById('sv-badge');
   badge.textContent = levelLabel;
   badge.className = `sv-badge ${levelKey}`;
-
   document.getElementById('sv-rmsg').textContent = levelMsg;
 
-  // Fortalezas
   const strWrap = document.getElementById('sv-strengths-wrap');
-  const strEl   = document.getElementById('sv-strengths');
-  if (strong.length) {
-    strEl.innerHTML = strong.map((f) => `
-      <div class="sv-factor">
-        <span class="sv-factor-dot"></span>
-        <div>
-          <span class="sv-factor-title">${f.title}</span>
-          <p class="sv-factor-desc">${f.desc}</p>
-        </div>
-      </div>`).join('');
-    strWrap.style.display = '';
-  } else {
-    strWrap.style.display = 'none';
-  }
+  const strEl = document.getElementById('sv-strengths');
+  if (strong.length) { strEl.innerHTML = strong.map((f) => `<div class="sv-factor"><span class="sv-factor-dot"></span><div><span class="sv-factor-title">${f.title}</span><p class="sv-factor-desc">${f.desc}</p></div></div>`).join(''); strWrap.style.display = ''; }
+  else strWrap.style.display = 'none';
 
-  // Áreas a mejorar
   const impWrap = document.getElementById('sv-improve-wrap');
-  const impEl   = document.getElementById('sv-improvements');
-  if (weak.length) {
-    impEl.innerHTML = weak.map((f) => `
-      <div class="sv-factor">
-        <span class="sv-factor-dot"></span>
-        <div>
-          <span class="sv-factor-title">${f.title}</span>
-          <p class="sv-factor-desc">${f.desc}</p>
-        </div>
-      </div>`).join('');
-    impWrap.style.display = '';
-  } else {
-    impWrap.style.display = 'none';
-  }
+  const impEl = document.getElementById('sv-improvements');
+  if (weak.length) { impEl.innerHTML = weak.map((f) => `<div class="sv-factor"><span class="sv-factor-dot"></span><div><span class="sv-factor-title">${f.title}</span><p class="sv-factor-desc">${f.desc}</p></div></div>`).join(''); impWrap.style.display = ''; }
+  else impWrap.style.display = 'none';
 
-  // Estrategias
-  const stratEl = document.getElementById('sv-strategies');
-  stratEl.innerHTML = strategies.map((s, i) => `
-    <div class="sv-strat">
-      <span class="sv-strat-num">0${i + 1}</span>
-      <div>
-        <h3 class="sv-strat-title">${s.title}</h3>
-        <p class="sv-strat-desc">${s.desc}</p>
-      </div>
-    </div>`).join('');
+  document.getElementById('sv-strategies').innerHTML = strategies.map((s, i) => `<div class="sv-strat"><span class="sv-strat-num">0${i + 1}</span><div><h3 class="sv-strat-title">${s.title}</h3><p class="sv-strat-desc">${s.desc}</p></div></div>`).join('');
 
-  // WhatsApp links
-  const waText = encodeURIComponent(
-    `Hola, hice el simulador de visa de Legatum y mi resultado fue ${pct}% — ${levelLabel}. Me gustaría una evaluación profesional de mi caso.`
-  );
-  const waHref = `https://wa.me/${phone}?text=${waText}`;
-  document.getElementById('sv-wa-plan').href = waHref;
+  const waText = encodeURIComponent(`Hola, hice el simulador de visa de Legatum y mi resultado fue ${pct}% — ${levelLabel}. Me gustaría una evaluación profesional de mi caso.`);
+  document.getElementById('sv-wa-plan').href = `https://wa.me/${phone}?text=${waText}`;
 
-  // Retry
   document.getElementById('sv-retry').onclick = () => {
     Object.keys(scores).forEach((k) => delete scores[k]);
     show('sv-intro');
@@ -1177,16 +960,11 @@ function showResult() {
 
   show('sv-result');
 
-  // Animar contador
   requestAnimationFrame(() => {
     let n = 0;
     const step = Math.max(1, Math.ceil(pct / 55));
     const pctEl = document.getElementById('sv-pct');
-    const iv = setInterval(() => {
-      n = Math.min(n + step, pct);
-      pctEl.textContent = `${n}%`;
-      if (n >= pct) clearInterval(iv);
-    }, 20);
+    const iv = setInterval(() => { n = Math.min(n + step, pct); pctEl.textContent = `${n}%`; if (n >= pct) clearInterval(iv); }, 20);
   });
 }
 </script>

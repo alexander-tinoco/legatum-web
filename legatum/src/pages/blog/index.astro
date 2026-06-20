@@ -22,9 +22,9 @@ const posts = (await getCollection('blog'))
     <section class="blog-hero section-navy">
       <div class="shell">
         <Breadcrumb crumbs={[{ label: 'Guías' }]} variant="dark" />
-        <span class="eyebrow">Centro de conocimiento</span>
-        <h1>Recursos para su proceso</h1>
-        <p>Guías escritas por quien ha procesado estos expedientes de primera mano. Sin promesas optimistas ni relleno.</p>
+        <span class="eyebrow blog-ey">Centro de conocimiento</span>
+        <h1 class="blog-h1">Recursos para su proceso</h1>
+        <p class="blog-lead">Guías escritas por quien ha procesado estos expedientes de primera mano. Sin promesas optimistas ni relleno.</p>
       </div>
     </section>
 
@@ -67,6 +67,9 @@ const posts = (await getCollection('blog'))
     border-bottom: 1px solid var(--line-light);
   }
 .blog-hero .bc { margin-bottom: 1.4rem; }
+  .blog-ey   { animation: hero-enter .65s var(--ease) .1s both; }
+  .blog-h1   { animation: hero-enter .75s var(--ease) .26s both; }
+  .blog-lead { animation: hero-enter .65s var(--ease) .44s both; }
   .blog-hero .eyebrow { color: var(--gold-300); }
   .blog-hero h1 { color: var(--white); font-size: clamp(2.4rem, 5vw, 4rem); margin-top: .35em; max-width: 20ch; }
   .blog-hero p { max-width: 56ch; margin-top: 1rem; color: rgba(245,240,232,.78); font-size: clamp(1rem, 1.5vw, 1.18rem); line-height: 1.55; }

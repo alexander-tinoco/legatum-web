@@ -24,7 +24,7 @@ const schema = {
 ---
 
 <BaseLayout
-  title={`Contacto — Inicie su evaluación | ${site.name}`}
+  title={`Contacto | Inicie su evaluación sin compromiso | ${site.name}`}
   description="Cuéntenos su caso por WhatsApp o formulario. Reciba orientación el mismo día hábil, sin compromiso. Atendemos desde cualquier estado de México y desde el extranjero."
   canonical={canonical}
 >
@@ -37,8 +37,8 @@ const schema = {
     <section class="cnt-hero section-navy">
       <div class="shell">
         <Breadcrumb crumbs={[{ label: 'Contacto' }]} variant="dark" />
-        <span class="eyebrow">Inicie su evaluación</span>
-        <h1>Cuéntenos su caso.</h1>
+        <span class="eyebrow cnt-ey">Inicie su evaluación</span>
+        <h1 class="cnt-h1">Cuéntenos su caso.</h1>
         <p class="cnt-lead">
           Reciba una primera orientación el mismo día hábil, sin compromiso y sin tecnicismos vacíos.
           Atendemos desde cualquier estado de México y desde el extranjero.
@@ -50,7 +50,7 @@ const schema = {
       <div class="shell cnt-layout">
         <a class="page-back" href="/">← Inicio</a>
 
-        <div class="cnt-sidebar">
+        <div class="cnt-sidebar reveal">
           <div class="cnt-channels">
             <p class="cnt-channels-title">Canales directos</p>
             <a class="cnt-channel" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="contacto_directo">
@@ -97,7 +97,7 @@ const schema = {
           </div>
         </div>
 
-        <div class="cnt-form-wrap">
+        <div class="cnt-form-wrap reveal d1">
           <ContactForm />
         </div>
 
@@ -116,6 +116,9 @@ const schema = {
     border-bottom: 1px solid var(--line-light);
   }
   .cnt-hero .bc { margin-bottom: 1.4rem; }
+  .cnt-ey  { animation: hero-enter .65s var(--ease) .1s both; }
+  .cnt-h1  { animation: hero-enter .75s var(--ease) .26s both; }
+  .cnt-lead { animation: hero-enter .65s var(--ease) .44s both; }
   .cnt-hero .eyebrow { color: var(--gold-300); }
   .cnt-hero h1 {
     color: var(--white);

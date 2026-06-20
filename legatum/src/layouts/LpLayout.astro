@@ -1,0 +1,135 @@
+---
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  schema: unknown;
+  footerDisclaimer: string;
+  footerServiceHref: string;
+  footerServiceLabel: string;
+}
+
+const { title, description, canonical, schema, footerDisclaimer, footerServiceHref, footerServiceLabel } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <meta name="robots" content="noindex, nofollow" />
+  </Fragment>
+
+  <main id="main-content">
+    <header class="lp-header">
+      <div class="shell lp-header-inner">
+        <a href="/" class="lp-logo" aria-label="Legatum Internacional — inicio">
+          <img src="/favicon.svg" width="26" height="26" alt="" aria-hidden="true" />
+          <span class="wordmark">
+            <strong>LEGATUM</strong>
+            <small>INTERNACIONAL</small>
+          </span>
+        </a>
+        <p class="lp-disclaimer-tag">Servicio privado de consultoría · No somos entidad gubernamental</p>
+      </div>
+    </header>
+
+    <slot />
+
+    <footer class="lp-footer">
+      <div class="shell lp-footer-inner">
+        <p><strong>Aviso legal:</strong> {footerDisclaimer}</p>
+        <nav class="lp-footer-nav">
+          <a href="/aviso-de-privacidad/">Aviso de privacidad</a>
+          <a href="/terminos/">Términos de servicio</a>
+          <a href={footerServiceHref}>{footerServiceLabel}</a>
+        </nav>
+      </div>
+    </footer>
+  </main>
+  <WhatsAppFloat />
+</BaseLayout>
+
+<style is:global>
+  .lp-header { background: var(--navy); padding: 18px 0; border-bottom: 1px solid var(--line-light); }
+  .lp-header-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .lp-logo { display: flex; align-items: center; gap: 12px; color: var(--cream); text-decoration: none; }
+  .lp-logo img { filter: brightness(10); opacity: .88; }
+  .lp-logo .wordmark strong { font-size: 1.18rem; letter-spacing: .13em; }
+  .lp-logo .wordmark small { font-size: .5rem; letter-spacing: .38em; color: var(--gold-300); }
+  .lp-disclaimer-tag { font-size: .68rem; color: rgba(196,168,130,.65); letter-spacing: .05em; border: 1px solid rgba(196,168,130,.2); padding: 5px 11px; line-height: 1; }
+
+  .lp-hero { padding-block: clamp(80px, 11vw, 136px); }
+  .lp-ey        { animation: hero-enter .65s var(--ease) .1s both; }
+  .lp-h1        { animation: hero-enter .75s var(--ease) .26s both; }
+  .lp-lead-anim { animation: hero-enter .65s var(--ease) .46s both; }
+  .lp-hero .eyebrow { color: var(--gold-300); }
+  .lp-hero h1 { color: var(--white); font-size: clamp(2.8rem, 5.5vw, 4.6rem); margin-top: .7em; }
+  .lp-hero-lead { color: rgba(245,240,232,.78); font-size: clamp(1.05rem, 1.7vw, 1.28rem); line-height: 1.65; max-width: 58ch; margin-top: 1.3rem; }
+  .lp-hero .hero-actions { margin-top: 2rem; }
+  .lp-hero .hero-reassurance { margin-top: .9rem; }
+  .lp-hero .hero-metrics { margin-top: 3rem; }
+  .lp-hero .hero-metrics dt { font-size: 2rem; }
+
+  .lp-mid-cta { padding-block: clamp(28px, 4vw, 44px); border-block: 1px solid var(--line-light); }
+  .lp-mid-cta-inner { display: flex; align-items: center; gap: clamp(20px, 5vw, 52px); flex-wrap: wrap; }
+  .lp-mid-cta-inner > p { color: var(--cream); font-family: var(--serif); font-size: clamp(1.1rem, 2vw, 1.55rem); flex: 1; min-width: 200px; margin: 0; }
+  .lp-mid-note { color: rgba(245,240,232,.4); font-size: .78rem; white-space: nowrap; }
+
+  .lp-svc-grid { display: grid; grid-template-columns: 1fr 330px; gap: clamp(40px, 6vw, 90px); align-items: start; }
+  .lp-svc-grid .section-header { margin-bottom: clamp(28px, 4vw, 40px); }
+  .lp-svc-grid .section-header p { color: var(--ink); }
+  .lp-includes-list { gap: 22px; }
+  .lp-includes-list li { padding-block: 8px 6px; }
+  .lp-includes-list strong { font-size: .97rem; line-height: 1.45; }
+  .lp-guarantee { margin-top: 2.6rem; font-size: .97rem; line-height: 1.7; }
+
+  .lp-fee-card { padding: 36px 32px; background: var(--white); border-top: 2px solid var(--gold); box-shadow: 0 28px 70px rgba(12,24,46,.09); position: sticky; top: 24px; display: flex; flex-direction: column; }
+  .lp-fee-label { font-size: .65rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+  .lp-fee-amount { font-family: var(--serif); font-size: 2.5rem; font-weight: 600; color: var(--navy); line-height: 1; margin-top: .7rem; }
+  .lp-fee-usd { color: var(--gold); font-size: .88rem; margin-top: .6rem; }
+  .lp-fee-divider { border: none; border-top: 1px solid var(--line); margin: 1.6rem 0; }
+  .lp-fee-frame { color: var(--muted); font-size: .86rem; line-height: 1.75; }
+  .lp-fee-frame strong { color: var(--navy); }
+  .lp-fee-cta { width: 100%; justify-content: center; margin-top: 1.6rem; }
+  .lp-fee-micro { margin-top: .8rem; text-align: center; color: var(--muted); font-size: .72rem; line-height: 1.5; }
+
+  .lp-final { padding-block: clamp(72px, 10vw, 120px); }
+  .lp-final .eyebrow { color: var(--gold-300); }
+  .lp-final-head { max-width: 640px; margin-bottom: clamp(36px, 5vw, 52px); }
+  .lp-final-head h2 { color: var(--white); margin-top: .35em; }
+  .lp-final-lead { color: rgba(245,240,232,.72); line-height: 1.7; max-width: 56ch; margin-top: .85rem; font-size: 1rem; }
+  .lp-final-left { max-width: 520px; }
+  .lp-final-channel-label { color: var(--gold-300); font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; margin-bottom: .9rem; }
+  .lp-final-wa { font-size: 1.05rem; padding: 16px 24px; width: 100%; justify-content: center; }
+  .lp-final-wa-note { color: rgba(245,240,232,.42); font-size: .78rem; margin-top: .75rem; line-height: 1.4; }
+  .lp-trust-list { margin-top: 2rem; display: grid; gap: 14px; border-top: 1px solid var(--line-light); padding-top: 1.6rem; }
+  .lp-trust-list li { color: rgba(245,240,232,.65); font-size: .88rem; line-height: 1.4; display: flex; gap: .7rem; }
+  .lp-trust-list span { color: var(--gold-300); flex-shrink: 0; }
+  .lp-final-form { max-width: 720px; margin-top: clamp(36px, 5vw, 56px); border-top: 1px solid var(--line-light); padding-top: clamp(36px, 5vw, 52px); }
+  .lp-form-label { color: var(--cream); font-family: var(--serif); font-size: 1.05rem; margin-bottom: 1.2rem; opacity: .82; }
+  .lp-final-form .form-grid { grid-template-columns: repeat(2, 1fr); }
+  .lp-final-form .form-grid .full { grid-column: 1 / -1; }
+
+  .lp-footer { background: var(--cream); border-top: 1px solid var(--line); padding-block: 28px; }
+  .lp-footer-inner { display: grid; gap: 14px; }
+  .lp-footer p { color: var(--muted); font-size: .77rem; line-height: 1.7; max-width: 860px; }
+  .lp-footer p strong { color: var(--ink); }
+  .lp-footer-nav { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; }
+  .lp-footer-nav a { color: var(--gold); font-size: .77rem; }
+
+  @media (max-width: 1000px) {
+    .lp-svc-grid { grid-template-columns: 1fr; }
+    .lp-fee-card { position: static; }
+  }
+  @media (max-width: 760px) {
+    .lp-hero .hero-metrics { gap: 20px 28px; }
+    .lp-mid-cta-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .lp-final-form { max-width: 100%; }
+    .lp-final-form .form-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .lp-header-inner { flex-direction: column; align-items: flex-start; }
+  }
+</style>

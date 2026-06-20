@@ -1,19 +1,19 @@
 ---
+import WaIcon from '../components/WaIcon.astro';
 import { site } from '../data/site';
 ---
 
 <section class="section final-cta">
   <div class="shell">
-    <span class="eyebrow">El primer paso es una conversación</span>
-    <h2>¿Listo para avanzar con certeza?</h2>
-    <p>Cuéntenos su caso. Recibirá una orientación directa el mismo día hábil.</p>
-    <div>
+    <span class="eyebrow reveal">El primer paso es una conversación</span>
+    <h2 class="reveal d1">¿Listo para avanzar con certeza?</h2>
+    <p class="reveal d2">Cuéntenos su caso. Recibirá una orientación directa el mismo día hábil.</p>
+    <div class="reveal d2">
       <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="cta_final">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
-        Evaluar mi caso por WhatsApp
+        <WaIcon />Evaluar mi caso por WhatsApp
       </a>
       <a class="btn btn-ghost" href={`mailto:${site.email}`}>Escribir por correo</a>
     </div>
-    <p class="cta-reassurance">Le responde el especialista · el mismo día hábil · sin compromiso</p>
+    <p class="cta-reassurance reveal d3">Le responde el especialista · el mismo día hábil · sin compromiso</p>
   </div>
 </section>

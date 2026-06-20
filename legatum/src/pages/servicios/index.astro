@@ -45,13 +45,13 @@ const schema = {
     <section class="srvi-hero section-navy">
       <div class="shell">
         <Breadcrumb crumbs={[{ label: 'Servicios' }]} variant="dark" />
-        <span class="eyebrow">Áreas de especialidad</span>
-        <h1>Cada proceso, una especialidad.</h1>
+        <span class="eyebrow srvi-ey">Áreas de especialidad</span>
+        <h1 class="srvi-h1">Cada proceso, una especialidad.</h1>
         <p class="srvi-lead">
           No administramos papeles. Analizamos su caso, definimos la ruta y respondemos por cada decisión hasta el final.
           Elija el servicio que necesita y conozca exactamente qué incluye, qué requiere y cuánto cuesta.
         </p>
-        <div class="srvi-actions">
+        <div class="srvi-actions srvi-act">
           <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="servicios_hero">
             Iniciar mi evaluación
           </a>
@@ -65,7 +65,7 @@ const schema = {
         <a class="page-back" href="/">← Inicio</a>
         <div class="srvi-grid">
           {services.map((service, index) => (
-            <a class="srvi-card" href={`/servicios/${service.slug}/`}>
+            <a class={`srvi-card reveal${index > 0 ? ` d${Math.min(index % 3, 3)}` : ''}`} href={`/servicios/${service.slug}/`}>
               <span class="srvi-num">{String(index + 1).padStart(2, '0')}</span>
               <h2><abbr class="srvi-code">{service.flag}</abbr>{service.title}</h2>
               <p>{service.summary}</p>
@@ -78,7 +78,7 @@ const schema = {
     </section>
 
     <section class="section srvi-extra-section">
-      <div class="shell srvi-extra">
+      <div class="shell srvi-extra reveal">
         <span class="eyebrow">Destinos adicionales</span>
         <h2 class="srvi-extra-h2">¿Su destino no está en la lista?</h2>
         <p>
@@ -108,6 +108,10 @@ const schema = {
     padding-bottom: clamp(48px, 7vw, 84px);
     border-bottom: 1px solid var(--line-light);
   }
+  .srvi-ey  { animation: hero-enter .65s var(--ease) .1s both; }
+  .srvi-h1  { animation: hero-enter .75s var(--ease) .26s both; }
+  .srvi-lead { animation: hero-enter .65s var(--ease) .44s both; }
+  .srvi-act { animation: hero-enter .6s var(--ease) .62s both; }
   .srvi-hero .bc { margin-bottom: 1.4rem; }
   .srvi-hero .eyebrow { color: var(--gold-300); }
   .srvi-hero h1 { color: var(--white); font-size: clamp(2.3rem, 5vw, 4rem); margin-top: .35em; max-width: 16ch; }

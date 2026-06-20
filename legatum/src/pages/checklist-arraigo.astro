@@ -1,6 +1,7 @@
 ---
 import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
+import WaIcon from '../components/WaIcon.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site';
@@ -35,8 +36,8 @@ const schema = {
 
     <section class="cl-hero section-navy">
       <div class="shell">
-        <span class="eyebrow">Recurso sin costo · Legatum Internacional</span>
-        <h1>Checklist de arraigo para visa americana B1/B2</h1>
+        <span class="eyebrow cl-ey">Recurso sin costo · Legatum Internacional</span>
+        <h1 class="cl-h1">Checklist de arraigo para visa americana B1/B2</h1>
         <p class="cl-lead">
           El arraigo es el factor que más solicitudes pierde. Esta lista le permite evaluar
           en menos de 5 minutos si su expediente está listo para la entrevista consular.
@@ -54,7 +55,7 @@ const schema = {
             los que requieren atención antes de avanzar.
           </p>
 
-          <div class="cl-group">
+          <div class="cl-group reveal">
             <h2><span class="cl-num">01</span> Arraigo laboral o económico</h2>
             <p class="cl-group-desc">El más importante. Demuestra que tiene ingresos y actividad económica en México.</p>
             <ul class="checklist">
@@ -86,7 +87,7 @@ const schema = {
             </ul>
           </div>
 
-          <div class="cl-group">
+          <div class="cl-group reveal">
             <h2><span class="cl-num">02</span> Arraigo familiar</h2>
             <p class="cl-group-desc">Demuestra que tiene personas que le esperan de regreso en México.</p>
             <ul class="checklist">
@@ -97,7 +98,7 @@ const schema = {
             </ul>
           </div>
 
-          <div class="cl-group">
+          <div class="cl-group reveal">
             <h2><span class="cl-num">03</span> Arraigo patrimonial</h2>
             <p class="cl-group-desc">No es indispensable, pero refuerza la imagen de que tiene algo que perder si no regresa.</p>
             <ul class="checklist">
@@ -108,7 +109,7 @@ const schema = {
             </ul>
           </div>
 
-          <div class="cl-group">
+          <div class="cl-group reveal">
             <h2><span class="cl-num">04</span> Propósito de viaje</h2>
             <p class="cl-group-desc">Debe ser específico, coherente con su perfil y verificable.</p>
             <ul class="checklist">
@@ -119,7 +120,7 @@ const schema = {
             </ul>
           </div>
 
-          <div class="cl-group">
+          <div class="cl-group reveal">
             <h2><span class="cl-num">05</span> Documentos personales base</h2>
             <ul class="checklist">
               <li>Pasaporte mexicano vigente (con al menos 6 meses más allá de la fecha de regreso planificada)</li>
@@ -130,7 +131,7 @@ const schema = {
             </ul>
           </div>
 
-          <div class="cl-alert">
+          <div class="cl-alert reveal">
             <strong>Antes de agendar la cita:</strong> revise que la información del DS-160 sea
             idéntica a la de sus documentos de soporte. Una inconsistencia entre el formulario
             y una carta laboral es la causa más frecuente de preguntas difíciles en ventanilla.
@@ -143,8 +144,7 @@ const schema = {
             <h3>Evaluamos su caso antes de que invierta en la cita</h3>
             <p>Cuéntenos su situación. Le decimos con claridad si su expediente está listo o qué necesita fortalecer antes de avanzar.</p>
             <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="checklist_arraigo">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
-              Evaluar mi caso por WhatsApp
+              <WaIcon />Evaluar mi caso por WhatsApp
             </a>
           </div>
 
@@ -185,6 +185,9 @@ const schema = {
     padding-bottom: clamp(48px, 7vw, 80px);
     border-bottom: 1px solid var(--line-light);
   }
+  .cl-ey   { animation: hero-enter .65s var(--ease) .1s both; }
+  .cl-h1   { animation: hero-enter .75s var(--ease) .26s both; }
+  .cl-lead { animation: hero-enter .65s var(--ease) .44s both; }
   .cl-hero .eyebrow { color: var(--gold-300); }
   .cl-hero h1 { color: var(--white); font-size: clamp(2rem, 4.5vw, 3.4rem); margin-top: .35em; max-width: 22ch; }
   .cl-lead { max-width: 60ch; margin-top: 1.1rem; color: rgba(245, 240, 232, .82); font-size: clamp(1.05rem, 1.6vw, 1.2rem); line-height: 1.6; }

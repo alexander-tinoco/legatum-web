@@ -1,0 +1,580 @@
+---
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Footer from '../../components/Footer.astro';
+import Navbar from '../../components/Navbar.astro';
+import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, fees } from '../../data/site';
+
+const canonical = `${site.url}/herramientas/calculadora-costos/`;
+const phone = site.phone.replace('+', '');
+const honMin = fees.minMXN;
+const honMax = fees.maxMXN;
+---
+
+<BaseLayout
+  title={`Calculadora de costos | Cuánto cuesta tramitar la visa americana | ${site.name}`}
+  description="Estime el costo total de su trámite de visa americana: tarifa MRV (~$185 USD), honorarios profesionales, traslado al consulado según su ciudad, fotografías y pasaporte. Desglose completo en MXN. Sin compromiso."
+  canonical={canonical}
+>
+  <Navbar />
+  <main id="main-content">
+
+    <!-- ── HERO ──────────────────────────────────────── -->
+    <section class="cc-hero section-navy">
+      <div class="shell">
+        <Breadcrumb
+          crumbs={[{ label: 'Herramientas', href: '/herramientas/' }, { label: 'Calculadora de costos' }]}
+          variant="dark"
+        />
+        <span class="eyebrow cc-ey">Herramienta gratuita · Planifique su inversión</span>
+        <h1 class="cc-title cc-h1">¿Cuánto cuesta tramitar la visa americana?</h1>
+        <p class="cc-lead cc-p">
+          Seleccione su situación y vea en segundos el desglose real de su inversión:
+          tarifa MRV, honorarios, traslado al consulado y más.
+          Todo en MXN — antes de decidir, sin sorpresas.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── CALCULADORA ───────────────────────────────── -->
+    <section class="section section-paper cc-section">
+      <div class="shell">
+        <a class="page-back reveal" href="/herramientas/">← Herramientas</a>
+        <div class="cc-layout">
+
+          <!-- Preguntas -->
+          <div class="cc-form">
+
+            <div class="cc-group reveal">
+              <h2 class="cc-group-title">
+                <span class="cc-num">01</span>
+                ¿En qué ciudad vives?
+              </h2>
+              <p class="cc-group-hint">Lo usamos para estimar el traslado al consulado más cercano.</p>
+              <select class="cc-select" id="cc-ciudad" aria-label="Ciudad de residencia">
+                <option value="" disabled selected>Selecciona tu ciudad…</option>
+                <optgroup label="Ciudades con consulado propio">
+                  <option value="cdmx">Ciudad de México</option>
+                  <option value="gdl">Guadalajara</option>
+                  <option value="mty">Monterrey</option>
+                  <option value="tij">Tijuana</option>
+                  <option value="jua">Ciudad Juárez</option>
+                  <option value="hmo">Hermosillo</option>
+                  <option value="mid">Mérida</option>
+                  <option value="mat">Matamoros</option>
+                  <option value="nla">Nuevo Laredo</option>
+                  <option value="nol">Nogales</option>
+                </optgroup>
+                <optgroup label="Otras ciudades (con traslado)">
+                  <option value="ags">Aguascalientes</option>
+                  <option value="chi">Chihuahua</option>
+                  <option value="cul">Culiacán</option>
+                  <option value="dgo">Durango</option>
+                  <option value="leo">León / Guanajuato</option>
+                  <option value="lp">La Paz / Los Cabos</option>
+                  <option value="lmo">Los Mochis</option>
+                  <option value="maz">Mazatlán</option>
+                  <option value="mor">Cuernavaca / Morelos</option>
+                  <option value="oax">Oaxaca</option>
+                  <option value="pue">Puebla</option>
+                  <option value="qro">Querétaro</option>
+                  <option value="sal">Saltillo</option>
+                  <option value="slp">San Luis Potosí</option>
+                  <option value="tam">Tampico</option>
+                  <option value="tor">Torreón / Gómez Palacio</option>
+                  <option value="ver">Veracruz</option>
+                  <option value="can">Cancún / Playa del Carmen</option>
+                  <option value="zac">Zacatecas</option>
+                  <option value="otro">Otra ciudad</option>
+                </optgroup>
+              </select>
+              <p class="cc-city-note" id="cc-city-note"></p>
+            </div>
+
+            <div class="cc-group reveal d1">
+              <h2 class="cc-group-title">
+                <span class="cc-num">02</span>
+                ¿Tienes pasaporte mexicano vigente?
+              </h2>
+              <div class="cc-opts" role="group" aria-label="Situación del pasaporte">
+                <label class="cc-opt" data-group="pasaporte" data-value="si">
+                  <input type="radio" name="pasaporte" value="si" class="cc-radio" />
+                  <span class="cc-opt-text">
+                    <strong>Sí, vigente</strong>
+                    <small>Con más de 6 meses de vigencia</small>
+                  </span>
+                </label>
+                <label class="cc-opt" data-group="pasaporte" data-value="renovar">
+                  <input type="radio" name="pasaporte" value="renovar" class="cc-radio" />
+                  <span class="cc-opt-text">
+                    <strong>Vence pronto — necesito renovarlo</strong>
+                    <small>Menos de 6 meses de vigencia</small>
+                  </span>
+                </label>
+                <label class="cc-opt" data-group="pasaporte" data-value="no">
+                  <input type="radio" name="pasaporte" value="no" class="cc-radio" />
+                  <span class="cc-opt-text">
+                    <strong>No tengo pasaporte</strong>
+                    <small>Necesito tramitarlo</small>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="cc-group reveal d2">
+              <h2 class="cc-group-title">
+                <span class="cc-num">03</span>
+                ¿Qué tipo de trámite es?
+              </h2>
+              <div class="cc-opts" role="group" aria-label="Tipo de trámite">
+                <label class="cc-opt" data-group="tramite" data-value="primera">
+                  <input type="radio" name="tramite" value="primera" class="cc-radio" />
+                  <span class="cc-opt-text">
+                    <strong>Primera solicitud de visa B1/B2</strong>
+                    <small>Nunca he tenido visa americana</small>
+                  </span>
+                </label>
+                <label class="cc-opt" data-group="tramite" data-value="renovacion">
+                  <input type="radio" name="tramite" value="renovacion" class="cc-radio" />
+                  <span class="cc-opt-text">
+                    <strong>Renovación de visa</strong>
+                    <small>Tuve visa americana (vigente o vencida)</small>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Panel de costos -->
+          <div class="cc-panel reveal d1">
+            <div class="cc-panel-inner" id="cc-panel">
+
+              <h2 class="cc-panel-title">Desglose de costos</h2>
+
+              <div class="cc-items">
+
+                <div class="cc-item">
+                  <div class="cc-item-left">
+                    <span class="cc-item-label">Tarifa gobierno (MRV)</span>
+                    <span class="cc-item-sub">~$185 USD · pago directo al Dep. de Estado de EE.UU.</span>
+                  </div>
+                  <span class="cc-item-amount" id="cc-val-mrv">$3,500</span>
+                </div>
+
+                <div class="cc-item">
+                  <div class="cc-item-left">
+                    <span class="cc-item-label">Honorarios profesionales</span>
+                    <span class="cc-item-sub">Se confirman tras la evaluación inicial</span>
+                  </div>
+                  <span class="cc-item-amount cc-range" id="cc-val-hon">$2,000 – $3,000</span>
+                </div>
+
+                <div class="cc-item" id="cc-row-traslado">
+                  <div class="cc-item-left">
+                    <span class="cc-item-label">Traslado al consulado</span>
+                    <span class="cc-item-sub" id="cc-sub-traslado">Seleccione su ciudad</span>
+                  </div>
+                  <span class="cc-item-amount cc-pending" id="cc-val-traslado">—</span>
+                </div>
+
+                <div class="cc-item">
+                  <div class="cc-item-left">
+                    <span class="cc-item-label">Fotografías</span>
+                    <span class="cc-item-sub">2 fotos tamaño pasaporte</span>
+                  </div>
+                  <span class="cc-item-amount" id="cc-val-fotos">$100</span>
+                </div>
+
+                <div class="cc-item" id="cc-row-pasaporte">
+                  <div class="cc-item-left">
+                    <span class="cc-item-label">Pasaporte mexicano</span>
+                    <span class="cc-item-sub" id="cc-sub-pasaporte">Seleccione su situación</span>
+                  </div>
+                  <span class="cc-item-amount cc-pending" id="cc-val-pasaporte">—</span>
+                </div>
+
+              </div>
+
+              <div class="cc-total-row">
+                <span class="cc-total-label">Total estimado</span>
+                <div>
+                  <span class="cc-total-amount" id="cc-total">—</span>
+                  <span class="cc-total-currency" id="cc-total-currency"></span>
+                </div>
+              </div>
+
+              <p class="cc-disclaimer">
+                Los montos son estimaciones de referencia en MXN. La tarifa MRV (~$185 USD) varía
+                con el tipo de cambio. El especialista le confirma el desglose exacto por escrito
+                — antes de cualquier compromiso.
+              </p>
+
+              <a id="cc-wa" href={`https://wa.me/${phone}?text=${encodeURIComponent('Hola, usé la calculadora de costos de Legatum y me gustaría conocer el costo exacto de mi trámite.')}`}
+                class="btn btn-whatsapp cc-cta"
+                target="_blank"
+                rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Iniciar mi trámite
+              </a>
+              <p class="cc-reassurance">Sin compromiso · Le responde el especialista el mismo día</p>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>
+
+<style>
+  /* ── Hero animations ──────────────────────────────── */
+  .cc-ey  { animation: hero-enter .65s var(--ease) .1s  both; }
+  .cc-h1  { animation: hero-enter .75s var(--ease) .28s both; }
+  .cc-p   { animation: hero-enter .65s var(--ease) .46s both; }
+
+  /* ── Hero ──────────────────────────────────────────── */
+  .cc-hero {
+    padding: clamp(56px, 8vw, 100px) 0 clamp(48px, 7vw, 88px);
+    padding-top: calc(var(--header) + clamp(40px, 6vw, 72px));
+  }
+  .cc-title {
+    font-size: clamp(1.9rem, 4.5vw, 3.4rem);
+    color: var(--white);
+    margin: .6rem 0 1rem;
+    max-width: none;
+  }
+  .cc-lead {
+    max-width: 58ch;
+    color: rgba(245,240,232,.75);
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ── Layout ────────────────────────────────────────── */
+  .cc-section { padding-top: clamp(40px, 6vw, 72px); }
+  .cc-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: start;
+  }
+
+  /* ── Formulario ────────────────────────────────────── */
+  .cc-form { display: flex; flex-direction: column; gap: clamp(28px, 4vw, 40px); }
+
+  .cc-group { display: flex; flex-direction: column; gap: 10px; }
+  .cc-group-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--serif);
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    font-weight: 600;
+    color: var(--navy);
+    margin: 0;
+  }
+  .cc-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid var(--gold);
+    color: var(--gold);
+    font-family: var(--serif);
+    font-size: .78rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .cc-group-hint {
+    color: var(--muted);
+    font-size: .88rem;
+    line-height: 1.5;
+    margin: 0 0 4px;
+  }
+
+  /* Select */
+  .cc-select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--line);
+    background: var(--white);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: .92rem;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237c6549' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 38px;
+    cursor: pointer;
+    transition: border-color .2s;
+  }
+  .cc-select:focus { outline: 2px solid var(--gold); outline-offset: 2px; border-color: var(--gold); }
+  .cc-city-note {
+    font-size: .8rem;
+    color: var(--gold);
+    font-weight: 600;
+    min-height: 1.2em;
+    margin: 0;
+  }
+
+  /* Opciones radio */
+  .cc-opts { display: flex; flex-direction: column; gap: 8px; }
+  .cc-opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1px solid var(--line);
+    background: var(--white);
+    cursor: pointer;
+    transition: border-color .18s, background .18s;
+  }
+  .cc-opt:hover { border-color: var(--gold); }
+  .cc-opt.is-selected { border-color: var(--gold); background: rgba(124,101,73,.05); }
+  .cc-radio { display: none; }
+  .cc-opt-text { display: flex; flex-direction: column; gap: 2px; }
+  .cc-opt-text strong { font-size: .9rem; color: var(--navy); font-weight: 650; }
+  .cc-opt-text small { font-size: .78rem; color: var(--muted); }
+  .cc-opt::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--line);
+    flex-shrink: 0;
+    transition: border-color .18s, background .18s;
+  }
+  .cc-opt.is-selected::before { border-color: var(--gold); background: var(--gold); box-shadow: inset 0 0 0 3px var(--white); }
+
+  /* ── Panel de costos ───────────────────────────────── */
+  .cc-panel { position: sticky; top: calc(var(--header) + 24px); }
+  .cc-panel-inner {
+    background: var(--navy);
+    padding: clamp(20px, 3vw, 32px);
+    color: rgba(245,240,232,.85);
+  }
+  .cc-panel-title {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    margin: 0 0 1.4rem;
+    padding-bottom: .9rem;
+    border-bottom: 1px solid rgba(196,168,130,.18);
+    letter-spacing: .01em;
+  }
+
+  .cc-items { display: flex; flex-direction: column; gap: 0; }
+  .cc-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: .85rem 0;
+    border-bottom: 1px solid rgba(196,168,130,.1);
+  }
+  .cc-item:last-child { border-bottom: none; }
+  .cc-item-left { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+  .cc-item-label { font-size: .84rem; font-weight: 650; color: var(--white); }
+  .cc-item-sub { font-size: .72rem; color: rgba(245,240,232,.45); line-height: 1.4; }
+  .cc-item-amount {
+    font-family: var(--serif);
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--white);
+    white-space: nowrap;
+    padding-top: 1px;
+  }
+  .cc-range { color: var(--gold-300); }
+  .cc-pending { color: rgba(245,240,232,.3); }
+
+  /* Total */
+  .cc-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-top: 1.2rem;
+    padding-top: 1rem;
+    border-top: 2px solid rgba(196,168,130,.3);
+  }
+  .cc-total-label {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--gold-300);
+  }
+  .cc-total-amount {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+  }
+  .cc-total-currency {
+    display: block;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,.4);
+    margin-top: 3px;
+    text-align: right;
+  }
+
+  .cc-disclaimer {
+    font-size: .7rem;
+    color: rgba(245,240,232,.4);
+    line-height: 1.55;
+    margin: 1rem 0 1.4rem;
+  }
+  .cc-reassurance {
+    text-align: center;
+    font-size: .72rem;
+    color: rgba(245,240,232,.45);
+    margin: .6rem 0 0;
+    letter-spacing: .01em;
+  }
+
+  .cc-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: .9rem;
+    min-height: 48px;
+    gap: 8px;
+    white-space: nowrap;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* ── Responsive ────────────────────────────────────── */
+  @media (max-width: 860px) {
+    .cc-layout { grid-template-columns: 1fr; }
+    .cc-panel { position: static; }
+  }
+</style>
+
+<script define:vars={{ phone, honMin, honMax }}>
+const CITIES = {
+  cdmx:  { label: 'Ciudad de México',         traslado: 500,  note: 'Consulado a transporte local (metro/taxi)' },
+  gdl:   { label: 'Guadalajara',               traslado: 350,  note: 'Consulado en tu ciudad — solo transporte local' },
+  mty:   { label: 'Monterrey',                 traslado: 350,  note: 'Consulado en tu ciudad — solo transporte local' },
+  tij:   { label: 'Tijuana',                   traslado: 350,  note: 'Consulado en tu ciudad — solo transporte local' },
+  jua:   { label: 'Ciudad Juárez',             traslado: 350,  note: 'Consulado en tu ciudad — solo transporte local' },
+  hmo:   { label: 'Hermosillo',                traslado: 350,  note: 'Consulado en tu ciudad — solo transporte local' },
+  mid:   { label: 'Mérida',                    traslado: 350,  note: 'Consulado en tu ciudad — solo transporte local' },
+  mat:   { label: 'Matamoros',                 traslado: 350,  note: 'Consulado en tu ciudad — solo transporte local' },
+  nla:   { label: 'Nuevo Laredo',              traslado: 350,  note: 'Consulado en tu ciudad — solo transporte local' },
+  nol:   { label: 'Nogales',                   traslado: 350,  note: 'Consulado en tu ciudad — solo transporte local' },
+  ags:   { label: 'Aguascalientes',            traslado: 1600, note: 'Viaje a Guadalajara (~2h en bus)' },
+  chi:   { label: 'Chihuahua',                 traslado: 1400, note: 'Viaje a Ciudad Juárez (~3.5h en bus)' },
+  cul:   { label: 'Culiacán',                  traslado: 2800, note: 'Viaje a Guadalajara o Hermosillo' },
+  dgo:   { label: 'Durango',                   traslado: 2500, note: 'Viaje a Guadalajara o Monterrey (~6-7h)' },
+  leo:   { label: 'León / Guanajuato',         traslado: 1500, note: 'Viaje a CDMX o Guadalajara' },
+  lp:    { label: 'La Paz / Los Cabos',        traslado: 3500, note: 'Vuelo a Hermosillo o Tijuana + hotel' },
+  lmo:   { label: 'Los Mochis',                traslado: 2500, note: 'Viaje a Hermosillo o Guadalajara' },
+  maz:   { label: 'Mazatlán',                  traslado: 2200, note: 'Viaje a Guadalajara (~5h en bus)' },
+  mor:   { label: 'Cuernavaca / Morelos',      traslado: 800,  note: 'Viaje a CDMX (~1.5h en bus)' },
+  oax:   { label: 'Oaxaca',                    traslado: 2000, note: 'Viaje a CDMX (~5h en bus)' },
+  pue:   { label: 'Puebla',                    traslado: 900,  note: 'Viaje a CDMX (~2h en bus)' },
+  qro:   { label: 'Querétaro',                 traslado: 1200, note: 'Viaje a CDMX (~3h en bus)' },
+  sal:   { label: 'Saltillo',                  traslado: 700,  note: 'Viaje a Monterrey (~1.5h en bus)' },
+  slp:   { label: 'San Luis Potosí',           traslado: 1800, note: 'Viaje a Monterrey o CDMX' },
+  tam:   { label: 'Tampico',                   traslado: 1600, note: 'Viaje a Monterrey o Matamoros' },
+  tor:   { label: 'Torreón / Gómez Palacio',   traslado: 1900, note: 'Viaje a Monterrey (~4h en bus)' },
+  ver:   { label: 'Veracruz',                  traslado: 1500, note: 'Viaje a CDMX (~5h en bus)' },
+  can:   { label: 'Cancún / Playa del Carmen', traslado: 900,  note: 'Viaje a Mérida (~4h en bus)' },
+  zac:   { label: 'Zacatecas',                 traslado: 2000, note: 'Viaje a Guadalajara (~4h en bus)' },
+  otro:  { label: 'Otra ciudad',               traslado: 2500, note: 'Estimado promedio — incluye transporte y hospedaje' },
+};
+
+const MRV     = 3500;
+const FOTOS   = 100;
+const PASAPORTE_COSTO = 2590;
+
+const fmt = (n) => '$' + n.toLocaleString('es-MX');
+
+let state = { ciudad: null, pasaporte: null, tramite: null };
+
+function update() {
+  const city = state.ciudad ? CITIES[state.ciudad] : null;
+
+  // Traslado
+  const traslado = city ? city.traslado : null;
+  document.getElementById('cc-val-traslado').textContent = traslado !== null ? fmt(traslado) : '—';
+  document.getElementById('cc-val-traslado').className = 'cc-item-amount' + (traslado === null ? ' cc-pending' : '');
+  document.getElementById('cc-sub-traslado').textContent = city ? city.note : 'Seleccione su ciudad';
+
+  // Pasaporte
+  let pasaporteCosto = null;
+  let pasaporteSub = 'Seleccione su situación';
+  if (state.pasaporte === 'si') {
+    pasaporteCosto = 0;
+    pasaporteSub = 'Ya cuentas con él';
+  } else if (state.pasaporte === 'renovar' || state.pasaporte === 'no') {
+    pasaporteCosto = PASAPORTE_COSTO;
+    pasaporteSub = 'Pasaporte mexicano 10 años (estimado)';
+  }
+  document.getElementById('cc-val-pasaporte').textContent = pasaporteCosto !== null ? (pasaporteCosto === 0 ? 'Incluido' : fmt(pasaporteCosto)) : '—';
+  document.getElementById('cc-val-pasaporte').className = 'cc-item-amount' + (pasaporteCosto === null ? ' cc-pending' : '');
+  document.getElementById('cc-sub-pasaporte').textContent = pasaporteSub;
+
+  // Total
+  const totalEl     = document.getElementById('cc-total');
+  const currencyEl  = document.getElementById('cc-total-currency');
+  if (traslado !== null && pasaporteCosto !== null) {
+    const base = MRV + FOTOS + traslado + pasaporteCosto;
+    const min  = base + honMin;
+    const max  = base + honMax;
+    totalEl.textContent    = `${fmt(min)} – ${fmt(max)}`;
+    currencyEl.textContent = 'MXN · estimado referencial';
+  } else {
+    totalEl.textContent    = '—';
+    currencyEl.textContent = '';
+  }
+
+  // WhatsApp message
+  const cityLabel   = city ? city.label : 'no especificada';
+  const pasLabel    = state.pasaporte === 'si' ? 'con pasaporte vigente' : state.pasaporte === 'renovar' ? 'necesita renovar pasaporte' : state.pasaporte === 'no' ? 'sin pasaporte' : 'no especificado';
+  const tramLabel   = state.tramite === 'primera' ? 'primera solicitud' : state.tramite === 'renovacion' ? 'renovación de visa' : 'no especificado';
+  const totalText   = traslado !== null && pasaporteCosto !== null
+    ? ` Estimado total: ${fmt(MRV + FOTOS + traslado + pasaporteCosto + honMin)} – ${fmt(MRV + FOTOS + traslado + pasaporteCosto + honMax)} MXN.`
+    : '';
+  const msg = `Hola, usé la calculadora de Legatum. Mi situación: ciudad ${cityLabel}, ${pasLabel}, ${tramLabel}.${totalText} Me gustaría confirmar el costo exacto de mi trámite.`;
+  document.getElementById('cc-wa').href = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+}
+
+// Ciudad
+document.getElementById('cc-ciudad').addEventListener('change', (e) => {
+  state.ciudad = e.target.value;
+  document.getElementById('cc-city-note').textContent = CITIES[e.target.value]?.note ?? '';
+  update();
+});
+
+// Radios
+document.querySelectorAll('.cc-opt').forEach((label) => {
+  label.addEventListener('click', () => {
+    const group = label.dataset.group;
+    const value = label.dataset.value;
+    state[group] = value;
+    document.querySelectorAll(`.cc-opt[data-group="${group}"]`).forEach((l) => l.classList.remove('is-selected'));
+    label.classList.add('is-selected');
+    update();
+  });
+});
+</script>

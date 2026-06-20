@@ -4,6 +4,7 @@ import monogramCream from '../assets/brand/li-monogram-cream.png';
 import monogramNavy from '../assets/brand/li-monogram-navy.png';
 import { navItems, site } from '../data/site';
 import SocialLinks from './SocialLinks.astro';
+import WaIcon from './WaIcon.astro';
 
 const isHome = Astro.url.pathname === '/';
 const a = (href: string) => href.startsWith('/') ? href : isHome ? href : `/${href}`;
@@ -26,8 +27,7 @@ const a = (href: string) => href.startsWith('/') ? href : isHome ? href : `/${hr
 
     <div class="header-actions">
       <a class="btn btn-small btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="navbar">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
-        Evaluar mi caso
+        <WaIcon />Evaluar mi caso
       </a>
       <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" data-menu-toggle>
         <span></span><span></span><span></span>

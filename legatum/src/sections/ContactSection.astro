@@ -12,7 +12,7 @@ import { emailEntity, emailHref, site } from '../data/site';
         title="Cuéntenos su caso."
         lead="Complete el formulario y reciba una primera orientación el mismo día hábil, sin compromiso y sin tecnicismos vacíos."
       />
-      <div class="contact-channels">
+      <div class="contact-channels reveal d1">
         <a href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="contacto">
           <strong>WhatsApp {site.phoneDisplay}</strong>
           <span>La vía más rápida — respuesta el mismo día hábil</span>
@@ -23,6 +23,8 @@ import { emailEntity, emailHref, site } from '../data/site';
         </a>
       </div>
     </div>
-    <ContactForm />
+    <div class="reveal d2">
+      <ContactForm />
+    </div>
   </div>
 </section>

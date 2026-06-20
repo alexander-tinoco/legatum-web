@@ -3,6 +3,7 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
+import WaIcon from '../components/WaIcon.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { caseStudies, fees, services, site, testimonials } from '../data/site';
@@ -87,7 +88,7 @@ const schema = {
 ---
 
 <BaseLayout
-  title="Visa Americana en Durango | Asesoría B1/B2 y entrevista consular"
+  title="Visa Americana en Durango | Asesoría B1/B2 y entrevista consular | Legatum Internacional"
   description="Asesoría para la visa americana B1/B2 en Durango: llenado del DS-160, expediente de arraigo y preparación para la entrevista. Firma local, atención presencial o a distancia."
   canonical={canonical}
 >
@@ -101,8 +102,8 @@ const schema = {
     <section class="vad-hero section-navy">
       <div class="shell">
         <Breadcrumb crumbs={[{ label: 'Visa Americana en Durango' }]} variant="dark" />
-        <span class="eyebrow">Firma de movilidad internacional · Durango</span>
-        <h1>
+        <span class="eyebrow vad-ey">Firma de movilidad internacional · Durango</span>
+        <h1 class="vad-h1">
           La visa americana no se gana<br />
           llenando un formulario.
         </h1>
@@ -112,8 +113,7 @@ const schema = {
         </p>
         <div class="hero-actions">
           <a class="btn btn-whatsapp" href={waUrl} target="_blank" rel="noopener noreferrer" data-wa-location="landing_durango">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
-            Evaluar mi caso — sin costo
+            <WaIcon />Evaluar mi caso — sin costo
           </a>
         </div>
         <p class="hero-reassurance">Responde el especialista · Mismo día hábil · Sin compromiso</p>
@@ -135,8 +135,8 @@ const schema = {
           <p>La mayoría de las negativas no son por falta de dinero ni de viajes previos. Son prevenibles con la preparación correcta.</p>
         </div>
         <div class="trust-grid">
-          {painPoints.map((p) => (
-            <article>
+          {painPoints.map((p, i) => (
+            <article class={`reveal${i > 0 ? ` d${Math.min(i, 3)}` : ''}`}>
               <span>{p.tag}</span>
               <h3>{p.title}</h3>
               <p>{p.body}</p>
@@ -151,8 +151,7 @@ const schema = {
       <div class="shell vad-mid-cta-inner">
         <p>¿Alguna de esas situaciones aplica a su caso?</p>
         <a class="btn btn-whatsapp" href={waUrl} target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
-          Cuéntenos su situación
+          <WaIcon />Cuéntenos su situación
         </a>
         <span class="vad-mid-note">Sin compromiso — le orientamos hoy</span>
       </div>
@@ -190,8 +189,7 @@ const schema = {
             10&nbsp;años de entradas a Estados Unidos.
           </p>
           <a class="btn btn-whatsapp vad-fee-cta" href={waUrl} target="_blank" rel="noopener noreferrer">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
-            Iniciar mi evaluación
+            <WaIcon />Iniciar mi evaluación
           </a>
           <p class="vad-fee-micro">El alcance y el honorario se confirman por escrito antes de contratar</p>
         </aside>
@@ -206,15 +204,15 @@ const schema = {
           <h2>{caseStudy.title}</h2>
         </div>
         <div class="case-grid">
-          <article>
+          <article class="reveal">
             <span>La situación</span>
             <p>{caseStudy.situation}</p>
           </article>
-          <article>
+          <article class="reveal d1">
             <span>Lo que hicimos</span>
             <p>{caseStudy.process}</p>
           </article>
-          <article class="vad-case-result">
+          <article class="vad-case-result reveal d2">
             <span>El resultado</span>
             <p>{caseStudy.result}</p>
           </article>
@@ -235,21 +233,21 @@ const schema = {
           <p>Sabemos qué falla en cada etapa. Por eso no dejamos nada al azar ni a última hora.</p>
         </div>
         <ul class="method-list">
-          <li>
+          <li class="reveal">
             <span>01</span>
             <div>
               <h3>Análisis de viabilidad</h3>
               <p>Analizamos su caso y le decimos qué es posible, qué no y qué riesgos hay. Si su caso no tiene viabilidad real, se lo decimos antes de cobrar.</p>
             </div>
           </li>
-          <li>
+          <li class="reveal d1">
             <span>02</span>
             <div>
               <h3>Preparación del expediente</h3>
               <p>Completamos el DS-160 correcto, construimos el expediente de arraigo y definimos cada documento. Nada queda al azar ni a última hora.</p>
             </div>
           </li>
-          <li>
+          <li class="reveal d2">
             <span>03</span>
             <div>
               <h3>Preparación para la entrevista</h3>
@@ -302,8 +300,7 @@ const schema = {
           <div class="vad-final-left">
             <p class="vad-final-channel-label">Canal directo · WhatsApp</p>
             <a class="btn btn-whatsapp vad-final-wa" href={waUrl} target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
-              Hablar con el especialista
+              <WaIcon />Hablar con el especialista
             </a>
             <p class="vad-final-wa-note">Le responde Alexander Tinoco directamente · Mismo día hábil</p>
             <ul class="vad-trust-list">
@@ -334,6 +331,9 @@ const schema = {
     border-bottom: 1px solid var(--line-light);
   }
   .vad-hero .bc { margin-bottom: 1.4rem; }
+  .vad-ey   { animation: hero-enter .65s var(--ease) .1s both; }
+  .vad-h1   { animation: hero-enter .75s var(--ease) .26s both; }
+  .vad-lead { animation: hero-enter .65s var(--ease) .46s both; }
   .vad-hero .eyebrow { color: var(--gold-300); }
   .vad-hero h1 { color: var(--white); font-size: clamp(2.8rem, 5.5vw, 4.6rem); margin-top: .7em; }
   .vad-lead { max-width: 58ch; margin-top: 1.3rem; color: rgba(245,240,232,.78); font-size: clamp(1.05rem, 1.7vw, 1.28rem); line-height: 1.65; }

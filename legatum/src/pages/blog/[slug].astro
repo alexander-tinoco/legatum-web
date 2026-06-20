@@ -79,8 +79,8 @@ const faqSchema = post.data.faqs?.length
               {post.data.tags.slice(0, 3).map((tag) => <li>{tag}</li>)}
             </ul>
           )}
-          <h1>{post.data.title}</h1>
-          <p class="post-meta">
+          <h1 class="post-h1">{post.data.title}</h1>
+          <p class="post-meta post-meta-anim">
             <time datetime={post.data.pubDate.toISOString()}>
               {post.data.pubDate.toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}
             </time>
@@ -92,11 +92,11 @@ const faqSchema = post.data.faqs?.length
 
       <div class="post-body section section-paper">
         <div class="shell">
-          <div class="post-content">
+          <div class="post-content reveal">
             <a class="post-back-link" href="/blog/">← Volver a guías</a>
             <Content />
           </div>
-          <aside class="post-cta">
+          <aside class="post-cta reveal d1">
             {pillarService && (
               <div class="post-pillar">
                 <p class="post-pillar-label">Servicio relacionado</p>
@@ -132,6 +132,8 @@ const faqSchema = post.data.faqs?.length
   .blog-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1.4rem; }
   .blog-tags li { padding: 3px 9px; border: 1px solid rgba(196,168,130,.4); color: var(--gold-300); font-size: .67rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
   .post-hero h1 { color: var(--white); font-size: clamp(2rem, 4.5vw, 3.6rem); margin-top: .5em; max-width: 22ch; }
+  .post-h1        { animation: hero-enter .75s var(--ease) .26s both; }
+  .post-meta-anim { animation: hero-enter .65s var(--ease) .48s both; }
   .post-meta { display: flex; gap: .75rem; align-items: center; margin-top: 1.2rem; color: rgba(245,240,232,.6); font-size: .84rem; }
   .post-body .shell { display: grid; grid-template-columns: 1fr 280px; gap: 64px; align-items: start; }
   .post-back-link {

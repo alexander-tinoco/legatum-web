@@ -32,7 +32,7 @@ const schema = {
 ---
 
 <BaseLayout
-  title={`Nosotros — ${founder.name}, ${founder.role} | ${site.name}`}
+  title={`La firma | ${founder.name}, ${founder.role} | ${site.name}`}
   description={`Conozca a ${founder.name}, ${founder.role} de ${site.name}. Especialista en visas, pasaportes y procesos consulares con preparación rigurosa de cada expediente.`}
   canonical={canonical}
 >
@@ -44,8 +44,8 @@ const schema = {
     <section class="abt-hero section-navy">
       <div class="shell">
         <Breadcrumb crumbs={[{ label: 'Nosotros' }]} variant="dark" />
-        <span class="eyebrow">La firma</span>
-        <h1>Una institución con nombre y rostro.</h1>
+        <span class="eyebrow abt-ey">La firma</span>
+        <h1 class="abt-h1">Una institución con nombre y rostro.</h1>
         <p class="abt-lead">
           En movilidad internacional, la confianza no se delega en un sistema anónimo. Detrás de cada
           expediente hay una persona que responde por él en cada etapa.
@@ -57,7 +57,7 @@ const schema = {
       <div class="shell abt-founder">
         <a class="page-back" href="/">← Inicio</a>
 
-        <div class={`portrait-panel abt-portrait${founder.image ? ' has-photo' : ''}`}>
+        <div class={`portrait-panel abt-portrait reveal${founder.image ? ' has-photo' : ''}`}>
           {founder.image
             ? <img class="portrait-photo" src={founder.image} alt={`${founder.name}, ${founder.role} de ${site.name}`} width="709" height="1063" loading="eager" />
             : <span class="portrait-mark" aria-hidden="true">LI</span>}
@@ -67,7 +67,7 @@ const schema = {
           </div>
         </div>
 
-        <div class="abt-founder-text">
+        <div class="abt-founder-text reveal d1">
           <span class="eyebrow">Especialista y fundador</span>
           <h2>{founder.name}</h2>
           <blockquote class="abt-quote">
@@ -101,8 +101,8 @@ const schema = {
         <span class="eyebrow">Cómo trabajamos</span>
         <h2 class="abt-h2">Principios que sostienen cada caso</h2>
         <div class="abt-values">
-          {trustItems.map((item) => (
-            <article class="abt-value">
+          {trustItems.map((item, i) => (
+            <article class={`abt-value reveal${i > 0 ? ` d${Math.min(i, 3)}` : ''}`}>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
             </article>
@@ -113,10 +113,10 @@ const schema = {
 
     <section class="section section-navy">
       <div class="shell abt-cta">
-        <span class="eyebrow">Empecemos</span>
-        <h2>Cuéntenos su caso. Le decimos qué es posible y qué no.</h2>
-        <p>El mismo día hábil recibe una orientación real sobre su situación y los siguientes pasos.</p>
-        <div class="abt-actions">
+        <span class="eyebrow reveal">Empecemos</span>
+        <h2 class="reveal d1">Cuéntenos su caso. Le decimos qué es posible y qué no.</h2>
+        <p class="reveal d2">El mismo día hábil recibe una orientación real sobre su situación y los siguientes pasos.</p>
+        <div class="abt-actions reveal d2">
           <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="nosotros_cta">
             Iniciar mi evaluación
           </a>
@@ -138,6 +138,9 @@ const schema = {
   .abt-hero .bc { margin-bottom: 1.4rem; }
   .abt-hero .eyebrow { color: var(--gold-300); }
   .abt-hero h1 { color: var(--white); font-size: clamp(2.3rem, 5vw, 4rem); margin-top: .35em; max-width: 16ch; }
+  .abt-ey  { animation: hero-enter .65s var(--ease) .1s both; }
+  .abt-h1  { animation: hero-enter .75s var(--ease) .26s both; }
+  .abt-lead { animation: hero-enter .65s var(--ease) .44s both; }
   .abt-lead { max-width: 58ch; margin-top: 1.1rem; color: rgba(245, 240, 232, .82); font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.6; }
 
   /* — Founder layout — */

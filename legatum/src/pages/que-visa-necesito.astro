@@ -154,7 +154,6 @@ const canonical = `${site.url}/que-visa-necesito/`;
           <div class="quiz-step" data-step="3e" hidden>
             <p class="quiz-step-label">Resultado</p>
             <div class="quiz-result" data-result-id="trv_tierra">
-              <div class="result-icon">📋</div>
               <h2>Necesita Visa de Visitante canadiense (TRV)</h2>
               <p>Para entradas terrestres a Canadá, la ETA no aplica aunque tenga visa americana. Necesita una TRV completa ante IRCC: formularios en línea, CAD $100 y documentación de soporte.</p>
               <div class="result-actions">
@@ -170,7 +169,6 @@ const canonical = `${site.url}/que-visa-necesito/`;
           <div class="quiz-results" hidden>
 
             <div class="quiz-result" data-result-id="b2" hidden>
-              <div class="result-icon">✅</div>
               <h2>Su visa actual (B2) cubre este viaje</h2>
               <p>Con una visa B1/B2 vigente puede viajar a EE.UU. para turismo o visita familiar. Recuerde respetar el período de estadía autorizado en cada entrada (indicado en el I-94, no en la visa).</p>
               <p>Si está próxima a vencer, considere iniciar la renovación.</p>
@@ -182,7 +180,6 @@ const canonical = `${site.url}/que-visa-necesito/`;
             </div>
 
             <div class="quiz-result" data-result-id="b1" hidden>
-              <div class="result-icon">💼</div>
               <h2>Su visa B1/B2 vigente cubre viajes de negocios</h2>
               <p>La visa B1 le permite asistir a reuniones, conferencias y negociaciones en EE.UU. No autoriza empleo remunerado. Su visa actual es válida para este propósito si está vigente.</p>
               <div class="result-actions">
@@ -193,7 +190,6 @@ const canonical = `${site.url}/que-visa-necesito/`;
             </div>
 
             <div class="quiz-result" data-result-id="renovacion_sin_entrevista" hidden>
-              <div class="result-icon">🔄</div>
               <h2>Puede calificar para renovación sin entrevista</h2>
               <p>El programa Interview Waiver permite renovar la visa sin ir al consulado si la visa vencida hace menos de 48 meses y se cumplen otros criterios. El expediente se envía por mensajería.</p>
               <p>La evaluación del caso es igual de rigurosa que con entrevista — la diferencia es operativa, no de estándar.</p>
@@ -206,7 +202,6 @@ const canonical = `${site.url}/que-visa-necesito/`;
             </div>
 
             <div class="quiz-result" data-result-id="renovacion_entrevista" hidden>
-              <div class="result-icon">📅</div>
               <h2>Necesita renovación con entrevista presencial</h2>
               <p>Cuando la visa vence hace más de 4 años, el proceso regular incluye entrevista consular. Es una nueva solicitud con DS-160, pago de MRV y cita en el consulado.</p>
               <div class="result-actions">
@@ -218,7 +213,6 @@ const canonical = `${site.url}/que-visa-necesito/`;
             </div>
 
             <div class="quiz-result" data-result-id="primera_vez" hidden>
-              <div class="result-icon">📝</div>
               <h2>Primera solicitud de visa americana B1/B2</h2>
               <p>El proceso incluye DS-160, pago del MRV (~$185 USD) y entrevista en el consulado. El factor más importante es el expediente de arraigo: qué tan bien documentada está su vida económica y familiar en México.</p>
               <div class="result-actions">
@@ -230,7 +224,6 @@ const canonical = `${site.url}/que-visa-necesito/`;
             </div>
 
             <div class="quiz-result" data-result-id="segunda_vez" hidden>
-              <div class="result-icon">⚠️</div>
               <h2>Nueva solicitud tras negativa previa</h2>
               <p>Un rechazo anterior no cierra la puerta, pero la segunda solicitud requiere demostrar que algo ha cambiado en su situación. El expediente debe ser significativamente más sólido que el anterior.</p>
               <p>Antes de solicitar nuevamente, conviene analizar el motivo del rechazo y qué se puede fortalecer.</p>
@@ -243,7 +236,6 @@ const canonical = `${site.url}/que-visa-necesito/`;
             </div>
 
             <div class="quiz-result" data-result-id="eta" hidden>
-              <div class="result-icon">✈️</div>
               <h2>Probablemente necesita una ETA canadiense</h2>
               <p>Los mexicanos con visa americana vigente pueden solicitar la ETA (Autorización Electrónica de Viaje) para entrar a Canadá por avión. Cuesta CAD $7 y en la mayoría de los casos se aprueba en minutos.</p>
               <p>Antes de solicitarla, verifique que su visa americana cumple los criterios exactos de IRCC para este beneficio.</p>
@@ -256,7 +248,6 @@ const canonical = `${site.url}/que-visa-necesito/`;
             </div>
 
             <div class="quiz-result" data-result-id="trv" hidden>
-              <div class="result-icon">📋</div>
               <h2>Necesita Visa de Visitante canadiense (TRV)</h2>
               <p>Sin visa americana, los ciudadanos mexicanos requieren la TRV para entrar a Canadá. El proceso incluye formularios en línea ante IRCC, pago de CAD $100, documentación de soporte y en algunos casos biométricos.</p>
               <div class="result-actions">
@@ -268,7 +259,6 @@ const canonical = `${site.url}/que-visa-necesito/`;
             </div>
 
             <div class="quiz-result" data-result-id="other" hidden>
-              <div class="result-icon">🌎</div>
               <h2>Cada destino tiene requisitos específicos</h2>
               <p>Para Australia, China, Schengen y otros destinos, los requisitos varían según la nacionalidad, el propósito del viaje y los acuerdos vigentes. Cuéntenos su caso y le indicamos exactamente qué necesita.</p>
               <div class="result-actions">
@@ -313,7 +303,6 @@ const canonical = `${site.url}/que-visa-necesito/`;
 
   .quiz-result { animation: fadeIn .25s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-  .result-icon { font-size: 2.4rem; margin-bottom: .8rem; }
   .quiz-result h2 { color: var(--navy); font-size: clamp(1.4rem, 2.8vw, 2rem); margin-bottom: 1rem; }
   .quiz-result p { color: var(--muted); line-height: 1.7; margin-bottom: .8rem; }
   .result-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 1.6rem; }

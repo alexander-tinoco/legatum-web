@@ -1,0 +1,167 @@
+---
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Footer from '../components/Footer.astro';
+import Navbar from '../components/Navbar.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+
+const canonical = `${site.url}/herramientas/`;
+
+const tools = [
+  {
+    label: 'Simulador de Visa Americana',
+    desc: 'Responde 10 preguntas y recibe un diagnóstico de tu perfil: probabilidad estimada, fortalezas, puntos débiles y un plan de acción personalizado.',
+    href: '/herramientas/simulador-visa/',
+    tag: 'Disponible',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>`,
+  },
+  {
+    label: 'Calculadora de Costos del Trámite',
+    desc: 'Selecciona tu ciudad y situación para obtener un desglose detallado de todos los gastos: tarifa gobierno, honorarios, traslado, fotografías y pasaporte.',
+    href: '/herramientas/calculadora-costos/',
+    tag: 'Disponible',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="1"/><path d="M8 6h8M8 10h8M8 14h5"/><circle cx="17" cy="17" r="3"/><path d="m19 19-1.5-1.5"/></svg>`,
+  },
+];
+---
+
+<BaseLayout
+  title={`Herramientas gratuitas para tu visa | ${site.name}`}
+  description="Recursos gratuitos de Legatum Internacional para preparar tu solicitud de visa americana: simulador de probabilidades, checklist de arraigo y más."
+  canonical={canonical}
+>
+  <Navbar />
+  <main id="main-content">
+
+    <section class="ht-hero section-navy">
+      <div class="shell">
+        <Breadcrumb crumbs={[{ label: 'Herramientas' }]} variant="dark" />
+        <span class="eyebrow ht-ey">Recursos sin costo · Legatum Internacional</span>
+        <h1 class="ht-title ht-h1">Herramientas para tu visa americana</h1>
+        <p class="ht-lead">
+          Recursos prácticos basados en los criterios reales del proceso consular.
+          Úsalos para entender tu situación antes de hablar con un especialista.
+        </p>
+      </div>
+    </section>
+
+    <section class="section section-paper">
+      <div class="shell">
+        <a class="page-back" href="/">← Inicio</a>
+        <div class="ht-grid">
+          {tools.map((tool, i) => (
+            <a class={`ht-card reveal${i > 0 ? ` d${Math.min(i, 3)}` : ''}`} href={tool.href}>
+              <div class="ht-card-top">
+                <div class="ht-icon" set:html={tool.icon} />
+                <span class="ht-tag">{tool.tag}</span>
+              </div>
+              <h2 class="ht-card-title">{tool.label}</h2>
+              <p class="ht-card-desc">{tool.desc}</p>
+              <span class="ht-card-cta">Abrir herramienta →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>
+
+<style>
+  .ht-ey   { animation: hero-enter .65s var(--ease) .1s both; }
+  .ht-h1   { animation: hero-enter .75s var(--ease) .26s both; }
+  .ht-lead { animation: hero-enter .65s var(--ease) .44s both; }
+  .ht-hero {
+    padding: clamp(72px, 10vw, 130px) 0 clamp(56px, 8vw, 100px);
+    padding-top: calc(var(--header) + clamp(48px, 7vw, 80px));
+  }
+  .ht-title {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    color: var(--white);
+    margin: .5rem 0 1rem;
+    max-width: none;
+  }
+  .ht-lead {
+    max-width: 56ch;
+    color: rgba(245,240,232,.75);
+    font-size: clamp(1rem, 1.6vw, 1.18rem);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .ht-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: clamp(16px, 2.5vw, 28px);
+    max-width: 860px;
+  }
+
+  .ht-card {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(24px, 3.5vw, 36px);
+    border: 1px solid var(--line);
+    background: var(--white);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .2s, box-shadow .2s, transform .25s var(--ease);
+  }
+  .ht-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 6px 28px rgba(12,24,46,.08);
+    transform: translateY(-3px);
+  }
+
+  .ht-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 1.2rem;
+  }
+  .ht-icon {
+    width: 36px;
+    height: 36px;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .ht-icon svg { width: 100%; height: 100%; }
+
+  .ht-tag {
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #2e7d32;
+    background: rgba(46,125,50,.08);
+    border: 1px solid rgba(46,125,50,.25);
+    padding: 3px 9px;
+    white-space: nowrap;
+  }
+
+  .ht-card-title {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+    font-weight: 600;
+    color: var(--navy);
+    margin: 0 0 .7rem;
+    line-height: 1.2;
+  }
+  .ht-card-desc {
+    color: var(--muted);
+    font-size: clamp(.88rem, 1.3vw, .95rem);
+    line-height: 1.6;
+    margin: 0 0 1.6rem;
+    flex: 1;
+  }
+  .ht-card-cta {
+    font-size: .82rem;
+    font-weight: 650;
+    letter-spacing: .04em;
+    color: var(--gold);
+    margin-top: auto;
+  }
+</style>

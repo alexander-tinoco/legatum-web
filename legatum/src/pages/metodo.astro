@@ -34,8 +34,8 @@ const schema = {
     <section class="met-hero section-navy">
       <div class="shell">
         <Breadcrumb crumbs={[{ label: 'El Método' }]} variant="dark" />
-        <span class="eyebrow">El Método Legatum</span>
-        <h1>La certeza no se promete: se hace visible.</h1>
+        <span class="eyebrow met-ey">El Método Legatum</span>
+        <h1 class="met-h1e">La certeza no se promete: se hace visible.</h1>
         <p class="met-lead">
           Antes de contratar, ya sabe cómo avanza su caso en cada etapa. Cuatro fases,
           con un especialista que responde por cada decisión.
@@ -46,7 +46,7 @@ const schema = {
     <section class="section section-paper">
       <div class="shell">
         <a class="page-back" href="/">← Inicio</a>
-        <div class="met-intro">
+        <div class="met-intro reveal">
           <span class="eyebrow">Por qué importa el método</span>
           <h2>Le mostramos el proceso completo antes de que decida.</h2>
           <p>
@@ -77,8 +77,8 @@ const schema = {
         <span class="eyebrow">Principios que sostienen cada caso</span>
         <h2 class="met-h2">Lo que puede esperar siempre de nosotros.</h2>
         <div class="met-principles">
-          {trustItems.map((item) => (
-            <article class="met-principle">
+          {trustItems.map((item, i) => (
+            <article class={`met-principle reveal${i > 0 ? ` d${Math.min(i, 3)}` : ''}`}>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
             </article>
@@ -89,7 +89,7 @@ const schema = {
 
     <section class="section section-paper">
       <div class="shell met-quote-wrap">
-        <blockquote class="met-blockquote">
+        <blockquote class="met-blockquote reveal">
           <p>
             "Un trámite migratorio bien preparado no se improvisa. Cada expediente se construye con
             criterio jurídico, honestidad sobre los riesgos reales y acompañamiento directo en
@@ -102,10 +102,10 @@ const schema = {
 
     <section class="section section-navy">
       <div class="shell met-cta">
-        <span class="eyebrow">Empecemos</span>
-        <h2>¿Listo para conocer su ruta, con todo sobre la mesa?</h2>
-        <p>Cuéntenos su caso. El mismo día hábil recibe una orientación real sobre su situación y los siguientes pasos.</p>
-        <div class="met-actions">
+        <span class="eyebrow reveal">Empecemos</span>
+        <h2 class="reveal d1">¿Listo para conocer su ruta, con todo sobre la mesa?</h2>
+        <p class="reveal d2">Cuéntenos su caso. El mismo día hábil recibe una orientación real sobre su situación y los siguientes pasos.</p>
+        <div class="met-actions reveal d2">
           <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="metodo">
             Iniciar mi evaluación
           </a>
@@ -125,6 +125,9 @@ const schema = {
     padding-bottom: clamp(48px, 7vw, 84px);
     border-bottom: 1px solid var(--line-light);
   }
+  .met-ey   { animation: hero-enter .65s var(--ease) .1s both; }
+  .met-h1e  { animation: hero-enter .75s var(--ease) .26s both; }
+  .met-lead { animation: hero-enter .65s var(--ease) .44s both; }
   .met-hero .bc { margin-bottom: 1.4rem; }
   .met-hero .eyebrow { color: var(--gold-300); }
   .met-hero h1 {
