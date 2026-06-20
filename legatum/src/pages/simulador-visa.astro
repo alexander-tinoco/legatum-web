@@ -1,0 +1,817 @@
+---
+import Footer from '../components/Footer.astro';
+import Navbar from '../components/Navbar.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+
+const canonical = `${site.url}/simulador-visa/`;
+const phone = site.phone.replace('+', '');
+---
+
+<BaseLayout
+  title={`Simulador de Visa Americana — ¿Cuántas probabilidades tienes? | ${site.name}`}
+  description="Responde 10 preguntas basadas en los factores reales que evalúa el oficial consular y recibe un diagnóstico de tu perfil: probabilidad, fortalezas y áreas críticas."
+  canonical={canonical}
+>
+  <Navbar />
+  <main id="main-content" class="sim-main">
+
+    <!-- PANTALLA INTRO -->
+    <div id="screen-intro" class="sim-screen is-active">
+      <div class="sim-intro-inner">
+        <span class="eyebrow sim-eyebrow">Herramienta gratuita · Legatum Internacional</span>
+        <h1 class="sim-intro-title">¿Cuántas probabilidades tienes de obtener tu visa americana?</h1>
+        <p class="sim-intro-lead">
+          Responde 10 preguntas basadas en los criterios reales que evalúa el oficial consular.
+          Recibes un diagnóstico de tu perfil con probabilidad estimada, fortalezas y áreas críticas.
+        </p>
+        <ul class="sim-pills" aria-label="Características de la herramienta">
+          <li>10 preguntas</li>
+          <li>Sin registro</li>
+          <li>Resultado inmediato</li>
+          <li>100% gratuito</li>
+        </ul>
+        <button id="btn-start" class="btn sim-btn-start">Iniciar diagnóstico →</button>
+        <p class="sim-legal">Orientativo — no constituye asesoría jurídica ni garantiza resultados consulares.</p>
+      </div>
+    </div>
+
+    <!-- PANTALLA QUIZ -->
+    <div id="screen-quiz" class="sim-screen" aria-hidden="true">
+      <div class="sim-quiz-inner">
+        <div class="sim-topbar">
+          <div class="sim-progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="sim-pbar-wrap">
+            <div class="sim-progress-fill" id="sim-pbar"></div>
+          </div>
+          <span class="sim-step" id="sim-step" aria-live="polite">Pregunta 1 de 10</span>
+        </div>
+        <div class="sim-card">
+          <div class="sim-typing-dots" id="sim-dots" aria-label="Cargando pregunta">
+            <span></span><span></span><span></span>
+          </div>
+          <p class="sim-question" id="sim-question" aria-live="polite"></p>
+          <div class="sim-options" id="sim-options" role="group" aria-label="Opciones de respuesta"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANTALLA RESULTADO -->
+    <div id="screen-result" class="sim-screen" aria-hidden="true">
+      <div class="sim-result-inner" id="sim-result-inner">
+        <!-- Inyectado por JS -->
+      </div>
+    </div>
+
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>
+
+<style>
+  /* ─── Layout base ─────────────────────────────────────── */
+  .sim-main {
+    min-height: 100svh;
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    padding-top: var(--header);
+  }
+
+  .sim-screen {
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(40px, 6vw, 80px) var(--gutter);
+    animation: sim-fade-in .4s ease both;
+  }
+  .sim-screen.is-active { display: flex; }
+
+  @keyframes sim-fade-in {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* ─── INTRO ───────────────────────────────────────────── */
+  .sim-intro-inner {
+    max-width: 620px;
+    text-align: center;
+  }
+  .sim-eyebrow {
+    color: var(--gold-300);
+    display: block;
+    margin-bottom: 1.2rem;
+  }
+  .sim-intro-title {
+    color: var(--white);
+    font-size: clamp(1.9rem, 4.5vw, 3.2rem);
+    line-height: 1.08;
+    margin-bottom: 1.2rem;
+  }
+  .sim-intro-lead {
+    color: rgba(245,240,232,.75);
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    line-height: 1.65;
+    max-width: 54ch;
+    margin: 0 auto 2rem;
+  }
+  .sim-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    list-style: none;
+    margin: 0 0 2.4rem;
+  }
+  .sim-pills li {
+    padding: 5px 14px;
+    border: 1px solid rgba(196,168,130,.35);
+    color: var(--gold-300);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .sim-btn-start {
+    font-size: 1.05rem;
+    min-height: 52px;
+    padding: .9rem 2.2rem;
+  }
+  .sim-legal {
+    margin-top: 1.4rem;
+    font-size: .72rem;
+    color: rgba(245,240,232,.4);
+    letter-spacing: .03em;
+  }
+
+  /* ─── QUIZ ────────────────────────────────────────────── */
+  .sim-quiz-inner {
+    width: 100%;
+    max-width: 680px;
+  }
+  .sim-topbar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 2rem;
+  }
+  .sim-progress-track {
+    flex: 1;
+    height: 4px;
+    background: rgba(196,168,130,.18);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .sim-progress-fill {
+    height: 100%;
+    background: var(--gold-300);
+    border-radius: 2px;
+    transition: width .5s var(--ease);
+    width: 0%;
+  }
+  .sim-step {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,.5);
+    white-space: nowrap;
+  }
+
+  .sim-card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(196,168,130,.18);
+    padding: clamp(28px, 5vw, 48px);
+  }
+
+  /* dots de carga */
+  .sim-typing-dots {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 20px;
+    height: 20px;
+    align-items: center;
+  }
+  .sim-typing-dots.hidden { display: none; }
+  .sim-typing-dots span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold-300);
+    opacity: .6;
+    animation: dot-bounce .9s ease-in-out infinite;
+  }
+  .sim-typing-dots span:nth-child(2) { animation-delay: .18s; }
+  .sim-typing-dots span:nth-child(3) { animation-delay: .36s; }
+  @keyframes dot-bounce {
+    0%,60%,100% { transform: translateY(0); }
+    30%          { transform: translateY(-6px); opacity: 1; }
+  }
+
+  .sim-question {
+    color: var(--white);
+    font-family: var(--serif);
+    font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+    line-height: 1.45;
+    min-height: 2.5em;
+    margin: 0 0 2rem;
+  }
+  .sim-cursor {
+    display: inline-block;
+    color: var(--gold-300);
+    animation: cursor-blink .7s ease infinite;
+    margin-left: 1px;
+  }
+  @keyframes cursor-blink {
+    0%,49% { opacity: 1; }
+    50%,100%{ opacity: 0; }
+  }
+
+  .sim-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+  .sim-options.visible { opacity: 1; }
+  .sim-opt {
+    text-align: left;
+    background: transparent;
+    border: 1px solid rgba(196,168,130,.28);
+    color: rgba(245,240,232,.85);
+    padding: 14px 18px;
+    font-family: var(--sans);
+    font-size: clamp(.85rem, 1.5vw, .97rem);
+    line-height: 1.4;
+    cursor: pointer;
+    transition: background .18s, border-color .18s, color .18s;
+    transform: translateY(6px);
+    opacity: 0;
+    animation: opt-in .28s ease forwards;
+  }
+  .sim-opt:hover:not(:disabled) {
+    background: rgba(196,168,130,.1);
+    border-color: var(--gold-300);
+    color: var(--white);
+  }
+  .sim-opt:disabled { cursor: default; }
+  .sim-opt.selected {
+    background: rgba(196,168,130,.18);
+    border-color: var(--gold-300);
+    color: var(--white);
+  }
+  @keyframes opt-in {
+    to { opacity: 1; transform: none; }
+  }
+
+  /* ─── RESULTADO ───────────────────────────────────────── */
+  .sim-result-inner {
+    width: 100%;
+    max-width: 740px;
+  }
+
+  .sim-result-card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(196,168,130,.18);
+    padding: clamp(28px, 5vw, 52px);
+  }
+
+  .sim-result-head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: center;
+    margin-bottom: 2.4rem;
+    padding-bottom: 2.4rem;
+    border-bottom: 1px solid rgba(196,168,130,.15);
+  }
+
+  /* gauge SVG */
+  .sim-gauge {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+  }
+  .sim-gauge-svg { width: 120px; height: 120px; }
+  .sim-gauge-bg  { stroke: rgba(196,168,130,.15); }
+  .sim-gauge-fill {
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1.2s cubic-bezier(.25,.46,.45,.94);
+  }
+  .sim-gauge-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .sim-gauge-pct {
+    font-family: var(--serif);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+  }
+  .sim-gauge-label {
+    font-size: .6rem;
+    color: rgba(245,240,232,.5);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .sim-level-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: .85rem;
+  }
+  .sim-level-msg {
+    color: rgba(245,240,232,.8);
+    font-size: clamp(.88rem, 1.5vw, 1rem);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .sim-factors {
+    margin-bottom: 1.6rem;
+  }
+  .sim-factors h3 {
+    color: var(--gold-300);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin: 0 0 .85rem;
+  }
+  .sim-factors ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
+  }
+  .sim-factors li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: rgba(245,240,232,.82);
+    font-size: clamp(.85rem, 1.4vw, .95rem);
+    line-height: 1.5;
+  }
+  .sim-factors li::before {
+    content: '';
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .sim-factors--pos li::before { background: rgba(46,204,113,.7); }
+  .sim-factors--neg li::before { background: rgba(231,76,60,.55); }
+
+  .sim-result-cta {
+    margin-top: 2.4rem;
+    padding-top: 2.4rem;
+    border-top: 1px solid rgba(196,168,130,.15);
+    text-align: center;
+  }
+  .sim-result-cta p {
+    color: rgba(245,240,232,.65);
+    font-size: .92rem;
+    line-height: 1.6;
+    max-width: 48ch;
+    margin: 0 auto 1.6rem;
+  }
+  .sim-cta-btns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
+  .sim-retry {
+    color: rgba(245,240,232,.7);
+    border-color: rgba(196,168,130,.3);
+  }
+  .sim-retry:hover { color: var(--white); border-color: var(--gold-300); }
+
+  .sim-result-legal {
+    margin-top: 2rem;
+    font-size: .7rem;
+    color: rgba(245,240,232,.3);
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  /* ─── RESPONSIVE ──────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .sim-result-head {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .sim-gauge { margin: 0 auto; }
+    .sim-level-badge { display: block; margin-inline: auto; width: fit-content; }
+  }
+</style>
+
+<script define:vars={{ phone }}>
+/* ── Preguntas ─────────────────────────────────────────── */
+const QUESTIONS = [
+  {
+    key: 'trabajo',
+    q: '¿Cuál es tu situación laboral actual en México?',
+    opts: [
+      { label: 'Empleado con contrato estable (2 o más años de antigüedad)', score: 8 },
+      { label: 'Empleado con contrato reciente (menos de 2 años)', score: 6 },
+      { label: 'Empresario o dueño de negocio (3 o más años)', score: 10 },
+      { label: 'Empresario o dueño de negocio (menos de 3 años)', score: 7 },
+      { label: 'Profesionista o freelance independiente', score: 5 },
+      { label: 'Estudiante universitario activo', score: 4 },
+      { label: 'Sin empleo formal actualmente', score: 1 },
+    ],
+  },
+  {
+    key: 'bienes',
+    q: '¿Tienes bienes inmuebles o propiedades a tu nombre en México?',
+    opts: [
+      { label: 'Sí, casa o departamento escriturado(a)', score: 10 },
+      { label: 'Sí, terreno o propiedad a mi nombre', score: 7 },
+      { label: 'Soy copropietario de algún bien inmueble', score: 5 },
+      { label: 'No tengo bienes inmuebles', score: 2 },
+    ],
+  },
+  {
+    key: 'familia',
+    q: '¿Cuál es tu estado civil y situación familiar en México?',
+    opts: [
+      { label: 'Casado/a (o unión libre) con hijos que viven en México', score: 10 },
+      { label: 'Casado/a (o unión libre), sin hijos', score: 8 },
+      { label: 'Soltero/a con hijos que viven en México', score: 7 },
+      { label: 'Soltero/a, con padres o hermanos en México', score: 5 },
+      { label: 'Soltero/a, sin familia directa en México', score: 2 },
+    ],
+  },
+  {
+    key: 'ingresos',
+    q: '¿Cuál es tu ingreso mensual aproximado (personal o de tu negocio)?',
+    opts: [
+      { label: 'Más de $30,000 MXN al mes', score: 10 },
+      { label: '$15,000 – $30,000 MXN al mes', score: 8 },
+      { label: '$8,000 – $15,000 MXN al mes', score: 6 },
+      { label: '$4,000 – $8,000 MXN al mes', score: 4 },
+      { label: 'Menos de $4,000 MXN al mes', score: 1 },
+    ],
+  },
+  {
+    key: 'viajes',
+    q: '¿Cuál ha sido tu historial de viajes internacionales?',
+    opts: [
+      { label: 'He visitado 3 o más países en los últimos 5 años', score: 10 },
+      { label: 'He visitado 1 o 2 países en los últimos 5 años', score: 8 },
+      { label: 'Tuve viajes al extranjero, pero hace más de 5 años', score: 5 },
+      { label: 'Nunca he viajado fuera de México', score: 3 },
+    ],
+  },
+  {
+    key: 'visa',
+    q: '¿Cuál es tu situación con la visa americana?',
+    opts: [
+      { label: 'Tengo visa americana vigente', score: 10 },
+      { label: 'Tuve visa y venció hace menos de 4 años', score: 8 },
+      { label: 'Tuve visa y venció hace más de 4 años', score: 6 },
+      { label: 'Es mi primera solicitud, nunca me han negado', score: 5 },
+      { label: 'Me la negaron una vez, fue hace más de 3 años', score: 3 },
+      { label: 'Me la negaron recientemente (menos de 3 años)', score: 1 },
+      { label: 'Me la han negado más de una vez', score: 0 },
+    ],
+  },
+  {
+    key: 'famEUA',
+    q: '¿Tienes familiares viviendo en Estados Unidos?',
+    opts: [
+      { label: 'No tengo familiares directos en EUA', score: 10 },
+      { label: 'Tengo familiares lejanos (tíos, primos) en EUA', score: 7 },
+      { label: 'Tengo hermanos o padres con documentos regulares en EUA', score: 5 },
+      { label: 'Mi cónyuge o pareja tiene residencia o ciudadanía en EUA', score: 3 },
+      { label: 'Tengo familiares sin documentos en EUA', score: 2 },
+    ],
+  },
+  {
+    key: 'antiguedad',
+    q: '¿Cuánto tiempo llevas en tu empleo o negocio actual?',
+    opts: [
+      { label: 'Más de 5 años', score: 10 },
+      { label: 'Entre 3 y 5 años', score: 8 },
+      { label: 'Entre 1 y 3 años', score: 6 },
+      { label: 'Menos de 1 año', score: 3 },
+      { label: 'No aplica (estudiante, entre trabajos, etc.)', score: 3 },
+    ],
+  },
+  {
+    key: 'proposito',
+    q: '¿Cuál es el propósito principal de tu viaje a Estados Unidos?',
+    opts: [
+      { label: 'Turismo o vacaciones', score: 10 },
+      { label: 'Negocios, reuniones o conferencias', score: 10 },
+      { label: 'Cursos o estudios cortos (menos de 3 meses)', score: 7 },
+      { label: 'Atención médica o acompañar a un paciente', score: 8 },
+      { label: 'Visitar familiares o amigos', score: 6 },
+      { label: 'Otro propósito', score: 5 },
+    ],
+  },
+  {
+    key: 'ahorros',
+    q: '¿Tienes cuenta bancaria con saldo o ahorros demostrables?',
+    opts: [
+      { label: 'Sí, con más de $30,000 MXN disponibles', score: 10 },
+      { label: 'Sí, con $10,000 – $30,000 MXN', score: 7 },
+      { label: 'Sí, tengo cuenta pero con poco saldo', score: 4 },
+      { label: 'No tengo cuenta bancaria', score: 1 },
+    ],
+  },
+];
+
+/* ── Análisis fortalezas / áreas ───────────────────────── */
+function analyzeProfile(scores) {
+  const strengths = [];
+  const improvements = [];
+
+  if (scores.trabajo >= 7)      strengths.push('Situación laboral estable y demostrable');
+  else if (scores.trabajo <= 2) improvements.push('Sin empleo formal que acredite arraigo económico');
+  else                          improvements.push('Empleo o ingresos con poca antigüedad demostrable');
+
+  if (scores.bienes >= 7)       strengths.push('Bienes inmuebles que acreditan arraigo patrimonial en México');
+  else if (scores.bienes <= 2)  improvements.push('Ausencia de bienes inmuebles como vínculo con México');
+
+  if (scores.familia >= 8)      strengths.push('Vínculos familiares sólidos en territorio nacional');
+  else if (scores.familia <= 3) improvements.push('Pocos lazos familiares en México que demuestren intención de retorno');
+
+  if (scores.ingresos >= 7)     strengths.push('Capacidad económica documentada para costear el viaje');
+  else if (scores.ingresos <= 2) improvements.push('Ingresos limitados que pueden generar dudas sobre solvencia');
+
+  if (scores.viajes >= 8)       strengths.push('Historial de viajes internacionales previos');
+  else if (scores.viajes <= 3)  improvements.push('Sin historial de viajes al extranjero que respalde la solicitud');
+
+  if (scores.visa >= 8)         strengths.push('Historial positivo con visas americanas previas');
+  else if (scores.visa <= 1)    improvements.push('Negativas recientes o múltiples que requieren estrategia especial');
+  else if (scores.visa <= 3)    improvements.push('Negativa previa que debe abordarse con estrategia adecuada');
+
+  if (scores.famEUA >= 8)       strengths.push('Sin vínculos problemáticos en Estados Unidos');
+  else if (scores.famEUA <= 2)  improvements.push('Vínculos en EUA que generarán preguntas en la entrevista consular');
+
+  if (scores.antiguedad >= 8)   strengths.push('Trayectoria laboral o empresarial prolongada y verificable');
+  else if (scores.antiguedad <= 3 && scores.trabajo < 4)
+                                improvements.push('Poca antigüedad laboral que debilita la demostración de arraigo');
+
+  if (scores.ahorros >= 7)      strengths.push('Respaldo financiero demostrable en estado de cuenta');
+  else if (scores.ahorros <= 2) improvements.push('Sin cuenta bancaria o saldo insuficiente para documentar solvencia');
+
+  return { strengths, improvements };
+}
+
+/* ── Utilidades ────────────────────────────────────────── */
+function showScreen(id) {
+  document.querySelectorAll('.sim-screen').forEach((s) => {
+    s.classList.remove('is-active');
+    s.setAttribute('aria-hidden', 'true');
+  });
+  const el = document.getElementById(id);
+  el.classList.add('is-active');
+  el.removeAttribute('aria-hidden');
+}
+
+/* ── Estado ────────────────────────────────────────────── */
+let currentQ = 0;
+const scores = {};
+let typingTimer = null;
+
+/* ── Arrancar ──────────────────────────────────────────── */
+document.getElementById('btn-start').addEventListener('click', () => {
+  showScreen('screen-quiz');
+  renderQuestion(0);
+});
+
+/* ── Render pregunta ───────────────────────────────────── */
+function renderQuestion(index) {
+  currentQ = index;
+  const q = QUESTIONS[index];
+  const progress = (index / QUESTIONS.length) * 100;
+
+  // Barra de progreso
+  const pbar = document.getElementById('sim-pbar');
+  pbar.style.width = `${progress}%`;
+  document.getElementById('sim-pbar-wrap').setAttribute('aria-valuenow', Math.round(progress));
+  document.getElementById('sim-step').textContent = `Pregunta ${index + 1} de ${QUESTIONS.length}`;
+
+  // Limpiar opciones
+  const optsEl = document.getElementById('sim-options');
+  optsEl.innerHTML = '';
+  optsEl.classList.remove('visible');
+
+  // Mostrar dots mientras "escribe"
+  const dots = document.getElementById('sim-dots');
+  dots.classList.remove('hidden');
+  document.getElementById('sim-question').textContent = '';
+
+  clearTimeout(typingTimer);
+  typingTimer = setTimeout(() => {
+    dots.classList.add('hidden');
+    typeText(document.getElementById('sim-question'), q.q, 22, () => {
+      // Mostrar opciones
+      optsEl.classList.add('visible');
+      q.opts.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'sim-opt';
+        btn.textContent = opt.label;
+        btn.style.animationDelay = `${i * 80}ms`;
+        btn.addEventListener('click', (e) => selectOption(e, opt, q.key, index));
+        optsEl.appendChild(btn);
+      });
+    });
+  }, 600);
+}
+
+/* ── Efecto de escritura ───────────────────────────────── */
+function typeText(el, text, speed, callback) {
+  el.textContent = '';
+  const cursor = document.createElement('span');
+  cursor.className = 'sim-cursor';
+  cursor.textContent = '|';
+  el.appendChild(cursor);
+
+  let i = 0;
+  const ms = Math.max(14, speed - text.length * 0.08);
+  const iv = setInterval(() => {
+    if (i < text.length) {
+      el.insertBefore(document.createTextNode(text[i]), cursor);
+      i++;
+    } else {
+      clearInterval(iv);
+      cursor.remove();
+      callback && callback();
+    }
+  }, ms);
+}
+
+/* ── Seleccionar opción ────────────────────────────────── */
+function selectOption(e, opt, key, index) {
+  // Deshabilitar todas las opciones
+  document.querySelectorAll('.sim-opt').forEach((b) => {
+    b.disabled = true;
+    b.classList.remove('selected');
+  });
+  e.currentTarget.classList.add('selected');
+
+  scores[key] = opt.score;
+
+  setTimeout(() => {
+    if (index + 1 < QUESTIONS.length) {
+      renderQuestion(index + 1);
+    } else {
+      showAnalyzing();
+    }
+  }, 420);
+}
+
+/* ── Pantalla de análisis ──────────────────────────────── */
+function showAnalyzing() {
+  document.getElementById('sim-dots').classList.remove('hidden');
+  document.getElementById('sim-options').innerHTML = '';
+  document.getElementById('sim-options').classList.remove('visible');
+
+  const qEl = document.getElementById('sim-question');
+  qEl.textContent = '';
+  typeText(qEl, 'Analizando tu perfil...', 30, null);
+
+  document.getElementById('sim-step').textContent = 'Procesando resultado';
+  document.getElementById('sim-pbar').style.width = '100%';
+
+  setTimeout(showResult, 2400);
+}
+
+/* ── Pantalla de resultado ─────────────────────────────── */
+function showResult() {
+  const maxScore = QUESTIONS.reduce((sum, q) => sum + Math.max(...q.opts.map((o) => o.score)), 0);
+  const total = Object.values(scores).reduce((a, b) => a + b, 0);
+  const raw = (total / maxScore) * 84 + 8;
+  const pct = Math.min(92, Math.max(8, Math.round(raw)));
+
+  let levelLabel, levelColor, levelMsg;
+  if (pct < 40) {
+    levelLabel = 'Perfil con áreas críticas';
+    levelColor = '#e05252';
+    levelMsg = 'Hay factores importantes que, sin trabajarse, pueden llevar a una negativa. Una evaluación profesional te dirá qué fortalecer y cuándo es el momento correcto para solicitar.';
+  } else if (pct < 66) {
+    levelLabel = 'Perfil en desarrollo';
+    levelColor = '#d4a017';
+    levelMsg = 'Tu perfil tiene potencial pero hay elementos clave por reforzar. La diferencia entre una aprobación y una negativa frecuentemente está en cómo se construye el expediente.';
+  } else {
+    levelLabel = 'Perfil sólido';
+    levelColor = '#3dbf7b';
+    levelMsg = 'Tu perfil muestra fortalezas importantes. Con preparación profesional adecuada, las probabilidades son favorables. Una evaluación confirmará tu panorama real.';
+  }
+
+  const { strengths, improvements } = analyzeProfile(scores);
+
+  const circumference = 2 * Math.PI * 50;
+  const offset = circumference * (1 - pct / 100);
+
+  const waText = encodeURIComponent(
+    `Hola, hice el simulador de visa de Legatum y mi perfil salió: ${pct}% de probabilidad (${levelLabel}). Me gustaría una evaluación profesional.`
+  );
+  const waUrl = `https://wa.me/${phone}?text=${waText}`;
+
+  const strengthsHTML = strengths.length
+    ? `<div class="sim-factors sim-factors--pos">
+        <h3>Fortalezas de tu perfil</h3>
+        <ul>${strengths.map((s) => `<li>${s}</li>`).join('')}</ul>
+       </div>`
+    : '';
+
+  const improvementsHTML = improvements.length
+    ? `<div class="sim-factors sim-factors--neg">
+        <h3>Aspectos a fortalecer</h3>
+        <ul>${improvements.map((s) => `<li>${s}</li>`).join('')}</ul>
+       </div>`
+    : '';
+
+  document.getElementById('sim-result-inner').innerHTML = `
+    <div class="sim-result-card">
+      <div class="sim-result-head">
+        <div class="sim-gauge">
+          <svg viewBox="0 0 120 120" class="sim-gauge-svg" aria-hidden="true">
+            <circle class="sim-gauge-bg" cx="60" cy="60" r="50" fill="none" stroke-width="10"/>
+            <circle class="sim-gauge-fill"
+              cx="60" cy="60" r="50" fill="none" stroke-width="10"
+              stroke="${levelColor}"
+              stroke-dasharray="${circumference.toFixed(1)}"
+              stroke-dashoffset="${circumference.toFixed(1)}"
+              data-offset="${offset.toFixed(1)}"
+              transform="rotate(-90 60 60)"/>
+          </svg>
+          <div class="sim-gauge-center">
+            <span class="sim-gauge-pct" id="sim-pct-num">0%</span>
+            <span class="sim-gauge-label">probabilidad</span>
+          </div>
+        </div>
+        <div>
+          <span class="sim-level-badge" style="color:${levelColor};border-color:${levelColor}">${levelLabel}</span>
+          <p class="sim-level-msg">${levelMsg}</p>
+        </div>
+      </div>
+
+      ${strengthsHTML}
+      ${improvementsHTML}
+
+      <div class="sim-result-cta">
+        <p>Este diagnóstico es orientativo. Un especialista analiza tu caso real, detecta lo que este simulador no puede ver y define la estrategia correcta para tu expediente.</p>
+        <div class="sim-cta-btns">
+          <a href="${waUrl}" class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Hablar con un especialista
+          </a>
+          <button class="btn btn-ghost sim-retry" id="sim-retry">Repetir diagnóstico</button>
+        </div>
+      </div>
+
+      <p class="sim-result-legal">
+        Este simulador es una herramienta de orientación basada en factores consulares conocidos.
+        No constituye asesoría jurídica ni garantiza ningún resultado ante autoridades migratorias.
+      </p>
+    </div>
+  `;
+
+  showScreen('screen-result');
+
+  // Animar gauge y contador
+  requestAnimationFrame(() => {
+    const fill = document.querySelector('.sim-gauge-fill');
+    if (fill) fill.style.strokeDashoffset = offset.toFixed(1);
+
+    const numEl = document.getElementById('sim-pct-num');
+    let current = 0;
+    const step = Math.ceil(pct / 60);
+    const counter = setInterval(() => {
+      current = Math.min(current + step, pct);
+      numEl.textContent = `${current}%`;
+      if (current >= pct) clearInterval(counter);
+    }, 22);
+  });
+
+  document.getElementById('sim-retry').addEventListener('click', () => {
+    Object.keys(scores).forEach((k) => delete scores[k]);
+    currentQ = 0;
+    showScreen('screen-intro');
+  });
+}
+</script>

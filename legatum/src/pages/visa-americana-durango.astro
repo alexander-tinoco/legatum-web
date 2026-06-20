@@ -5,10 +5,31 @@ import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { fees, services, site } from '../data/site';
+import { caseStudies, fees, services, site, testimonials } from '../data/site';
 
 const canonical = `${site.url}/visa-americana-durango/`;
-const visaService = services.find((s) => s.slug === 'visa-americana');
+const service = services.find((s) => s.slug === 'visa-americana')!;
+const caseStudy = caseStudies.find((c) => c.service === 'Visa Americana B1/B2')!;
+const testimonial = testimonials[0];
+const waUrl = `https://wa.me/526182706071?text=${encodeURIComponent('Hola, quiero evaluar mi caso para la visa americana B1/B2. Vivo en Durango.')}`;
+
+const painPoints = [
+  {
+    tag: '01 — Arraigo',
+    title: 'Arraigo mal construido',
+    body: 'El consulado no aprueba visas a personas que no demuestran razones concretas para volver a México. Empleo, familia, propiedades: si no están documentados con coherencia, la solicitud cae.',
+  },
+  {
+    tag: '02 — Formulario',
+    title: 'DS-160 con inconsistencias',
+    body: 'Un dato incorrecto, una fecha mal capturada o una respuesta que no coincide con su historial puede generar preguntas difíciles en la entrevista o comprometer el expediente completo.',
+  },
+  {
+    tag: '03 — Entrevista',
+    title: 'Entrevista sin preparación',
+    body: 'El oficial tiene entre dos y cinco minutos. Si usted no sabe qué evalúa ni cómo responder con claridad, el expediente perfecto no sirve. Prepararse no es memorizar respuestas: es saber qué comunica cada una.',
+  },
+];
 
 const localFaqs = [
   {
@@ -26,7 +47,7 @@ const localFaqs = [
     answer:
       'Trabajamos de ambas formas. Podemos atenderle de manera presencial en Durango o íntegramente a distancia por WhatsApp, correo y videollamada. El nivel de rigor del expediente es el mismo en los dos casos.',
   },
-  ...(visaService?.faqs.slice(0, 3) ?? []),
+  ...(service?.faqs.slice(0, 3) ?? []),
 ];
 
 const schema = {
@@ -75,83 +96,238 @@ const schema = {
   </Fragment>
   <Navbar />
   <main id="main-content">
+
+    <!-- ── HERO ── -->
     <section class="vad-hero section-navy">
       <div class="shell">
         <Breadcrumb crumbs={[{ label: 'Visa Americana en Durango' }]} variant="dark" />
-        <span class="eyebrow">Firma de movilidad internacional en Durango</span>
-        <h1>Visa Americana en Durango, preparada con rigor.</h1>
+        <span class="eyebrow">Firma de movilidad internacional · Durango</span>
+        <h1>
+          La visa americana no se gana<br />
+          llenando un formulario.
+        </h1>
         <p class="vad-lead">
-          Somos una firma con base en Durango. Preparamos su solicitud de visa B1/B2 completa:
+          Somos una firma con base en Durango. Preparamos su caso completo:
           el DS-160 correcto, un expediente de arraigo sólido y la preparación real para su entrevista consular.
         </p>
-        <div class="vad-actions">
-          <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="landing_durango">
-            Evaluar mi caso
+        <div class="hero-actions">
+          <a class="btn btn-whatsapp" href={waUrl} target="_blank" rel="noopener noreferrer" data-wa-location="landing_durango">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
+            Evaluar mi caso — sin costo
           </a>
-          <a class="btn btn-ghost-light" href="#contacto-durango">Dejar mis datos</a>
         </div>
+        <p class="hero-reassurance">Responde el especialista · Mismo día hábil · Sin compromiso</p>
+        <dl class="hero-metrics">
+          <div><dt>100&nbsp;%</dt><dd>Honorarios claros<br>antes de iniciar</dd></div>
+          <div><dt>24&nbsp;h</dt><dd>Para su primera<br>respuesta</dd></div>
+          <div><dt>10&nbsp;años</dt><dd>Vigencia de la<br>visa B1/B2</dd></div>
+          <div><dt>$185&nbsp;USD</dt><dd>MRV fee —<br>no reembolsable</dd></div>
+        </dl>
       </div>
     </section>
 
+    <!-- ── POR QUÉ SE NIEGAN ── -->
     <section class="section section-paper">
-      <div class="shell vad-body">
-        <a class="page-back" href="/servicios/visa-americana/">← Ver el servicio completo</a>
-        <div class="vad-intro">
-          <span class="eyebrow">Por qué una firma local importa</span>
-          <h2>La visa no se gana llenando un formulario.</h2>
-          <p>
-            La visa de turista B1/B2 se gana demostrando que su vida está en México y que su viaje tiene un
-            propósito claro. Para quien vive en Durango, eso significa construir un expediente que comunique
-            arraigo laboral, familiar y patrimonial de forma verificable. Conocemos el contexto local y
-            preparamos cada caso con la seriedad de quien sabe qué evalúa realmente un oficial consular.
-          </p>
-        </div>
-
-        {visaService && (
-          <div class="vad-includes">
-            <h3>Qué incluye nuestra asesoría</h3>
-            <ul>
-              {visaService.includes.map((item) => <li>{item}</li>)}
-            </ul>
-          </div>
-        )}
-      </div>
-    </section>
-
-    <section class="section section-cream">
       <div class="shell">
-        <span class="eyebrow">Preguntas frecuentes en Durango</span>
-        <h2 class="vad-faq-title">Lo que conviene saber antes de empezar.</h2>
-        <div class="vad-faq">
-          {localFaqs.map((f) => (
-            <details class="vad-faq-item">
-              <summary>{f.question}</summary>
-              <p>{f.answer}</p>
-            </details>
+        <div class="section-header">
+          <span class="eyebrow">El problema</span>
+          <h2>Las 3 razones más comunes de negativa</h2>
+          <p>La mayoría de las negativas no son por falta de dinero ni de viajes previos. Son prevenibles con la preparación correcta.</p>
+        </div>
+        <div class="trust-grid">
+          {painPoints.map((p) => (
+            <article>
+              <span>{p.tag}</span>
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </article>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="section section-paper" id="contacto-durango">
-      <div class="shell two-column">
+    <!-- ── MID CTA ── -->
+    <div class="section-navy vad-mid-cta">
+      <div class="shell vad-mid-cta-inner">
+        <p>¿Alguna de esas situaciones aplica a su caso?</p>
+        <a class="btn btn-whatsapp" href={waUrl} target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
+          Cuéntenos su situación
+        </a>
+        <span class="vad-mid-note">Sin compromiso — le orientamos hoy</span>
+      </div>
+    </div>
+
+    <!-- ── QUÉ INCLUYE + FEE ── -->
+    <section class="section section-cream">
+      <div class="shell vad-svc-grid">
         <div>
-          <span class="eyebrow">Inicie su evaluación</span>
-          <h2>Cuéntenos su caso.</h2>
-          <p class="vad-contact-lead">
-            Reciba una evaluación inicial el mismo día hábil, sin compromiso. Atendemos en Durango de forma
-            presencial o a distancia, como prefiera.
-          </p>
+          <div class="section-header">
+            <span class="eyebrow">El servicio</span>
+            <h2>Qué preparamos juntos</h2>
+            <p>No administramos papeles. Analizamos su caso, definimos la estrategia y respondemos por cada decisión hasta el final.</p>
+          </div>
+          <ul class="credential-list vad-includes-list">
+            {service.includes.map((item) => (
+              <li><strong>{item}</strong></li>
+            ))}
+          </ul>
+          <blockquote class="institutional-quote vad-guarantee">
+            No garantizamos que le den la visa. La decisión es exclusiva del oficial consular. Desconfíe de quien lo prometa.
+            Lo que sí está en nuestras manos —y es donde se gana o se pierde un caso— es que usted llegue con el expediente impecable, las respuestas claras y nada librado al azar.
+            <cite>Una aclaración que hacemos desde el principio</cite>
+          </blockquote>
         </div>
-        <ContactForm />
+        <aside class="vad-fee-card">
+          <p class="vad-fee-label">Honorarios de referencia</p>
+          <p class="vad-fee-amount">{fees.display}</p>
+          <p class="vad-fee-usd">{fees.displayUSD}</p>
+          <hr class="vad-fee-divider" />
+          <p class="vad-fee-frame">
+            El MRV fee (derechos al consulado) son <strong>$185&nbsp;USD no reembolsables</strong>,
+            independiente del resultado. Una solicitud mal preparada los pierde.
+            Con el expediente correcto, ese mismo pago puede ser el inicio de
+            10&nbsp;años de entradas a Estados Unidos.
+          </p>
+          <a class="btn btn-whatsapp vad-fee-cta" href={waUrl} target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
+            Iniciar mi evaluación
+          </a>
+          <p class="vad-fee-micro">El alcance y el honorario se confirman por escrito antes de contratar</p>
+        </aside>
       </div>
     </section>
+
+    <!-- ── CASO REAL ── -->
+    <section class="section section-paper">
+      <div class="shell">
+        <div class="section-header">
+          <span class="eyebrow">Resultado real</span>
+          <h2>{caseStudy.title}</h2>
+        </div>
+        <div class="case-grid">
+          <article>
+            <span>La situación</span>
+            <p>{caseStudy.situation}</p>
+          </article>
+          <article>
+            <span>Lo que hicimos</span>
+            <p>{caseStudy.process}</p>
+          </article>
+          <article class="vad-case-result">
+            <span>El resultado</span>
+            <p>{caseStudy.result}</p>
+          </article>
+        </div>
+        <blockquote class="institutional-quote vad-testi">
+          "{testimonial.quote}"
+          <cite>{testimonial.author} · {testimonial.context}</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ── CÓMO FUNCIONA ── -->
+    <section class="section section-navy">
+      <div class="shell">
+        <div class="section-header invert">
+          <span class="eyebrow">El proceso</span>
+          <h2>Tres pasos. Sin sorpresas.</h2>
+          <p>Sabemos qué falla en cada etapa. Por eso no dejamos nada al azar ni a última hora.</p>
+        </div>
+        <ul class="method-list">
+          <li>
+            <span>01</span>
+            <div>
+              <h3>Análisis de viabilidad</h3>
+              <p>Analizamos su caso y le decimos qué es posible, qué no y qué riesgos hay. Si su caso no tiene viabilidad real, se lo decimos antes de cobrar.</p>
+            </div>
+          </li>
+          <li>
+            <span>02</span>
+            <div>
+              <h3>Preparación del expediente</h3>
+              <p>Completamos el DS-160 correcto, construimos el expediente de arraigo y definimos cada documento. Nada queda al azar ni a última hora.</p>
+            </div>
+          </li>
+          <li>
+            <span>03</span>
+            <div>
+              <h3>Preparación para la entrevista</h3>
+              <p>Simulamos la entrevista consular. Usted llega sabiendo qué evalúa el oficial, cómo responder con claridad y qué documentos mostrar en qué momento.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── FAQ ── -->
+    <section class="section section-cream">
+      <div class="shell">
+        <div class="section-header">
+          <span class="eyebrow">Preguntas frecuentes en Durango</span>
+          <h2>Lo que conviene saber antes de empezar.</h2>
+        </div>
+        <div class="faq-list">
+          {localFaqs.map((f, i) => (
+            <article class:list={['faq-item', { 'is-open': i === 0 }]}>
+              <h3>
+                <button type="button" aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`vad-faq-${i}`} data-faq-trigger>
+                  {f.question}
+                  <span aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div id={`vad-faq-${i}`} class="faq-panel" data-faq-panel>
+                <div class="faq-panel-inner">
+                  <p>{f.answer}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FINAL CTA ── -->
+    <section class="section section-navy vad-final" id="contacto-durango">
+      <div class="shell">
+        <div class="vad-final-head">
+          <span class="eyebrow">¿Listo para iniciar?</span>
+          <h2>Cuéntenos su caso hoy.</h2>
+          <p class="vad-final-lead">
+            El mismo día hábil recibe una orientación sobre su situación y los siguientes pasos.
+            Atendemos en Durango de forma presencial o a distancia, como prefiera.
+          </p>
+        </div>
+        <div class="vad-final-body">
+          <div class="vad-final-left">
+            <p class="vad-final-channel-label">Canal directo · WhatsApp</p>
+            <a class="btn btn-whatsapp vad-final-wa" href={waUrl} target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
+              Hablar con el especialista
+            </a>
+            <p class="vad-final-wa-note">Le responde Alexander Tinoco directamente · Mismo día hábil</p>
+            <ul class="vad-trust-list">
+              <li><span aria-hidden="true">—</span> Sin costo por la primera orientación</li>
+              <li><span aria-hidden="true">—</span> Le decimos con franqueza si su caso es viable</li>
+              <li><span aria-hidden="true">—</span> El honorario se confirma por escrito antes de contratar</li>
+              <li><span aria-hidden="true">—</span> Durango, México · Presencial o a distancia</li>
+            </ul>
+          </div>
+          <div class="vad-final-form">
+            <p class="vad-form-label">O déjenos sus datos y le contactamos nosotros</p>
+            <ContactForm />
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
   <Footer />
   <WhatsAppFloat />
 </BaseLayout>
 
 <style>
+  /* ── Hero ── */
   .vad-hero {
     padding-top: calc(var(--header) + clamp(40px, 6vw, 72px));
     padding-bottom: clamp(48px, 7vw, 84px);
@@ -159,26 +335,73 @@ const schema = {
   }
   .vad-hero .bc { margin-bottom: 1.4rem; }
   .vad-hero .eyebrow { color: var(--gold-300); }
-  .vad-hero h1 { color: var(--white); font-size: clamp(2.3rem, 5vw, 4rem); margin-top: .35em; max-width: 18ch; }
-  .vad-lead { max-width: 62ch; margin-top: 1.1rem; color: rgba(245, 240, 232, .82); font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.6; }
-  .vad-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 2rem; }
+  .vad-hero h1 { color: var(--white); font-size: clamp(2.8rem, 5.5vw, 4.6rem); margin-top: .7em; }
+  .vad-lead { max-width: 58ch; margin-top: 1.3rem; color: rgba(245,240,232,.78); font-size: clamp(1.05rem, 1.7vw, 1.28rem); line-height: 1.65; }
+  .vad-hero .hero-actions { margin-top: 2rem; }
+  .vad-hero .hero-reassurance { margin-top: .9rem; }
+  .vad-hero .hero-metrics { margin-top: 3rem; }
+  .vad-hero .hero-metrics dt { font-size: 2rem; }
 
-  .vad-body { max-width: 820px; }
-  .vad-intro h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-top: .35em; }
-  .vad-intro p { color: var(--muted); line-height: 1.75; margin-top: 1.1rem; max-width: 64ch; }
-  .vad-includes { margin-top: clamp(36px, 5vw, 56px); padding-top: clamp(28px, 4vw, 40px); border-top: 1px solid var(--line); }
-  .vad-includes h3 { color: var(--navy); }
-  .vad-includes ul { display: grid; gap: 14px; margin-top: 1.2rem; }
-  .vad-includes li { position: relative; padding-left: 26px; color: var(--ink); line-height: 1.6; }
-  .vad-includes li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--gold); font-weight: 700; }
+  /* ── Mid CTA band ── */
+  .vad-mid-cta { padding-block: clamp(28px, 4vw, 44px); border-block: 1px solid var(--line-light); }
+  .vad-mid-cta-inner { display: flex; align-items: center; gap: clamp(20px, 5vw, 52px); flex-wrap: wrap; }
+  .vad-mid-cta-inner > p { color: var(--cream); font-family: var(--serif); font-size: clamp(1.1rem, 2vw, 1.55rem); flex: 1; min-width: 200px; margin: 0; }
+  .vad-mid-note { color: rgba(245,240,232,.4); font-size: .78rem; white-space: nowrap; }
 
-  .vad-faq-title { margin-top: .35em; margin-bottom: clamp(28px, 4vw, 44px); }
-  .vad-faq { display: grid; gap: 12px; max-width: 820px; }
-  .vad-faq-item { background: var(--white); border: 1px solid var(--line); border-left: 2px solid var(--gold); padding: 20px 24px; }
-  .vad-faq-item summary { color: var(--navy); font-family: var(--serif); font-size: 1.2rem; cursor: pointer; list-style: none; }
-  .vad-faq-item summary::-webkit-details-marker { display: none; }
-  .vad-faq-item[open] summary { margin-bottom: .6rem; }
-  .vad-faq-item p { color: var(--muted); line-height: 1.7; }
+  /* ── Service / Includes + Fee ── */
+  .vad-svc-grid { display: grid; grid-template-columns: 1fr 330px; gap: clamp(40px, 6vw, 90px); align-items: start; }
+  .vad-svc-grid .section-header { margin-bottom: clamp(28px, 4vw, 40px); }
+  .vad-svc-grid .section-header p { color: var(--ink); }
+  .vad-includes-list { gap: 22px; }
+  .vad-includes-list li { padding-block: 8px 6px; }
+  .vad-includes-list strong { font-size: .97rem; line-height: 1.45; }
+  .vad-guarantee { margin-top: 2.6rem; font-size: .97rem; line-height: 1.7; }
 
-  .vad-contact-lead { color: var(--muted); line-height: 1.7; margin-top: 1rem; max-width: 48ch; }
+  .vad-fee-card { padding: 36px 32px; background: var(--white); border-top: 2px solid var(--gold); box-shadow: 0 28px 70px rgba(12,24,46,.09); position: sticky; top: calc(var(--header) + 24px); display: flex; flex-direction: column; gap: 0; }
+  .vad-fee-label { font-size: .65rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+  .vad-fee-amount { font-family: var(--serif); font-size: 2.5rem; font-weight: 600; color: var(--navy); line-height: 1; margin-top: .7rem; }
+  .vad-fee-usd { color: var(--gold); font-size: .88rem; margin-top: .6rem; }
+  .vad-fee-divider { border: none; border-top: 1px solid var(--line); margin: 1.6rem 0; }
+  .vad-fee-frame { color: var(--muted); font-size: .86rem; line-height: 1.75; }
+  .vad-fee-frame strong { color: var(--navy); }
+  .vad-fee-cta { width: 100%; justify-content: center; margin-top: 1.6rem; }
+  .vad-fee-micro { margin-top: .8rem; text-align: center; color: var(--muted); font-size: .72rem; line-height: 1.5; }
+
+  /* ── Case study ── */
+  .vad-case-result { background: var(--navy) !important; border-color: var(--navy) !important; }
+  .vad-case-result > span { color: var(--gold-300) !important; }
+  .vad-case-result > p { color: rgba(245,240,232,.82) !important; font-style: normal; }
+  .vad-testi { margin-top: clamp(36px, 5vw, 56px); font-size: clamp(1.15rem, 2vw, 1.5rem); }
+
+  /* ── Final CTA ── */
+  .vad-final { padding-block: clamp(72px, 10vw, 120px); }
+  .vad-final .eyebrow { color: var(--gold-300); }
+  .vad-final-head { max-width: 640px; margin-bottom: clamp(36px, 5vw, 52px); }
+  .vad-final-head h2 { color: var(--white); margin-top: .35em; }
+  .vad-final-lead { color: rgba(245,240,232,.72); line-height: 1.7; max-width: 56ch; margin-top: .85rem; font-size: 1rem; }
+  .vad-final-left { max-width: 520px; }
+  .vad-final-channel-label { color: var(--gold-300); font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; margin-bottom: .9rem; }
+  .vad-final-wa { font-size: 1.05rem; padding: 16px 24px; width: 100%; justify-content: center; }
+  .vad-final-wa-note { color: rgba(245,240,232,.42); font-size: .78rem; margin-top: .75rem; line-height: 1.4; }
+  .vad-trust-list { margin-top: 2rem; display: grid; gap: 14px; border-top: 1px solid var(--line-light); padding-top: 1.6rem; }
+  .vad-trust-list li { color: rgba(245,240,232,.65); font-size: .88rem; line-height: 1.4; display: flex; gap: .7rem; }
+  .vad-trust-list span { color: var(--gold-300); flex-shrink: 0; }
+  .vad-final-form { max-width: 720px; margin-top: clamp(36px, 5vw, 56px); border-top: 1px solid var(--line-light); padding-top: clamp(36px, 5vw, 52px); }
+  .vad-form-label { color: var(--cream); font-family: var(--serif); font-size: 1.05rem; margin-bottom: 1.2rem; opacity: .82; }
+  .vad-final-form :global(.form-grid) { grid-template-columns: repeat(2, 1fr); }
+  .vad-final-form :global(.form-grid .full) { grid-column: 1 / -1; }
+
+  /* ── Responsive ── */
+  @media (max-width: 1000px) {
+    .vad-svc-grid { grid-template-columns: 1fr; }
+    .vad-fee-card { position: static; }
+  }
+  @media (max-width: 760px) {
+    .vad-hero .hero-metrics { gap: 20px 28px; }
+    .trust-grid { grid-template-columns: 1fr; }
+    .case-grid { grid-template-columns: 1fr; }
+    .vad-mid-cta-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .vad-final-form { max-width: 100%; }
+    .vad-final-form :global(.form-grid) { grid-template-columns: 1fr; }
+  }
 </style>

@@ -53,6 +53,7 @@ export const navItems = [
   { label: 'Nosotros', href: '/nosotros/' },
   { label: 'Preguntas', href: '/preguntas-frecuentes/' },
   { label: 'Casos', href: '/casos-de-exito/' },
+  { label: 'Simulador', href: '/simulador-visa/' },
   { label: 'Contacto', href: '/contacto/' },
 ];
 
