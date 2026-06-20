@@ -1,0 +1,267 @@
+---
+import Footer from '../components/Footer.astro';
+import Navbar from '../components/Navbar.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+
+const canonical = `${site.url}/checklist-arraigo/`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'Checklist de arraigo para visa americana B1/B2',
+  description: 'Lista completa de documentos para demostrar arraigo en una solicitud de visa americana B1/B2.',
+  url: canonical,
+  step: [
+    { '@type': 'HowToStep', name: 'Arraigo laboral', text: 'Reúna carta patronal, nóminas y constancia del IMSS si es empleado; o constancia fiscal y estados de cuenta si tiene negocio propio.' },
+    { '@type': 'HowToStep', name: 'Arraigo familiar', text: 'Reúna actas de matrimonio, actas de nacimiento de hijos y cualquier documento que acredite personas dependientes en México.' },
+    { '@type': 'HowToStep', name: 'Arraigo patrimonial', text: 'Reúna escrituras, contratos de arrendamiento o títulos vehiculares que documenten patrimonio en México.' },
+    { '@type': 'HowToStep', name: 'Propósito de viaje', text: 'Defina un propósito específico y verificable para el viaje, coherente con su perfil económico.' },
+  ],
+};
+---
+
+<BaseLayout
+  title="Checklist de arraigo para visa americana | Legatum Internacional"
+  description="Lista completa de documentos para demostrar arraigo en su solicitud de visa americana B1/B2. Descárguela sin costo y evalúe si su expediente está listo."
+  canonical={canonical}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </Fragment>
+  <Navbar />
+  <main id="main-content">
+
+    <section class="cl-hero section-navy">
+      <div class="shell">
+        <span class="eyebrow">Recurso sin costo · Legatum Internacional</span>
+        <h1>Checklist de arraigo para visa americana B1/B2</h1>
+        <p class="cl-lead">
+          El arraigo es el factor que más solicitudes pierde. Esta lista le permite evaluar
+          en menos de 5 minutos si su expediente está listo para la entrevista consular.
+        </p>
+      </div>
+    </section>
+
+    <section class="section section-paper">
+      <div class="shell cl-body">
+
+        <div class="cl-content">
+          <p class="cl-intro">
+            Use esta lista para revisar su situación antes de agendar la cita consular. Cada elemento
+            que pueda documentar sólidamente fortalece su solicitud. Los que no pueda documentar son
+            los que requieren atención antes de avanzar.
+          </p>
+
+          <div class="cl-group">
+            <h2><span class="cl-num">01</span> Arraigo laboral o económico</h2>
+            <p class="cl-group-desc">El más importante. Demuestra que tiene ingresos y actividad económica en México.</p>
+            <ul class="checklist">
+              <li>
+                <strong>Si es empleado:</strong>
+                <ul>
+                  <li>Carta patronal original — con cargo, antigüedad y sueldo, firmada y sellada, con fecha reciente (máx. 30 días)</li>
+                  <li>Últimos 3 recibos de nómina</li>
+                  <li>Constancia de semanas cotizadas IMSS</li>
+                  <li>Estados de cuenta bancarios (últimos 3-6 meses) coherentes con el sueldo declarado</li>
+                </ul>
+              </li>
+              <li>
+                <strong>Si tiene negocio propio:</strong>
+                <ul>
+                  <li>Constancia de situación fiscal actualizada (SAT)</li>
+                  <li>Estados de cuenta empresariales (últimos 3-6 meses) con movimientos regulares</li>
+                  <li>Declaración anual de ISR (últimos 1-2 años)</li>
+                  <li>Acta constitutiva (si la empresa está formalmente constituida)</li>
+                </ul>
+              </li>
+              <li>
+                <strong>Si es jubilado o pensionado:</strong>
+                <ul>
+                  <li>Comprobante de pensión o ingresos fijos (carta del ISSSTE, IMSS u otra institución)</li>
+                  <li>Estados de cuenta con depósitos regulares</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="cl-group">
+            <h2><span class="cl-num">02</span> Arraigo familiar</h2>
+            <p class="cl-group-desc">Demuestra que tiene personas que le esperan de regreso en México.</p>
+            <ul class="checklist">
+              <li>Acta de matrimonio (si viaja sin cónyuge y el cónyuge se queda en México)</li>
+              <li>Actas de nacimiento de hijos menores que se quedan en México</li>
+              <li>Constancia de dependencia económica de padres o familiares a su cargo (si aplica)</li>
+              <li>Identificación del cónyuge o familiar dependiente (como referencia en el expediente)</li>
+            </ul>
+          </div>
+
+          <div class="cl-group">
+            <h2><span class="cl-num">03</span> Arraigo patrimonial</h2>
+            <p class="cl-group-desc">No es indispensable, pero refuerza la imagen de que tiene algo que perder si no regresa.</p>
+            <ul class="checklist">
+              <li>Escritura de propiedad (casa, terreno, local) o boleta predial reciente</li>
+              <li>Contrato de arrendamiento vigente (si renta — demuestra domicilio estable)</li>
+              <li>Factura o título de vehículo a su nombre</li>
+              <li>Cualquier otra inversión documentada (AFORE, fondos, acciones)</li>
+            </ul>
+          </div>
+
+          <div class="cl-group">
+            <h2><span class="cl-num">04</span> Propósito de viaje</h2>
+            <p class="cl-group-desc">Debe ser específico, coherente con su perfil y verificable.</p>
+            <ul class="checklist">
+              <li>Definido el destino y las actividades concretas del viaje</li>
+              <li>Itinerario tentativo (no requiere reservas confirmadas para la solicitud)</li>
+              <li>Si visita a alguien: nombre, dirección y relación con esa persona</li>
+              <li>Propósito coherente con el tiempo de estadía declarado y su capacidad económica</li>
+            </ul>
+          </div>
+
+          <div class="cl-group">
+            <h2><span class="cl-num">05</span> Documentos personales base</h2>
+            <ul class="checklist">
+              <li>Pasaporte mexicano vigente (con al menos 6 meses más allá de la fecha de regreso planificada)</li>
+              <li>DS-160 completado, revisado y con código de barras impreso</li>
+              <li>Comprobante de pago del MRV (~$185 USD, no reembolsable)</li>
+              <li>Foto reciente con especificaciones del consulado (fondo blanco, sin lentes, etc.)</li>
+              <li>Confirmación de cita consular</li>
+            </ul>
+          </div>
+
+          <div class="cl-alert">
+            <strong>Antes de agendar la cita:</strong> revise que la información del DS-160 sea
+            idéntica a la de sus documentos de soporte. Una inconsistencia entre el formulario
+            y una carta laboral es la causa más frecuente de preguntas difíciles en ventanilla.
+          </div>
+        </div>
+
+        <aside class="cl-aside">
+          <div class="cl-cta-card">
+            <p class="cl-cta-label">¿Dudas sobre su expediente?</p>
+            <h3>Evaluamos su caso antes de que invierta en la cita</h3>
+            <p>Cuéntenos su situación. Le decimos con claridad si su expediente está listo o qué necesita fortalecer antes de avanzar.</p>
+            <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="checklist_arraigo">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.6-1.4 1.2-1.9 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5-.3.4c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>
+              Evaluar mi caso por WhatsApp
+            </a>
+          </div>
+
+          <div class="cl-email-card">
+            <p class="cl-cta-label">Reciba orientación por email</p>
+            <h3>Le enviamos una evaluación inicial</h3>
+            <p>Deje su correo y cuéntenos brevemente su situación. Le respondemos el mismo día hábil.</p>
+            <form class="cl-form" id="cl-email-form" action="https://api.web3forms.com/submit" method="POST">
+              <input type="hidden" name="access_key" value="10bdf0b7-464e-4943-a3c4-83c4cd8f8b70" />
+              <input type="hidden" name="subject" value="Consulta desde checklist de arraigo — Legatum Internacional" />
+              <input type="hidden" name="from_name" value="Legatum Internacional Web" />
+              <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true" />
+              <label>
+                <span>Correo electrónico</span>
+                <input name="email" type="email" autocomplete="email" required placeholder="su@correo.com" />
+              </label>
+              <label>
+                <span>Su situación brevemente</span>
+                <textarea name="mensaje" rows="3" placeholder="Ej: Primera visa, soy empleado, tengo 2 años en el mismo trabajo..." required></textarea>
+              </label>
+              <button class="btn btn-primary" type="submit">Recibir orientación</button>
+              <p class="cl-form-note">Le respondemos el mismo día hábil. Sin compromiso.</p>
+              <p class="cl-form-status" role="status" aria-live="polite" data-form-status></p>
+            </form>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>
+
+<style>
+  .cl-hero {
+    padding-top: calc(var(--header) + clamp(40px, 6vw, 72px));
+    padding-bottom: clamp(48px, 7vw, 80px);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .cl-hero .eyebrow { color: var(--gold-300); }
+  .cl-hero h1 { color: var(--white); font-size: clamp(2rem, 4.5vw, 3.4rem); margin-top: .35em; max-width: 22ch; }
+  .cl-lead { max-width: 60ch; margin-top: 1.1rem; color: rgba(245, 240, 232, .82); font-size: clamp(1.05rem, 1.6vw, 1.2rem); line-height: 1.6; }
+
+  .cl-body { display: grid; grid-template-columns: 1fr 300px; gap: clamp(40px, 5vw, 72px); align-items: start; }
+  .cl-intro { color: var(--muted); line-height: 1.75; margin-bottom: clamp(28px, 4vw, 44px); max-width: 64ch; border-left: 2px solid var(--gold); padding-left: 1.2rem; }
+
+  .cl-group { margin-bottom: clamp(32px, 5vw, 52px); }
+  .cl-group h2 { display: flex; align-items: center; gap: .8rem; font-size: clamp(1.3rem, 2.2vw, 1.7rem); color: var(--navy); margin-bottom: .5rem; }
+  .cl-num { font-family: var(--serif); font-size: 1rem; color: var(--gold); letter-spacing: .1em; flex-shrink: 0; }
+  .cl-group-desc { color: var(--muted); font-size: .92rem; margin-bottom: 1.1rem; }
+
+  .checklist { display: grid; gap: 10px; margin-top: .6rem; }
+  .checklist > li { position: relative; padding-left: 1.6rem; color: var(--ink); line-height: 1.55; }
+  .checklist > li::before { content: "☐"; position: absolute; left: 0; top: 0; color: var(--gold); font-size: .9rem; }
+  .checklist > li > strong { display: block; color: var(--navy); margin-bottom: .4rem; }
+  .checklist > li > ul { margin-top: .4rem; padding-left: 1.2rem; display: grid; gap: 6px; }
+  .checklist > li > ul > li { list-style: disc; color: var(--muted); font-size: .93rem; line-height: 1.5; }
+
+  .cl-alert { background: #fdf8f0; border: 1px solid var(--gold); border-left: 3px solid var(--gold); padding: 16px 20px; color: var(--ink); font-size: .9rem; line-height: 1.6; margin-top: clamp(24px, 3vw, 36px); }
+  .cl-alert strong { color: var(--navy); }
+
+  .cl-aside { position: sticky; top: calc(var(--header) + 28px); display: grid; gap: 20px; }
+  .cl-cta-card, .cl-email-card { padding: 24px; border: 1px solid var(--line); border-top: 2px solid var(--gold); background: var(--cream); }
+  .cl-cta-label { font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #7c6549; margin-bottom: .6rem; }
+  .cl-cta-card h3, .cl-email-card h3 { color: var(--navy); font-size: 1.15rem; margin-bottom: .6rem; line-height: 1.3; }
+  .cl-cta-card p, .cl-email-card > p { color: var(--muted); font-size: .88rem; line-height: 1.55; margin-bottom: 1.2rem; }
+  .cl-cta-card .btn { width: 100%; justify-content: center; font-size: .88rem; }
+
+  .cl-form { display: grid; gap: 12px; }
+  .cl-form label { display: grid; gap: 4px; }
+  .cl-form label span { font-size: .75rem; font-weight: 600; color: var(--navy); letter-spacing: .03em; }
+  .cl-form input, .cl-form textarea { border: 1px solid var(--line); padding: 9px 12px; font-size: .88rem; color: var(--ink); background: var(--white); width: 100%; }
+  .cl-form input:focus, .cl-form textarea:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+  .cl-form textarea { resize: vertical; }
+  .btn-primary { background: var(--navy); color: var(--white); padding: 11px 18px; font-weight: 600; font-size: .88rem; width: 100%; cursor: pointer; border: none; transition: background .2s; }
+  .btn-primary:hover { background: #1a2e50; }
+  .cl-form-note { font-size: .75rem; color: var(--muted); text-align: center; }
+  .cl-form-status { font-size: .82rem; min-height: 1.2em; }
+
+  @media (max-width: 900px) {
+    .cl-body { grid-template-columns: 1fr; }
+    .cl-aside { position: static; }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('cl-email-form') as HTMLFormElement;
+  if (form) {
+    const status = form.querySelector('[data-form-status]') as HTMLElement;
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = 'Enviando…';
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        const data = await res.json();
+        if (data.success) {
+          (window as any).legatumTrack?.('generate_lead', { method: 'checklist_email' });
+          status.textContent = '¡Listo! Le respondemos el mismo día hábil.';
+          status.style.color = 'var(--color-success, #2e7d32)';
+          form.reset();
+        } else {
+          throw new Error();
+        }
+      } catch {
+        status.textContent = 'Error al enviar. Escríbanos por WhatsApp.';
+        status.style.color = 'var(--color-error, #c62828)';
+        btn.disabled = false;
+        btn.textContent = 'Recibir orientación';
+      }
+    });
+  }
+</script>

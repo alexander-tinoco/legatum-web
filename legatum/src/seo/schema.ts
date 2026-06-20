@@ -37,16 +37,21 @@ export function buildSchema(options: SchemaOptions = {}) {
     founder: { '@id': `${site.url}/#founder` },
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Durango',
+      addressLocality: 'Victoria de Durango',
+      addressRegion: 'Durango',
       addressCountry: 'MX',
     },
-    areaServed: ['MX', 'US', 'CA'],
+    areaServed: [
+      { '@type': 'Country', name: 'Mexico' },
+      { '@type': 'Country', name: 'United States' },
+      { '@type': 'Country', name: 'Canada' },
+    ],
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: site.phone,
       contactType: 'customer service',
       availableLanguage: ['Spanish'],
-      areaServed: 'MX',
+      areaServed: { '@type': 'Country', name: 'Mexico' },
     },
   };
 
@@ -92,10 +97,16 @@ export function buildSchema(options: SchemaOptions = {}) {
     priceRange: '$$',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Durango',
+      addressLocality: 'Victoria de Durango',
+      addressRegion: 'Durango',
       addressCountry: 'MX',
     },
-    areaServed: ['MX', 'US', 'CA'],
+    areaServed: [
+      { '@type': 'City', name: 'Durango', '@id': 'https://www.wikidata.org/wiki/Q662540' },
+      { '@type': 'Country', name: 'Mexico' },
+      { '@type': 'Country', name: 'United States' },
+      { '@type': 'Country', name: 'Canada' },
+    ],
     parentOrganization: {
       '@id': `${site.url}/#organization`,
     },

@@ -6,16 +6,16 @@ import { services, site } from '../data/site';
 <section class="section section-paper" id="servicios" aria-labelledby="servicios-title">
   <div class="shell">
     <SectionHeader
-      eyebrow="Servicios núcleo"
+      eyebrow="Áreas de especialidad"
       title="Cada proceso, una especialidad."
-      lead="No administramos papeles: analizamos su caso, trazamos la ruta y acompañamos cada paso del proceso."
+      lead="No administramos papeles. Analizamos su caso, definimos la ruta y respondemos por cada decisión hasta el final."
       id="servicios-title"
     />
     <div class="services-grid">
       {services.map((service, index) => (
         <article class={`service-card reveal${index > 0 ? ` d${Math.min(index, 3)}` : ''}`}>
           <span>{String(index + 1).padStart(2, '0')}</span>
-          <h3><span class="service-flag" aria-hidden="true">{service.flag}</span>{service.title}</h3>
+          <h3><abbr class="service-code">{service.flag}</abbr>{service.title}</h3>
           <p>{service.summary}</p>
           <ul>{service.tags.map((tag) => <li>{tag}</li>)}</ul>
           <a href={`/servicios/${service.slug}/`} class="card-link" aria-label={`Ver servicio: ${service.title}`}></a>
@@ -27,23 +27,23 @@ import { services, site } from '../data/site';
       <span class="eyebrow">Destinos adicionales</span>
       <div class="destinations-grid">
         <article class="service-card">
-          <span>Australia</span>
-          <h3><span class="service-flag" aria-hidden="true">🇦🇺</span>Visa Australia</h3>
-          <p>ETA y visa de turista para mexicanos. Gestión en ImmiAccount, biométricos y seguimiento de tiempos reales de procesamiento.</p>
+          <abbr class="service-code">AUS</abbr>
+          <h3>Visa Australia</h3>
+          <p>ETA y visa de turista para mexicanos. Preparamos su solicitud, anticipamos los requisitos biométricos y le damos lectura realista de los tiempos de resolución.</p>
           <ul><li>Visa de turista</li><li>ETA electrónica</li><li>Ciudadanos mexicanos</li></ul>
           <a href="/contacto/" class="card-link" aria-label="Consultar servicio: Visa Australia"></a>
         </article>
         <article class="service-card">
-          <span>China</span>
-          <h3><span class="service-flag" aria-hidden="true">🇨🇳</span>Visa China</h3>
-          <p>Visa de turista y de negocios para mexicanos. Gestionamos la cita consular, la documentación completa y lo acompañamos en todo el proceso.</p>
+          <abbr class="service-code">CHN</abbr>
+          <h3>Visa China</h3>
+          <p>Visa de turista y de negocios para mexicanos. Construimos el expediente, preparamos la cita consular y lo acompañamos en cada etapa.</p>
           <ul><li>Visa de turista</li><li>Visa de negocios</li><li>Cita consular</li></ul>
           <a href="/contacto/" class="card-link" aria-label="Consultar servicio: Visa China"></a>
         </article>
         <article class="service-card service-card--cta">
           <span>Consultas</span>
           <h3>Otro destino</h3>
-          <p>¿Su destino no aparece aquí? Cuéntenos su caso. Evaluamos los requisitos reales y le decimos con honestidad si podemos ayudarle.</p>
+          <p>¿Su destino no aparece aquí? Cuéntenos su caso. Evaluamos los requisitos reales y le decimos con franqueza si podemos ayudarle.</p>
           <ul><li>Consulta inicial</li><li>Sin compromiso</li></ul>
           <a href={site.whatsapp} target="_blank" rel="noopener noreferrer" class="card-link" aria-label="Consultar por WhatsApp: Otro destino"></a>
         </article>

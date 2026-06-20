@@ -18,7 +18,8 @@
     "@astrojs/mdx": "^6.0.2",
     "@fontsource-variable/jost": "^5.2.8",
     "@fontsource/cormorant-garamond": "^5.2.11",
-    "astro": "^6.4.4"
+    "astro": "^6.4.4",
+    "pdfkit": "^0.19.1"
   },
   "devDependencies": {
     "wrangler": "^4.99.0"

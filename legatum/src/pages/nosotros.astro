@@ -33,7 +33,7 @@ const schema = {
 
 <BaseLayout
   title={`Nosotros — ${founder.name}, ${founder.role} | ${site.name}`}
-  description={`Conozca a ${founder.name}, ${founder.role} de ${site.name}. Especialista en visas, pasaportes y trámites consulares con preparación rigurosa de cada expediente.`}
+  description={`Conozca a ${founder.name}, ${founder.role} de ${site.name}. Especialista en visas, pasaportes y procesos consulares con preparación rigurosa de cada expediente.`}
   canonical={canonical}
 >
   <Fragment slot="head">
@@ -48,7 +48,7 @@ const schema = {
         <h1>Una institución con nombre y rostro.</h1>
         <p class="abt-lead">
           En movilidad internacional, la confianza no se delega en un sistema anónimo. Detrás de cada
-          expediente hay una persona que responde por él de principio a fin.
+          expediente hay una persona que responde por él en cada etapa.
         </p>
       </div>
     </section>
@@ -84,10 +84,10 @@ const schema = {
             <span>Renovaciones</span>
             <span>Visa Canadiense</span>
             <span>Pasaportes</span>
-            <span>Trámites Consulares</span>
+            <span>Procesos Consulares</span>
           </div>
           <div class="abt-actions">
-            <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+            <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="nosotros_bio">
               Hablar con {founder.name.split(' ')[0]}
             </a>
             <a class="btn btn-ghost" href="/servicios/">Ver servicios</a>
@@ -114,10 +114,10 @@ const schema = {
     <section class="section section-navy">
       <div class="shell abt-cta">
         <span class="eyebrow">Empecemos</span>
-        <h2>Cuéntenos su caso. Le respondemos con honestidad.</h2>
+        <h2>Cuéntenos su caso. Le decimos qué es posible y qué no.</h2>
         <p>El mismo día hábil recibe una orientación real sobre su situación y los siguientes pasos.</p>
         <div class="abt-actions">
-          <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+          <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="nosotros_cta">
             Iniciar mi evaluación
           </a>
           <a class="btn btn-ghost-light" href="/contacto/">Dejar mis datos</a>
@@ -185,7 +185,31 @@ const schema = {
 
   @media (max-width: 960px) {
     .abt-founder { grid-template-columns: 1fr; }
-    .abt-portrait { position: static; max-width: 440px; }
+    .abt-portrait { position: static; width: 100%; max-width: 100%; }
+    /* En móvil la imagen fluye proporcionalmente — sin recorte */
+    .portrait-photo {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      height: auto;
+      object-fit: unset;
+      display: block;
+    }
+    .portrait-panel {
+      min-height: unset;
+      height: auto;
+      overflow: visible;
+      display: block;
+    }
+    .portrait-badge {
+      position: relative;
+      right: auto;
+      bottom: auto;
+      max-width: 100%;
+      box-shadow: none;
+      border-top: 2px solid var(--gold);
+      padding: 14px 20px;
+    }
     .abt-values { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 600px) {

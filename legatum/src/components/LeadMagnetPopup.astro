@@ -1,0 +1,289 @@
+---
+---
+
+<div id="lm-overlay" class="lm-overlay" role="dialog" aria-modal="true" aria-labelledby="lm-title" hidden>
+  <div class="lm-card">
+
+    <button class="lm-close" id="lm-close" aria-label="Cerrar">✕</button>
+
+    <p class="lm-label">Guía gratuita</p>
+    <h2 class="lm-title" id="lm-title">Los 7 errores más comunes<br>en el DS-160</h2>
+    <p class="lm-subtitle">Te la enviamos al correo en segundos. Sin spam.</p>
+
+    <form id="lm-form" class="lm-form" novalidate>
+      <input
+        type="email"
+        id="lm-email"
+        name="email"
+        placeholder="tu@correo.com"
+        required
+        autocomplete="email"
+        class="lm-input"
+      />
+      <button type="submit" class="lm-btn lm-btn-primary">
+        <span class="lm-btn-text">Enviarme la guía gratis</span>
+        <span class="lm-btn-loading" hidden>Enviando…</span>
+      </button>
+      <button type="button" id="lm-skip" class="lm-btn lm-btn-secondary">
+        No gracias, ya sé llenar el DS-160
+      </button>
+    </form>
+
+    <p class="lm-message" aria-live="polite" hidden></p>
+
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'lm_dismissed';
+  const overlay  = document.getElementById('lm-overlay')  as HTMLElement;
+  const closeBtn = document.getElementById('lm-close')    as HTMLButtonElement;
+  const skipBtn  = document.getElementById('lm-skip')     as HTMLButtonElement;
+  const form     = document.getElementById('lm-form')     as HTMLFormElement;
+  const btnText    = form.querySelector('.lm-btn-text')    as HTMLElement;
+  const btnLoading = form.querySelector('.lm-btn-loading') as HTMLElement;
+  const message    = document.querySelector('.lm-message') as HTMLElement;
+
+  let hasShown = false;
+
+  function showPopup() {
+    if (hasShown || sessionStorage.getItem(STORAGE_KEY)) return;
+    hasShown = true;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    (form.querySelector('#lm-email') as HTMLInputElement)?.focus();
+  }
+
+  function closePopup() {
+    overlay.classList.add('is-closing');
+    overlay.addEventListener('animationend', () => {
+      overlay.hidden = true;
+      overlay.classList.remove('is-closing');
+      document.body.style.overflow = '';
+      sessionStorage.setItem(STORAGE_KEY, '1');
+    }, { once: true });
+  }
+
+  // Solo scroll — sin timer. Usa documentElement para cálculo fiable.
+  function onScroll() {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    if (scrollable <= 0) return;
+    if (window.scrollY / scrollable >= 0.30) {
+      window.removeEventListener('scroll', onScroll);
+      showPopup();
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  closeBtn.addEventListener('click', closePopup);
+  skipBtn.addEventListener('click', closePopup);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closePopup(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !overlay.hidden) closePopup(); });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = (form.querySelector('#lm-email') as HTMLInputElement).value.trim();
+
+    btnText.hidden = true;
+    btnLoading.hidden = false;
+    message.hidden = true;
+
+    try {
+      const res  = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'popup_ds160' }),
+      });
+      const data = await res.json();
+
+      if (data.ok) {
+        form.hidden = true;
+        message.textContent = '¡Listo! Revisa tu correo — la guía ya va en camino.';
+        message.className = 'lm-message lm-success';
+        message.hidden = false;
+        setTimeout(closePopup, 3500);
+      } else {
+        throw new Error();
+      }
+    } catch {
+      btnText.hidden = false;
+      btnLoading.hidden = true;
+      message.textContent = 'Algo salió mal. Intenta de nuevo.';
+      message.className = 'lm-message lm-error';
+      message.hidden = false;
+    }
+  });
+</script>
+
+<style>
+  /* ── Keyframes ─────────────────────────────────────────────────────────── */
+  @keyframes lm-overlay-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes lm-overlay-out {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+  @keyframes lm-card-in {
+    from { opacity: 0; transform: translateY(20px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0)    scale(1);    }
+  }
+  @keyframes lm-card-out {
+    from { opacity: 1; transform: translateY(0)   scale(1);    }
+    to   { opacity: 0; transform: translateY(10px) scale(0.97); }
+  }
+
+  /* ── Overlay ────────────────────────────────────────────────────────────── */
+  .lm-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 1rem;
+    backdrop-filter: blur(1px);
+    animation: lm-overlay-in 0.25s ease forwards;
+  }
+
+  .lm-overlay[hidden] { display: none; }
+
+  .lm-overlay.is-closing {
+    animation: lm-overlay-out 0.22s ease forwards;
+  }
+  .lm-overlay.is-closing .lm-card {
+    animation: lm-card-out 0.22s ease forwards;
+  }
+
+  /* ── Card ───────────────────────────────────────────────────────────────── */
+  .lm-card {
+    position: relative;
+    background: #fff;
+    border-radius: 8px;
+    padding: 2.25rem 2rem 1.75rem;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.22);
+    text-align: center;
+    animation: lm-card-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* ── Botón cerrar ───────────────────────────────────────────────────────── */
+  .lm-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.9rem;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    line-height: 1;
+    color: var(--color-navy, #0c182e);
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .lm-close:hover {
+    opacity: 0.45;
+    transform: rotate(90deg);
+  }
+
+  /* ── Textos ─────────────────────────────────────────────────────────────── */
+  .lm-label {
+    font-family: var(--font-sans, sans-serif);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-gold, #c9a96e);
+    margin: 0.25rem 0 0.75rem;
+  }
+
+  .lm-title {
+    font-family: var(--font-serif, serif);
+    font-size: clamp(1.3rem, 3.5vw, 1.75rem);
+    font-weight: 400;
+    color: var(--color-navy, #0c182e);
+    line-height: 1.25;
+    margin: 0 0 0.6rem;
+  }
+
+  .lm-subtitle {
+    font-family: var(--font-sans, sans-serif);
+    font-size: 0.88rem;
+    color: #777;
+    margin: 0 0 1.4rem;
+  }
+
+  /* ── Input ──────────────────────────────────────────────────────────────── */
+  .lm-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: var(--font-sans, sans-serif);
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .lm-input:focus {
+    border-color: var(--color-gold, #c9a96e);
+    box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
+  }
+
+  /* ── Botones ────────────────────────────────────────────────────────────── */
+  .lm-btn {
+    width: 100%;
+    padding: 0.85rem;
+    border-radius: 4px;
+    font-family: var(--font-sans, sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    box-sizing: border-box;
+    transition: transform 0.18s ease, box-shadow 0.18s ease,
+                background 0.18s ease, opacity 0.18s ease;
+  }
+
+  .lm-btn-primary {
+    background: var(--color-navy, #0c182e);
+    color: #fff;
+    border: none;
+    margin-bottom: 0.6rem;
+  }
+  .lm-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(12, 24, 46, 0.3);
+  }
+  .lm-btn-primary:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
+  .lm-btn-secondary {
+    background: transparent;
+    color: var(--color-navy, #0c182e);
+    border: 1.5px solid var(--color-gold, #c9a96e);
+  }
+  .lm-btn-secondary:hover {
+    background: rgba(201, 169, 110, 0.1);
+    transform: translateY(-1px);
+  }
+  .lm-btn-secondary:active {
+    transform: translateY(0);
+    background: rgba(201, 169, 110, 0.18);
+  }
+
+  /* ── Mensaje ────────────────────────────────────────────────────────────── */
+  .lm-message {
+    margin-top: 1rem;
+    font-family: var(--font-sans, sans-serif);
+    font-size: 0.9rem;
+  }
+  .lm-success { color: #15803d; }
+  .lm-error   { color: #dc2626; }
+</style>

@@ -1,9 +1,18 @@
 ---
 title: "DS-160 paso a paso: por qué cada campo importa"
 description: "Guía institucional para llenar correctamente el formulario DS-160 de visa americana. Cada sección explicada con el contexto que los consulados buscan."
-pubDate: 2026-06-08
-author: "LEGATUM INTERNACIONAL"
+pubDate: 2026-04-21
+dateModified: 2026-06-19
+author: "Alexander Tinoco Sánchez"
 tags: ["visa americana", "DS-160", "documentación", "entrevista consular"]
+pillarService: "visa-americana"
+faqs:
+  - q: "¿Puedo corregir el DS-160 después de enviarlo?"
+    a: "Sí, puede crear un nuevo DS-160 con la información correcta hasta antes de su cita consular. Sin embargo, si ya tiene entrevista agendada, lleve el código de barras del formulario corregido. No presente el DS-160 con errores a sabiendas: es mejor corregirlo aunque implique reagendar."
+  - q: "¿El DS-160 debe llenarse en inglés o en español?"
+    a: "El formulario oficial del Departamento de Estado es en inglés. Todos los campos deben responderse en inglés. Si no domina el idioma, es recomendable contar con asesoría al llenarlo, ya que un error de traducción en una sección sensible puede complicar la entrevista."
+  - q: "¿Qué pasa si omití un viaje previo en el historial del DS-160?"
+    a: "Si el oficial detecta la omisión, puede interpretarse como intento de ocultar información, lo que genera desconfianza aunque el viaje haya sido completamente ordinario. Si descubre la omisión antes de la entrevista, corrija el formulario. Si ya está en la entrevista, mencione el viaje de forma natural si le preguntan sobre historial."
 ---
 
 El DS-160 no es un formulario de registro. Es su primer argumento ante el consulado.

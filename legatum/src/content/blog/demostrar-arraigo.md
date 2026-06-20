@@ -1,9 +1,18 @@
 ---
 title: "Demostrar arraigo: el factor que casi nadie prepara bien"
 description: "El arraigo es la razón número uno de negativas de visa americana. No se trata de cuánto dinero tiene, sino de qué tan creíble es su intención de regresar a México."
-pubDate: 2026-06-08
-author: "LEGATUM INTERNACIONAL"
+pubDate: 2026-04-07
+dateModified: 2026-06-19
+author: "Alexander Tinoco Sánchez"
 tags: ["visa americana", "arraigo", "B1/B2", "entrevista consular"]
+pillarService: "visa-americana"
+faqs:
+  - q: "¿El saldo bancario alto garantiza la aprobación de la visa?"
+    a: "No. El consulado no aprueba visas por dinero, sino por arraigo verificable. Un saldo alto sin contexto (sin carta laboral, sin historial de ingresos regulares) puede incluso generar preguntas. Lo que cuenta es que el dinero sea coherente con su actividad económica documentada."
+  - q: "¿Tener familia en Estados Unidos perjudica mi solicitud?"
+    a: "No necesariamente. Tener familiares en EE.UU. no es un motivo de negativa por sí solo. Lo que el oficial evalúa es si usted tiene razones suficientes para regresar a México: empleo, familia propia, propiedades. Si el arraigo en México es sólido, los vínculos en EE.UU. pasan a segundo plano."
+  - q: "¿Cuánto tiempo de antigüedad laboral necesito para demostrar arraigo?"
+    a: "No existe un mínimo oficial. Sin embargo, una antigüedad laboral de al menos 6 meses en el mismo empleo, documentada con carta patronal y nóminas, es un buen punto de partida. Lo más importante es que la información sea consistente y verificable, no el tiempo exacto."
 ---
 
 El oficial consular tiene una pregunta implícita frente a cada solicitante: ¿esta persona va a regresar a México cuando su visa venza? El arraigo es su respuesta a esa pregunta. Y la mayoría de las personas no sabe cómo construirla.
@@ -56,4 +65,4 @@ Esa respuesta debe estar respaldada por los documentos del expediente.
 
 ---
 
-*¿No sabe si su perfil de arraigo es suficiente para su solicitud? [Cuéntenos su situación](/#contacto) y le damos una evaluación honesta.*
+*¿No sabe si su perfil de arraigo es suficiente para su solicitud? [Cuéntenos su situación](/#contacto) y evaluamos su caso.*

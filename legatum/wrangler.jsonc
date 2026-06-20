@@ -1,7 +1,9 @@
 {
 	"compatibility_date": "2026-06-09",
 	"name": "legatum-internacional",
+	"main": "src/worker.js",
 	"assets": {
-		"directory": "./dist"
+		"directory": "./dist",
+		"binding": "ASSETS"
 	}
 }

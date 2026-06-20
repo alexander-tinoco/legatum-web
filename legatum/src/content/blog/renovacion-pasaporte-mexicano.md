@@ -1,18 +1,27 @@
 ---
 title: "Renovación de pasaporte mexicano: requisitos 2026"
 description: "Los requisitos para renovar el pasaporte mexicano cambian con frecuencia. Esta guía refleja el proceso vigente en 2026 para adultos y menores, con y sin urgencia."
-pubDate: 2026-06-08
-author: "LEGATUM INTERNACIONAL"
+pubDate: 2026-06-02
+dateModified: 2026-06-19
+author: "Alexander Tinoco Sánchez"
 tags: ["pasaporte mexicano", "SRE", "renovación", "trámites 2026"]
+pillarService: "pasaporte-mexicano"
+faqs:
+  - q: "¿Puedo renovar el pasaporte en cualquier módulo del país, aunque no sea donde vivo?"
+    a: "Sí. El pasaporte mexicano puede renovarse en cualquier módulo de la SRE en el país, sin importar su lugar de residencia. Esto es útil si viaja frecuentemente o si su ciudad tiene tiempos de espera largos para citas."
+  - q: "¿Necesito pasaporte vigente para la visa americana?"
+    a: "Sí. El consulado exige pasaporte con vigencia mínima de 6 meses más allá de la fecha de viaje planificada. Si su pasaporte está próximo a vencer o ya venció, renuévelo antes de iniciar el proceso de visa."
+  - q: "¿Cuánto cuesta renovar el pasaporte mexicano en 2026?"
+    a: "El costo varía según la vigencia solicitada. Los derechos de trámite se pagan en línea a través de la página de la SRE antes de la cita. Las tarifas se actualizan periódicamente; consulte el sitio oficial de la SRE para el valor vigente al momento de su trámite."
 ---
 
-El pasaporte mexicano se tramita ante la Secretaría de Relaciones Exteriores (SRE). El proceso es más ágil que hace algunos años, pero sigue teniendo puntos de fricción que conviene conocer antes de ir a la cita.
+El pasaporte mexicano se solicita ante la Secretaría de Relaciones Exteriores (SRE). El proceso es más ágil que hace algunos años, pero sigue teniendo puntos de fricción que conviene conocer antes de ir a la cita.
 
 ## Cuándo renovar
 
 El pasaporte mexicano tiene vigencias de 3, 6 o 10 años según la edad del titular al momento de la solicitud. Algunos países y aerolíneas exigen que tenga al menos 6 meses de vigencia al momento del viaje.
 
-Regla práctica: si tiene menos de 6 meses de vigencia y planea viajar, tramite la renovación aunque técnicamente no haya vencido.
+Regla práctica: si tiene menos de 6 meses de vigencia y planea viajar, renuévelo aunque técnicamente no haya vencido.
 
 ## Requisitos para adultos (18 años o más)
 
@@ -40,7 +49,7 @@ Los menores deben estar presentes en todos los casos.
 
 ## Vigencia según edad
 
-| Edad al tramitar | Vigencia |
+| Edad al solicitar | Vigencia |
 |-----------------|---------|
 | Menores de 3 años | 3 años |
 | 3 a 17 años | 6 años |
@@ -52,7 +61,7 @@ En circunstancias normales, el pasaporte se entrega en la misma cita o en un pla
 
 Para casos urgentes, algunos módulos ofrecen entrega el mismo día o al día siguiente con costo adicional. La disponibilidad varía por ciudad y temporada.
 
-## Los errores que más retrasan el trámite
+## Los errores que más retrasan el proceso
 
 **Documentación con inconsistencias.** Si el nombre en su INE difiere del acta de nacimiento (aunque sea por una letra), el módulo puede rechazar la documentación y tendrá que corregirla antes de continuar.
 

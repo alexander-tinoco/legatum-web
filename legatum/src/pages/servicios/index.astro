@@ -45,14 +45,14 @@ const schema = {
     <section class="srvi-hero section-navy">
       <div class="shell">
         <Breadcrumb crumbs={[{ label: 'Servicios' }]} variant="dark" />
-        <span class="eyebrow">Servicios núcleo de movilidad internacional</span>
+        <span class="eyebrow">Áreas de especialidad</span>
         <h1>Cada proceso, una especialidad.</h1>
         <p class="srvi-lead">
-          No administramos papeles: analizamos su caso, trazamos la ruta y acompañamos cada paso.
-          Elija el trámite que necesita y conozca exactamente qué incluye, qué requiere y cuánto cuesta.
+          No administramos papeles. Analizamos su caso, definimos la ruta y respondemos por cada decisión hasta el final.
+          Elija el servicio que necesita y conozca exactamente qué incluye, qué requiere y cuánto cuesta.
         </p>
         <div class="srvi-actions">
-          <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+          <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="servicios_hero">
             Iniciar mi evaluación
           </a>
           <a class="btn btn-ghost-light" href="/contacto/">Dejar mis datos</a>
@@ -67,7 +67,7 @@ const schema = {
           {services.map((service, index) => (
             <a class="srvi-card" href={`/servicios/${service.slug}/`}>
               <span class="srvi-num">{String(index + 1).padStart(2, '0')}</span>
-              <h2><span class="srvi-flag" aria-hidden="true">{service.flag}</span>{service.title}</h2>
+              <h2><abbr class="srvi-code">{service.flag}</abbr>{service.title}</h2>
               <p>{service.summary}</p>
               <ul class="srvi-tags">{service.tags.map((tag) => <li>{tag}</li>)}</ul>
             </a>
@@ -82,8 +82,8 @@ const schema = {
         <span class="eyebrow">Destinos adicionales</span>
         <h2 class="srvi-extra-h2">¿Su destino no está en la lista?</h2>
         <p>
-          También gestionamos {additionalDestinations.join(', ')} y otros destinos.
-          Cuéntenos su caso y evaluamos los requisitos reales con honestidad, sin compromiso.
+          También preparamos expedientes para {additionalDestinations.join(', ')} y otros destinos.
+          Cuéntenos su caso y evaluamos los requisitos reales con franqueza, sin compromiso.
         </p>
         <div class="srvi-extra-tags">
           <span>Visa Australia</span>
@@ -91,7 +91,7 @@ const schema = {
 
           <span>Otros destinos</span>
         </div>
-        <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+        <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="servicios_otros">
           Consultar otro destino
         </a>
       </div>
@@ -120,6 +120,7 @@ const schema = {
   .srvi-num { font-family: var(--serif); font-size: 1rem; color: var(--gold); letter-spacing: .1em; }
   .srvi-card h2 { display: flex; align-items: center; gap: .6rem; font-size: clamp(1.3rem, 2vw, 1.6rem); color: var(--navy); }
   .srvi-flag { font-size: 1.4rem; }
+  .srvi-code { font-family: var(--sans); font-size: .6rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-right: .4rem; text-decoration: none; font-style: normal; }
   .srvi-card p { color: var(--muted); font-size: .95rem; line-height: 1.55; flex: 1; }
   .srvi-tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .srvi-tags li { padding: 3px 9px; border: 1px solid var(--line); color: var(--gold); font-size: .67rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }

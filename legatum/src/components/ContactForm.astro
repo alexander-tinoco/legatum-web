@@ -37,6 +37,12 @@ import { services } from '../data/site';
     <input type="checkbox" name="consentimiento" required />
     <span>He leído y acepto el <a href="/aviso-de-privacidad/">Aviso de Privacidad</a>. Autorizo el tratamiento de mis datos para recibir orientación sobre mi caso.</span>
   </label>
+  <div
+    class="cf-turnstile"
+    data-sitekey="0x4AAAAAADn-hcWQMz_l-Hv0"
+    data-action="turnstile-spin-v1"
+    data-theme="light"
+  ></div>
   <div class="form-actions">
     <button class="btn btn-whatsapp" type="submit">Enviar y recibir orientación</button>
     <p>Sus datos se tratan con confidencialidad institucional. No compartimos su información.</p>
@@ -75,13 +81,43 @@ import { services } from '../data/site';
     setStatus('Ya nos enviaste un mensaje. Te contactaremos pronto.', 'var(--color-success, #2e7d32)');
   }
 
+  const TURNSTILE_WORKER = 'https://turnstile-siteverify-legatum.alexander-tinoco-gh.workers.dev';
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (isOnCooldown()) return;
 
+    const token = (form.querySelector('[name="cf-turnstile-response"]') as HTMLInputElement)?.value;
+    if (!token) {
+      setStatus('Por favor, complete el desafío de verificación.', 'var(--color-error, #c62828)');
+      return;
+    }
+
     btn.disabled = true;
-    btn.textContent = 'Enviando…';
+    btn.textContent = 'Verificando…';
     setStatus('', '');
+
+    try {
+      const verify = await fetch(TURNSTILE_WORKER, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token }),
+      });
+      const vData = await verify.json();
+      if (!vData.success) {
+        setStatus('Verificación fallida. Actualice la página e intente de nuevo.', 'var(--color-error, #c62828)');
+        btn.disabled = false;
+        btn.textContent = 'Enviar y recibir orientación';
+        return;
+      }
+    } catch {
+      setStatus('Error de verificación. Intente de nuevo.', 'var(--color-error, #c62828)');
+      btn.disabled = false;
+      btn.textContent = 'Enviar y recibir orientación';
+      return;
+    }
+
+    btn.textContent = 'Enviando…';
 
     try {
       const res = await fetch('https://api.web3forms.com/submit', {
@@ -92,6 +128,9 @@ import { services } from '../data/site';
       const data = await res.json();
 
       if (data.success) {
+        // A2 · evento de conversión de lead (frente A del roadmap).
+        const servicio = (form.querySelector('[name="servicio"]') as HTMLSelectElement)?.value || 'general';
+        (window as any).legatumTrack?.('generate_lead', { method: 'formulario', service: servicio });
         localStorage.setItem(STORAGE_KEY, String(Date.now()));
         setStatus('¡Mensaje enviado! Le contactaremos el mismo día hábil.', 'var(--color-success, #2e7d32)');
         form.reset();

@@ -1,9 +1,18 @@
 ---
 title: "Qué esperar en la entrevista consular y cómo responder"
 description: "La entrevista consular dura entre 2 y 5 minutos. La mayoría de las personas la teme más de lo que debería. Lo que importa es saber qué evalúa el oficial y cómo responder con claridad."
-pubDate: 2026-06-08
-author: "LEGATUM INTERNACIONAL"
+pubDate: 2026-05-05
+dateModified: 2026-06-19
+author: "Alexander Tinoco Sánchez"
 tags: ["visa americana", "entrevista consular", "B1/B2", "preparación"]
+pillarService: "visa-americana"
+faqs:
+  - q: "¿La entrevista consular es siempre en inglés?"
+    a: "No. Los oficiales en los consulados de México generalmente hablan español o tienen intérpretes disponibles. No es necesario hablar inglés para obtener la visa. Lo que importa es que sus respuestas sean claras y consistentes con el expediente, no el idioma en que las dé."
+  - q: "¿Puedo llevar documentos adicionales que no pedían originalmente?"
+    a: "Sí, puede llevarlos, pero con prudencia. Presentar documentos no solicitados puede ser útil si refuerzan un punto débil del expediente (por ejemplo, una carta patronal adicional o prueba de propiedad). Sin embargo, llegar con demasiados documentos sin organización puede proyectar ansiedad. Organice los documentos de soporte en una carpeta limpia y sáquelos solo si el oficial los solicita."
+  - q: "¿Qué ocurre si me niegan la visa en la entrevista?"
+    a: "El oficial le entregará un formulario 214(b), que indica que no demostró suficientes vínculos con México. No es una prohibición permanente. Puede volver a solicitar cuando su situación cambie o cuando pueda fortalecer el expediente de arraigo. Esperar al menos 6-12 meses antes de una nueva solicitud es generalmente recomendable."
 ---
 
 La entrevista consular es breve. El oficial tiene frente a usted entre dos y cinco minutos, un expediente que ya revisó y una pregunta central en mente: ¿esta persona representa un riesgo migratorio?

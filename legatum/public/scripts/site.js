@@ -75,6 +75,46 @@
     });
   });
 
+  // --- Analítica de conversión (frente A del roadmap) ---
+  // Tracker unificado definido en GA4.astro; fallback no-op por robustez.
+  const track = (name, params) =>
+    (window.legatumTrack || function () {})(name, params);
+
+  // A1 · whatsapp_click — delegación global: captura CUALQUIER enlace a
+  // WhatsApp aunque se añadan botones nuevos en el futuro.
+  document.addEventListener(
+    'click',
+    (e) => {
+      const link = e.target.closest && e.target.closest('a[href]');
+      if (!link) return;
+      const href = link.getAttribute('href') || '';
+      if (!/wa\.me|api\.whatsapp\.com|whatsapp:/i.test(href)) return;
+      track('whatsapp_click', {
+        location: link.dataset.waLocation || 'desconocida',
+        service: link.dataset.waService || 'general',
+      });
+    },
+    { passive: true }
+  );
+
+  // A2 · scroll_to_contact — se dispara una vez cuando la sección de
+  // contacto entra en viewport (señal de intención del funnel).
+  const contactSection = document.getElementById('contacto');
+  if (contactSection && 'IntersectionObserver' in window) {
+    const contactObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            track('scroll_to_contact');
+            contactObserver.disconnect();
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    contactObserver.observe(contactSection);
+  }
+
   // Scroll reveal via IntersectionObserver
   const revealEls = document.querySelectorAll('.reveal');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

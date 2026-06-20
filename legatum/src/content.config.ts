@@ -7,10 +7,13 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
+    dateModified: z.coerce.date().optional(),
     author: z.string().default('Legatum Internacional'),
     tags: z.array(z.string()).optional(),
     image: z.string().optional(),
     draft: z.boolean().default(false),
+    pillarService: z.string().optional(),
+    faqs: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
   }),
 });
 

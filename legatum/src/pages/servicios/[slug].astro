@@ -4,7 +4,7 @@ import Footer from '../../components/Footer.astro';
 import Navbar from '../../components/Navbar.astro';
 import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { fees, processSteps, services, site } from '../../data/site';
+import { fees, processSteps, resources, services, site } from '../../data/site';
 
 export function getStaticPaths() {
   return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
@@ -13,6 +13,9 @@ export function getStaticPaths() {
 const { service } = Astro.props;
 const canonical = `${site.url}/servicios/${service.slug}/`;
 const others = services.filter((s) => s.slug !== service.slug);
+const relatedResources = (service.relatedArticles ?? [])
+  .map((slug: string) => resources.find((r) => r.slug === slug))
+  .filter(Boolean);
 
 const schema = {
   '@context': 'https://schema.org',
@@ -63,11 +66,11 @@ const schema = {
           crumbs={[{ label: 'Servicios', href: '/servicios/' }, { label: service.title }]}
           variant="dark"
         />
-        <span class="eyebrow"><span aria-hidden="true">{service.flag}</span> Servicio de movilidad internacional</span>
+        <span class="eyebrow"><abbr class="service-code" style="color:var(--gold-300)">{service.flag}</abbr> Servicio de movilidad internacional</span>
         <h1>{service.title}</h1>
         <p class="svc-intro">{service.intro}</p>
         <div class="svc-actions">
-          <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+          <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="servicio_hero" data-wa-service={service.slug}>
             Iniciar mi evaluación
           </a>
           <a class="btn btn-ghost-light" href="/contacto/">Dejar mis datos</a>
@@ -128,7 +131,7 @@ const schema = {
             <p class="svc-fee-usd">{service.fee?.displayUSD ?? fees.displayUSD}</p>
             <hr class="svc-divider" />
             <p class="svc-fee-note">{fees.note}</p>
-            <a class="btn btn-whatsapp svc-btn" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+            <a class="btn btn-whatsapp svc-btn" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="servicio_aside" data-wa-service={service.slug}>
               Iniciar mi evaluación
             </a>
             <p class="svc-btn-sub">Sin compromiso — respuesta el mismo día hábil</p>
@@ -145,6 +148,25 @@ const schema = {
         </aside>
       </div>
     </section>
+
+    {relatedResources.length > 0 && (
+      <section class="section section-paper svc-resources">
+        <div class="shell">
+          <span class="eyebrow">Lectura recomendada</span>
+          <h2>Guías relacionadas con este servicio</h2>
+          <ul class="svc-resources-list">
+            {relatedResources.map((r) => (
+              <li>
+                <a href={`/blog/${r!.slug}/`}>
+                  <span class="svc-res-arrow">→</span>
+                  {r!.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )}
 
     <section class="section section-cream svc-others">
       <div class="shell">
@@ -206,6 +228,13 @@ const schema = {
   .svc-req { display: grid; gap: 10px; margin-top: 1rem; }
   .svc-req li { position: relative; padding-left: 1.4rem; color: var(--ink); font-size: .95rem; line-height: 1.5; }
   .svc-req li::before { content: ""; position: absolute; left: 0; top: .5em; width: 8px; height: 8px; border: 1px solid var(--gold); }
+
+  .svc-resources .eyebrow { color: #7c6549; }
+  .svc-resources h2 { margin-top: .35em; font-size: clamp(1.6rem, 3vw, 2.4rem); }
+  .svc-resources-list { display: grid; gap: 10px; margin-top: clamp(20px, 3vw, 32px); list-style: none; max-width: 680px; }
+  .svc-resources-list a { display: flex; align-items: baseline; gap: .6rem; color: var(--navy); font-family: var(--serif); font-size: clamp(1rem, 1.6vw, 1.2rem); line-height: 1.4; border-bottom: 1px solid rgba(139,115,85,.25); padding-bottom: 10px; transition: color .2s; }
+  .svc-resources-list a:hover { color: var(--gold); }
+  .svc-res-arrow { color: var(--gold); flex-shrink: 0; font-size: .85rem; }
 
   .svc-others .eyebrow { color: #7c6549; }
   .svc-others h2 { margin-top: .35em; font-size: clamp(1.6rem, 3vw, 2.4rem); }

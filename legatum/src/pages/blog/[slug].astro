@@ -5,7 +5,7 @@ import Footer from '../../components/Footer.astro';
 import Navbar from '../../components/Navbar.astro';
 import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { site } from '../../data/site';
+import { founder, resources, services, site } from '../../data/site';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -15,28 +15,46 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
-const schema = {
+const pillarService = post.data.pillarService
+  ? services.find((s) => s.slug === post.data.pillarService)
+  : undefined;
+
+const blogPosting = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
   headline: post.data.title,
   description: post.data.description,
   image: post.data.image ? `${site.url}${post.data.image}` : `${site.url}/og-image.png`,
   datePublished: post.data.pubDate.toISOString(),
-  dateModified: post.data.pubDate.toISOString(),
+  dateModified: (post.data.dateModified ?? post.data.pubDate).toISOString(),
   inLanguage: 'es-MX',
   author: {
-    '@type': 'Organization',
-    name: post.data.author,
-    url: site.url,
+    '@type': 'Person',
+    '@id': `${site.url}/#founder`,
+    name: founder.name,
+    url: `${site.url}/nosotros/`,
   },
   publisher: {
     '@type': 'Organization',
+    '@id': `${site.url}/#organization`,
     name: site.name,
     url: site.url,
     logo: { '@type': 'ImageObject', url: `${site.url}/og-image.png` },
   },
   mainEntityOfPage: { '@type': 'WebPage', '@id': `${site.url}/blog/${post.id}/` },
 };
+
+const faqSchema = post.data.faqs?.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: post.data.faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    }
+  : null;
 ---
 
 <BaseLayout
@@ -79,8 +97,16 @@ const schema = {
             <Content />
           </div>
           <aside class="post-cta">
+            {pillarService && (
+              <div class="post-pillar">
+                <p class="post-pillar-label">Servicio relacionado</p>
+                <a class="post-pillar-link" href={`/servicios/${pillarService.slug}/`}>
+                  {pillarService.title} →
+                </a>
+              </div>
+            )}
             <p>¿Tiene dudas sobre su caso?</p>
-            <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+            <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="blog">
               Hablar con un especialista
             </a>
           </aside>
@@ -91,7 +117,8 @@ const schema = {
   <Footer />
   <WhatsAppFloat />
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(blogPosting)} />
+    {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
   </Fragment>
 </BaseLayout>
 
@@ -132,5 +159,9 @@ const schema = {
   .post-content :global(hr) { border: none; border-top: 1px solid var(--line); margin-block: 2.4rem; }
   .post-cta { position: sticky; top: calc(var(--header) + 32px); padding: 28px; background: var(--white); border: 1px solid var(--line); border-top: 2px solid var(--gold); display: flex; flex-direction: column; gap: 16px; }
   .post-cta p { color: var(--navy); font-family: var(--serif); font-size: 1.28rem; line-height: 1.3; }
+  .post-pillar { padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+  .post-pillar-label { font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #7c6549; margin-bottom: .4rem; font-family: var(--sans); }
+  .post-pillar-link { color: var(--navy); font-family: var(--serif); font-size: 1.1rem; font-weight: 600; border-bottom: 1px solid rgba(139,115,85,.3); padding-bottom: 1px; transition: color .2s; }
+  .post-pillar-link:hover { color: var(--gold); }
   @media (max-width: 900px) { .post-body .shell { grid-template-columns: 1fr; } .post-cta { position: static; } }
 </style>

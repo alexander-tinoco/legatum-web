@@ -1,0 +1,208 @@
+---
+import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fees, services, site } from '../../data/site';
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const { service } = Astro.props;
+const canonical = `${site.url}/lp/${service.slug}/`;
+const waText = encodeURIComponent(
+  `Hola, me interesa una evaluación para mi caso de ${service.title.toLowerCase()}.`
+);
+const waUrl = `https://wa.me/526182706071?text=${waText}`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': `${canonical}#service`,
+      name: service.title,
+      serviceType: service.title,
+      description: service.metaDescription,
+      url: canonical,
+      provider: { '@id': `${site.url}/#organization` },
+      areaServed: { '@type': 'Country', name: 'Mexico' },
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: 'MXN',
+        price: service.fee ? '500' : `${fees.minMXN}-${fees.maxMXN}`,
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${canonical}#faq`,
+      mainEntity: service.faqs.slice(0, 3).map((f: { question: string; answer: string }) => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={`${service.metaTitle} | Legatum Internacional`}
+  description={service.metaDescription}
+  canonical={canonical}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <meta name="robots" content="noindex, nofollow" />
+  </Fragment>
+
+  <main id="main-content">
+    <header class="lp-header">
+      <div class="lp-shell">
+        <a class="lp-logo" href="/" aria-label="Legatum Internacional">
+          <img src="/favicon.svg" alt="" width="32" height="32" aria-hidden="true" />
+          <span>Legatum Internacional</span>
+        </a>
+        <div class="lp-disclaimer-bar">
+          Servicio privado de consultoría. No somos una entidad gubernamental.
+        </div>
+      </div>
+    </header>
+
+    <section class="lp-hero section-navy">
+      <div class="lp-shell">
+        <span class="lp-eyebrow">Asesoría especializada · Sin compromiso</span>
+        <h1>{service.title}</h1>
+        <p class="lp-lead">{service.intro}</p>
+        <a class="btn btn-whatsapp lp-cta" href={waUrl} target="_blank" rel="noopener noreferrer">
+          Solicitar evaluación sin costo
+        </a>
+        <p class="lp-sub">Respuesta el mismo día hábil · Sin compromiso</p>
+      </div>
+    </section>
+
+    <section class="section section-paper">
+      <div class="lp-shell lp-includes">
+        <div>
+          <h2>Qué incluye la asesoría</h2>
+          <ul class="lp-list">
+            {service.includes.map((item: string) => <li>{item}</li>)}
+          </ul>
+        </div>
+        <div class="lp-fee-card">
+          <p class="lp-fee-label">Honorarios de referencia</p>
+          <p class="lp-fee">{service.fee?.display ?? fees.display}</p>
+          <p class="lp-fee-usd">{service.fee?.displayUSD ?? fees.displayUSD}</p>
+          <hr class="lp-divider" />
+          <p class="lp-fee-note">{fees.note}</p>
+          <a class="btn btn-whatsapp lp-fee-cta" href={waUrl} target="_blank" rel="noopener noreferrer">
+            Evaluar mi caso
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-cream">
+      <div class="lp-shell lp-faq">
+        <h2>Preguntas frecuentes</h2>
+        <div class="lp-faq-list">
+          {service.faqs.slice(0, 3).map((f: { question: string; answer: string }) => (
+            <div class="lp-faq-item">
+              <strong>{f.question}</strong>
+              <p>{f.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="lp-final section-navy">
+      <div class="lp-shell lp-final-inner">
+        <h2>¿Listo para iniciar?</h2>
+        <p>Cuéntenos su caso y reciba orientación directa hoy mismo. Sin compromiso.</p>
+        <a class="btn btn-whatsapp lp-final-cta" href={waUrl} target="_blank" rel="noopener noreferrer">
+          Iniciar mi evaluación
+        </a>
+      </div>
+    </section>
+
+    <footer class="lp-footer">
+      <div class="lp-shell">
+        <p>
+          <strong>Aviso legal:</strong> Legatum Internacional es un servicio privado de consultoría
+          en movilidad internacional. No somos una entidad gubernamental ni estamos afiliados a
+          ningún gobierno. No tramitamos documentos ni garantizamos resultados ante autoridades
+          consulares o migratorias.
+        </p>
+        <nav class="lp-footer-nav">
+          <a href="/aviso-de-privacidad/">Aviso de privacidad</a>
+          <a href="/terminos/">Términos de servicio</a>
+          <a href={`/servicios/${service.slug}/`}>Ver el servicio completo</a>
+        </nav>
+      </div>
+    </footer>
+  </main>
+
+  <WhatsAppFloat />
+</BaseLayout>
+
+<style>
+  .lp-shell { max-width: 1060px; margin-inline: auto; padding-inline: clamp(20px, 5vw, 48px); }
+
+  /* Header */
+  .lp-header { background: var(--navy); padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .lp-header .lp-shell { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .lp-logo { display: flex; align-items: center; gap: 10px; color: var(--cream); font-family: var(--serif); font-size: 1.05rem; font-weight: 600; }
+  .lp-logo img { filter: brightness(10); }
+  .lp-disclaimer-bar { font-size: .72rem; color: rgba(196,168,130,.9); letter-spacing: .04em; border: 1px solid rgba(196,168,130,.3); padding: 4px 10px; }
+
+  /* Hero */
+  .lp-hero { padding-top: clamp(60px, 8vw, 100px); padding-bottom: clamp(60px, 8vw, 100px); }
+  .lp-eyebrow { display: block; font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-300); margin-bottom: 1rem; }
+  .lp-hero h1 { color: var(--white); font-size: clamp(2.6rem, 5.5vw, 4.2rem); max-width: 18ch; line-height: 1.1; }
+  .lp-lead { color: rgba(245,240,232,.82); font-size: clamp(1.05rem, 1.7vw, 1.25rem); line-height: 1.65; max-width: 60ch; margin-top: 1.2rem; }
+  .lp-cta { margin-top: 2rem; font-size: 1.1rem; padding: 16px 32px; }
+  .lp-sub { margin-top: .75rem; color: rgba(245,240,232,.5); font-size: .82rem; }
+
+  /* Includes + fee */
+  .lp-includes { display: grid; grid-template-columns: 1fr 300px; gap: clamp(36px, 5vw, 72px); align-items: start; padding-block: clamp(48px, 7vw, 84px); }
+  .lp-includes h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 1.2rem; }
+  .lp-list { display: grid; gap: 14px; }
+  .lp-list li { position: relative; padding-left: 2rem; color: var(--ink); line-height: 1.55; }
+  .lp-list li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--gold); font-weight: 700; }
+
+  .lp-fee-card { padding: 28px; background: var(--cream); border: 1px solid var(--line); border-top: 3px solid var(--gold); position: sticky; top: 24px; }
+  .lp-fee-label { font-size: .7rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #7c6549; }
+  .lp-fee { font-family: var(--serif); font-size: 2.2rem; font-weight: 600; margin-top: .5rem; color: var(--navy); line-height: 1; }
+  .lp-fee-usd { color: var(--gold); font-size: .9rem; margin-top: .3rem; }
+  .lp-divider { border: none; border-top: 1px solid var(--line); margin: 1.1rem 0; }
+  .lp-fee-note { color: var(--muted); font-size: .78rem; line-height: 1.55; }
+  .lp-fee-cta { margin-top: 1.2rem; width: 100%; justify-content: center; }
+
+  /* FAQ */
+  .lp-faq { padding-block: clamp(48px, 7vw, 84px); }
+  .lp-faq h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: clamp(24px, 3vw, 40px); }
+  .lp-faq-list { display: grid; gap: 16px; max-width: 760px; }
+  .lp-faq-item { padding: 24px; background: var(--white); border: 1px solid var(--line); border-left: 3px solid var(--gold); }
+  .lp-faq-item strong { display: block; color: var(--navy); font-family: var(--serif); font-size: 1.15rem; margin-bottom: .6rem; }
+  .lp-faq-item p { color: var(--muted); line-height: 1.7; font-size: .95rem; }
+
+  /* Final CTA */
+  .lp-final { padding-block: clamp(60px, 8vw, 96px); text-align: center; }
+  .lp-final-inner h2 { color: var(--white); font-size: clamp(2rem, 4vw, 3.2rem); }
+  .lp-final-inner p { color: rgba(245,240,232,.75); margin-top: .75rem; font-size: 1.05rem; }
+  .lp-final-cta { margin-top: 1.8rem; font-size: 1.1rem; padding: 16px 36px; }
+
+  /* Footer */
+  .lp-footer { background: var(--cream); border-top: 1px solid var(--line); padding-block: 32px; }
+  .lp-footer .lp-shell { display: grid; gap: 16px; }
+  .lp-footer p { color: var(--muted); font-size: .8rem; line-height: 1.6; max-width: 780px; }
+  .lp-footer p strong { color: var(--ink); }
+  .lp-footer-nav { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; }
+  .lp-footer-nav a { color: var(--gold); font-size: .8rem; }
+
+  @media (max-width: 800px) {
+    .lp-includes { grid-template-columns: 1fr; }
+    .lp-fee-card { position: static; }
+    .lp-header .lp-shell { flex-direction: column; align-items: flex-start; }
+  }
+</style>

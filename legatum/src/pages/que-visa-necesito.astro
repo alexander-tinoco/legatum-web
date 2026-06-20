@@ -1,0 +1,355 @@
+---
+import Footer from '../components/Footer.astro';
+import Navbar from '../components/Navbar.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+
+const canonical = `${site.url}/que-visa-necesito/`;
+---
+
+<BaseLayout
+  title="¿Qué visa necesito? Auto-diagnóstico en 3 preguntas | Legatum Internacional"
+  description="Responda 3 preguntas y sepa si necesita visa americana, ETA canadiense, visa de visitante u otro proceso. Orientación directa, sin rodeos."
+  canonical={canonical}
+>
+  <Navbar />
+  <main id="main-content">
+    <section class="qv-hero section-navy">
+      <div class="shell">
+        <span class="eyebrow">Herramienta de orientación · Legatum Internacional</span>
+        <h1>¿Qué visa necesita?</h1>
+        <p class="qv-lead">
+          Responda 3 preguntas y reciba una orientación inicial sobre el proceso que corresponde a su caso.
+          Sin tecnicismos, sin compromisos.
+        </p>
+      </div>
+    </section>
+
+    <section class="section section-paper">
+      <div class="shell qv-shell">
+        <div class="quiz" id="quiz" aria-live="polite">
+
+          <!-- Paso 1 -->
+          <div class="quiz-step" data-step="1">
+            <p class="quiz-step-label">Pregunta 1 de 3</p>
+            <h2>¿A qué país quiere viajar?</h2>
+            <div class="quiz-options">
+              <button class="quiz-option" data-next="2" data-value="usa">
+                <strong>Estados Unidos</strong>
+                <span>Turismo, negocios o visita familiar</span>
+              </button>
+              <button class="quiz-option" data-next="2b" data-value="canada">
+                <strong>Canadá</strong>
+                <span>Turismo, tránsito o negocios</span>
+              </button>
+              <button class="quiz-option" data-next="other" data-value="otro">
+                <strong>Otro país</strong>
+                <span>Australia, China, Europa, etc.</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Paso 2 — USA -->
+          <div class="quiz-step" data-step="2" hidden>
+            <p class="quiz-step-label">Pregunta 2 de 3</p>
+            <h2>¿Tiene visa americana vigente?</h2>
+            <div class="quiz-options">
+              <button class="quiz-option" data-next="3a" data-value="si_visa">
+                <strong>Sí, está vigente</strong>
+                <span>La visa no ha vencido</span>
+              </button>
+              <button class="quiz-option" data-next="3b" data-value="vencida">
+                <strong>Sí, pero está vencida</strong>
+                <span>La visa ha caducado</span>
+              </button>
+              <button class="quiz-option" data-next="3c" data-value="no_visa">
+                <strong>No tengo visa</strong>
+                <span>Primera solicitud</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Paso 2 — Canadá -->
+          <div class="quiz-step" data-step="2b" hidden>
+            <p class="quiz-step-label">Pregunta 2 de 3</p>
+            <h2>¿Cómo va a entrar a Canadá?</h2>
+            <div class="quiz-options">
+              <button class="quiz-option" data-next="3d" data-value="aereo">
+                <strong>Por avión</strong>
+                <span>Vuelo directo o con escala en Canadá</span>
+              </button>
+              <button class="quiz-option" data-next="3e" data-value="tierra">
+                <strong>Por tierra o crucero</strong>
+                <span>Cruce fronterizo o puerto marítimo</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Paso 3 — USA vigente -->
+          <div class="quiz-step" data-step="3a" hidden>
+            <p class="quiz-step-label">Pregunta 3 de 3</p>
+            <h2>¿Cuál es el propósito principal de su viaje?</h2>
+            <div class="quiz-options">
+              <button class="quiz-option" data-result="b2" data-value="turismo">
+                <strong>Turismo o visita familiar</strong>
+                <span>Paseo, vacaciones, visitar a alguien</span>
+              </button>
+              <button class="quiz-option" data-result="b1" data-value="negocios">
+                <strong>Negocios (sin trabajar)</strong>
+                <span>Reuniones, ferias, conferencias</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Paso 3 — USA vencida -->
+          <div class="quiz-step" data-step="3b" hidden>
+            <p class="quiz-step-label">Pregunta 3 de 3</p>
+            <h2>¿Hace cuánto venció su visa?</h2>
+            <div class="quiz-options">
+              <button class="quiz-option" data-result="renovacion_sin_entrevista" data-value="menos4">
+                <strong>Menos de 4 años</strong>
+                <span>Puede calificar para renovación sin entrevista</span>
+              </button>
+              <button class="quiz-option" data-result="renovacion_entrevista" data-value="mas4">
+                <strong>Más de 4 años</strong>
+                <span>Generalmente requiere entrevista presencial</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Paso 3 — USA sin visa -->
+          <div class="quiz-step" data-step="3c" hidden>
+            <p class="quiz-step-label">Pregunta 3 de 3</p>
+            <h2>¿Ha tenido alguna negativa de visa americana antes?</h2>
+            <div class="quiz-options">
+              <button class="quiz-option" data-result="primera_vez" data-value="no_negativa">
+                <strong>No, es mi primera solicitud</strong>
+                <span>Sin historial de rechazos</span>
+              </button>
+              <button class="quiz-option" data-result="segunda_vez" data-value="si_negativa">
+                <strong>Sí, me la negaron antes</strong>
+                <span>Recibí el formulario 214(b)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Paso 3 — Canadá aéreo -->
+          <div class="quiz-step" data-step="3d" hidden>
+            <p class="quiz-step-label">Pregunta 3 de 3</p>
+            <h2>¿Tiene visa americana vigente?</h2>
+            <div class="quiz-options">
+              <button class="quiz-option" data-result="eta" data-value="si_visa_us">
+                <strong>Sí, está vigente</strong>
+                <span>Probablemente califica para ETA ($7 CAD)</span>
+              </button>
+              <button class="quiz-option" data-result="trv" data-value="no_visa_us">
+                <strong>No tengo visa americana</strong>
+                <span>Probablemente necesita visa canadiense (TRV)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Paso 3 — Canadá terrestre -->
+          <div class="quiz-step" data-step="3e" hidden>
+            <p class="quiz-step-label">Resultado</p>
+            <div class="quiz-result" data-result-id="trv_tierra">
+              <div class="result-icon">📋</div>
+              <h2>Necesita Visa de Visitante canadiense (TRV)</h2>
+              <p>Para entradas terrestres a Canadá, la ETA no aplica aunque tenga visa americana. Necesita una TRV completa ante IRCC: formularios en línea, CAD $100 y documentación de soporte.</p>
+              <div class="result-actions">
+                <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="quiz_resultado" data-wa-service="visa-canadiense">
+                  Evaluar mi caso por WhatsApp
+                </a>
+                <a class="btn btn-ghost" href="/servicios/visa-canadiense/">Ver el servicio →</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resultados -->
+          <div class="quiz-results" hidden>
+
+            <div class="quiz-result" data-result-id="b2" hidden>
+              <div class="result-icon">✅</div>
+              <h2>Su visa actual (B2) cubre este viaje</h2>
+              <p>Con una visa B1/B2 vigente puede viajar a EE.UU. para turismo o visita familiar. Recuerde respetar el período de estadía autorizado en cada entrada (indicado en el I-94, no en la visa).</p>
+              <p>Si está próxima a vencer, considere iniciar la renovación.</p>
+              <div class="result-actions">
+                <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="quiz_resultado" data-wa-service="visa-americana">
+                  Evaluar mi caso por WhatsApp
+                </a>
+              </div>
+            </div>
+
+            <div class="quiz-result" data-result-id="b1" hidden>
+              <div class="result-icon">💼</div>
+              <h2>Su visa B1/B2 vigente cubre viajes de negocios</h2>
+              <p>La visa B1 le permite asistir a reuniones, conferencias y negociaciones en EE.UU. No autoriza empleo remunerado. Su visa actual es válida para este propósito si está vigente.</p>
+              <div class="result-actions">
+                <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="quiz_resultado" data-wa-service="visa-americana">
+                  Evaluar mi caso por WhatsApp
+                </a>
+              </div>
+            </div>
+
+            <div class="quiz-result" data-result-id="renovacion_sin_entrevista" hidden>
+              <div class="result-icon">🔄</div>
+              <h2>Puede calificar para renovación sin entrevista</h2>
+              <p>El programa Interview Waiver permite renovar la visa sin ir al consulado si la visa vencida hace menos de 48 meses y se cumplen otros criterios. El expediente se envía por mensajería.</p>
+              <p>La evaluación del caso es igual de rigurosa que con entrevista — la diferencia es operativa, no de estándar.</p>
+              <div class="result-actions">
+                <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="quiz_resultado" data-wa-service="visa-americana">
+                  Confirmar si califico por WhatsApp
+                </a>
+                <a class="btn btn-ghost" href="/blog/renovacion-visa-americana-sin-entrevista/">Leer más →</a>
+              </div>
+            </div>
+
+            <div class="quiz-result" data-result-id="renovacion_entrevista" hidden>
+              <div class="result-icon">📅</div>
+              <h2>Necesita renovación con entrevista presencial</h2>
+              <p>Cuando la visa vence hace más de 4 años, el proceso regular incluye entrevista consular. Es una nueva solicitud con DS-160, pago de MRV y cita en el consulado.</p>
+              <div class="result-actions">
+                <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="quiz_resultado" data-wa-service="visa-americana">
+                  Evaluar mi caso por WhatsApp
+                </a>
+                <a class="btn btn-ghost" href="/servicios/visa-americana/">Ver el servicio →</a>
+              </div>
+            </div>
+
+            <div class="quiz-result" data-result-id="primera_vez" hidden>
+              <div class="result-icon">📝</div>
+              <h2>Primera solicitud de visa americana B1/B2</h2>
+              <p>El proceso incluye DS-160, pago del MRV (~$185 USD) y entrevista en el consulado. El factor más importante es el expediente de arraigo: qué tan bien documentada está su vida económica y familiar en México.</p>
+              <div class="result-actions">
+                <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="quiz_resultado" data-wa-service="visa-americana">
+                  Evaluar mi caso por WhatsApp
+                </a>
+                <a class="btn btn-ghost" href="/checklist-arraigo/">Ver checklist de arraigo →</a>
+              </div>
+            </div>
+
+            <div class="quiz-result" data-result-id="segunda_vez" hidden>
+              <div class="result-icon">⚠️</div>
+              <h2>Nueva solicitud tras negativa previa</h2>
+              <p>Un rechazo anterior no cierra la puerta, pero la segunda solicitud requiere demostrar que algo ha cambiado en su situación. El expediente debe ser significativamente más sólido que el anterior.</p>
+              <p>Antes de solicitar nuevamente, conviene analizar el motivo del rechazo y qué se puede fortalecer.</p>
+              <div class="result-actions">
+                <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="quiz_resultado" data-wa-service="visa-americana">
+                  Analizar mi caso por WhatsApp
+                </a>
+                <a class="btn btn-ghost" href="/blog/visa-americana-negada-que-hacer/">Leer más →</a>
+              </div>
+            </div>
+
+            <div class="quiz-result" data-result-id="eta" hidden>
+              <div class="result-icon">✈️</div>
+              <h2>Probablemente necesita una ETA canadiense</h2>
+              <p>Los mexicanos con visa americana vigente pueden solicitar la ETA (Autorización Electrónica de Viaje) para entrar a Canadá por avión. Cuesta CAD $7 y en la mayoría de los casos se aprueba en minutos.</p>
+              <p>Antes de solicitarla, verifique que su visa americana cumple los criterios exactos de IRCC para este beneficio.</p>
+              <div class="result-actions">
+                <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="quiz_resultado" data-wa-service="eta-canada">
+                  Confirmar mi caso por WhatsApp
+                </a>
+                <a class="btn btn-ghost" href="/blog/eta-canada-con-visa-americana/">Leer más →</a>
+              </div>
+            </div>
+
+            <div class="quiz-result" data-result-id="trv" hidden>
+              <div class="result-icon">📋</div>
+              <h2>Necesita Visa de Visitante canadiense (TRV)</h2>
+              <p>Sin visa americana, los ciudadanos mexicanos requieren la TRV para entrar a Canadá. El proceso incluye formularios en línea ante IRCC, pago de CAD $100, documentación de soporte y en algunos casos biométricos.</p>
+              <div class="result-actions">
+                <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="quiz_resultado" data-wa-service="visa-canadiense">
+                  Evaluar mi caso por WhatsApp
+                </a>
+                <a class="btn btn-ghost" href="/servicios/visa-canadiense/">Ver el servicio →</a>
+              </div>
+            </div>
+
+            <div class="quiz-result" data-result-id="other" hidden>
+              <div class="result-icon">🌎</div>
+              <h2>Cada destino tiene requisitos específicos</h2>
+              <p>Para Australia, China, Schengen y otros destinos, los requisitos varían según la nacionalidad, el propósito del viaje y los acuerdos vigentes. Cuéntenos su caso y le indicamos exactamente qué necesita.</p>
+              <div class="result-actions">
+                <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="quiz_resultado" data-wa-service="general">
+                  Consultar mi caso por WhatsApp
+                </a>
+                <a class="btn btn-ghost" href="/servicios/">Ver todos los servicios →</a>
+              </div>
+            </div>
+
+            <button class="quiz-restart" id="quiz-restart">← Volver a empezar</button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>
+
+<style>
+  .qv-hero {
+    padding-top: calc(var(--header) + clamp(40px, 6vw, 72px));
+    padding-bottom: clamp(48px, 7vw, 80px);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .qv-hero .eyebrow { color: var(--gold-300); }
+  .qv-hero h1 { color: var(--white); font-size: clamp(2.2rem, 4.5vw, 3.6rem); margin-top: .35em; }
+  .qv-lead { max-width: 56ch; margin-top: 1.1rem; color: rgba(245, 240, 232, .82); font-size: clamp(1rem, 1.6vw, 1.2rem); line-height: 1.6; }
+
+  .qv-shell { max-width: 760px; }
+
+  .quiz-step-label { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: .75rem; }
+  .quiz-step h2, .quiz-results h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); color: var(--navy); margin-bottom: 1.6rem; }
+
+  .quiz-options { display: grid; gap: 12px; }
+  .quiz-option { display: flex; flex-direction: column; gap: 4px; padding: 18px 22px; background: var(--white); border: 1px solid var(--line); border-left: 3px solid transparent; text-align: left; cursor: pointer; transition: border-color .15s, transform .15s; }
+  .quiz-option:hover { border-left-color: var(--gold); transform: translateX(4px); }
+  .quiz-option strong { color: var(--navy); font-size: 1.05rem; }
+  .quiz-option span { color: var(--muted); font-size: .88rem; }
+
+  .quiz-result { animation: fadeIn .25s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .result-icon { font-size: 2.4rem; margin-bottom: .8rem; }
+  .quiz-result h2 { color: var(--navy); font-size: clamp(1.4rem, 2.8vw, 2rem); margin-bottom: 1rem; }
+  .quiz-result p { color: var(--muted); line-height: 1.7; margin-bottom: .8rem; }
+  .result-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 1.6rem; }
+
+  .quiz-restart { background: none; border: none; color: var(--gold); font-size: .88rem; font-weight: 650; cursor: pointer; margin-top: 2rem; padding: 0; text-decoration: underline; text-underline-offset: 3px; }
+  .quiz-restart:hover { color: var(--navy); }
+</style>
+
+<script>
+  const quiz = document.getElementById('quiz') as HTMLElement;
+  const steps = quiz.querySelectorAll<HTMLElement>('[data-step]');
+  const resultsContainer = quiz.querySelector<HTMLElement>('.quiz-results');
+
+  function showStep(stepId: string) {
+    steps.forEach((s) => { s.hidden = s.dataset.step !== stepId; });
+    if (resultsContainer) resultsContainer.hidden = true;
+  }
+
+  function showResult(resultId: string) {
+    steps.forEach((s) => { s.hidden = true; });
+    if (!resultsContainer) return;
+    resultsContainer.hidden = false;
+    resultsContainer.querySelectorAll<HTMLElement>('[data-result-id]').forEach((r) => {
+      r.hidden = r.dataset.resultId !== resultId;
+    });
+    (window as any).legatumTrack?.('quiz_complete', { result: resultId });
+  }
+
+  quiz.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-next], [data-result]');
+    if (!btn) return;
+    if (btn.dataset.next) showStep(btn.dataset.next);
+    else if (btn.dataset.result) showResult(btn.dataset.result);
+  });
+
+  document.getElementById('quiz-restart')?.addEventListener('click', () => showStep('1'));
+
+  showStep('1');
+</script>

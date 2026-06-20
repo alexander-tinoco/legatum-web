@@ -12,7 +12,7 @@ export const site = {
   email: 'contacto@legatum-internacional.com',
   address: 'Durango, México',
   whatsapp:
-    'https://wa.me/526182706071?text=Hola%2C%20deseo%20iniciar%20mi%20evaluaci%C3%B3n%20de%20movilidad%20internacional.',
+    'https://wa.me/526182706071?text=Hola%2C%20me%20interesa%20una%20evaluaci%C3%B3n.%20Mi%20caso%20es%3A%20___%20%28visa%20americana%20%2F%20canadiense%20%2F%20pasaporte%20%2F%20otro%29.',
 };
 
 // Ofuscación de email contra cosechadores de spam (funciona sin JS).
@@ -42,9 +42,9 @@ export const founder = {
   role: 'Especialista y fundador',
   image: '/equipo/alexander-tinoco.webp',
   shortBio:
-    'Fundador de LEGATUM INTERNACIONAL. Especialista en movilidad internacional dedicado a la preparación rigurosa de expedientes de visas, pasaportes y trámites consulares.',
+    'Fundador de LEGATUM INTERNACIONAL. Especialista en movilidad internacional dedicado a la preparación rigurosa de expedientes de visas, pasaportes y procesos consulares.',
   longBio:
-    'Alexander Tinoco Sánchez es el fundador y especialista responsable de cada caso en LEGATUM INTERNACIONAL. Su trabajo parte de una convicción simple: un trámite migratorio bien preparado no se improvisa. Por eso cada expediente se construye con criterio jurídico, honestidad sobre los riesgos reales y acompañamiento directo de principio a fin, sin intermediarios ni promesas que no dependan de nosotros.',
+    'Alexander Tinoco Sánchez es el fundador y especialista responsable de cada caso en LEGATUM INTERNACIONAL. Su trabajo parte de una convicción simple: un trámite migratorio bien preparado no se improvisa. Por eso cada expediente se construye con criterio jurídico, honestidad sobre los riesgos reales y acompañamiento directo en cada etapa, sin intermediarios ni promesas que no dependan de nosotros.',
 };
 
 export const navItems = [
@@ -59,17 +59,18 @@ export const navItems = [
 export const services = [
   {
     slug: 'visa-americana',
-    flag: '🇺🇸',
+    flag: 'USA',
     title: 'Visa Americana',
     summary:
       'Primera solicitud B1/B2: preparamos el DS-160, construimos el expediente de arraigo y lo preparamos para la entrevista consular.',
     megaDesc: 'Primera solicitud B1/B2, preparación completa',
     tags: ['Formulario DS-160', 'Demostrar arraigo', 'Preparación para entrevista'],
-    metaTitle: 'Visa Americana B1/B2 en México | Expediente y entrevista',
+    relatedArticles: ['ds-160-paso-a-paso', 'demostrar-arraigo', 'entrevista-consular'],
+    metaTitle: 'Asesoría Visa Americana B1/B2 | DS-160 y Entrevista Consular',
     metaDescription:
       'Asesoría para la primera visa americana B1/B2 desde México: llenado del DS-160, expediente de arraigo y preparación para la entrevista consular. Trabajo serio, sin promesas falsas.',
     intro:
-      'La visa de turista B1/B2 no se gana llenando un formulario: se gana demostrando que su vida está en México y que su viaje tiene un propósito claro. Preparamos su solicitud de primera vez de principio a fin, con el rigor de quien sabe qué evalúa realmente un oficial consular.',
+      'La visa de turista B1/B2 no se gana llenando un formulario: se gana demostrando que su vida está en México y que su viaje tiene un propósito claro. Preparamos su solicitud de primera vez por completo, con el rigor de quien sabe qué evalúa realmente un oficial consular.',
     includes: [
       'Llenado correcto y completo del formulario DS-160',
       'Construcción del expediente de arraigo: vínculos laborales, familiares y patrimoniales',
@@ -111,22 +112,23 @@ export const services = [
   },
   {
     slug: 'renovacion-visa-americana',
-    flag: '🇺🇸',
+    flag: 'USA',
     title: 'Renovación de Visa',
     summary:
-      'Evaluamos si califica para renovar sin entrevista, preparamos su documentación y gestionamos el proceso de principio a fin.',
+      'Evaluamos si califica para renovar sin entrevista, preparamos su documentación y lo acompañamos en cada etapa.',
     megaDesc: 'Con y sin entrevista, vigencia y elegibilidad',
     tags: ['Sin entrevista (Dropbox)', 'Evaluación de elegibilidad', 'Documentación nueva'],
-    metaTitle: 'Renovación de Visa Americana sin Entrevista | Elegibilidad',
+    relatedArticles: ['ds-160-paso-a-paso', 'demostrar-arraigo'],
+    metaTitle: 'Asesoría Renovación Visa Americana | Con y sin Entrevista',
     metaDescription:
-      'Renueve su visa americana B1/B2 con o sin entrevista. Evaluamos si califica para el programa sin entrevista (Dropbox), preparamos su expediente y gestionamos el proceso.',
+      'Asesoría para renovar su visa americana B1/B2 con o sin entrevista. Evaluamos si califica para el programa sin entrevista (Dropbox), preparamos su expediente y lo acompañamos en cada etapa.',
     intro:
       'Muchas personas agendan una entrevista completa sin saber que califican para renovar sin presentarse ante el oficial consular. Primero confirmamos su elegibilidad para el programa de renovación por mensajería; si aplica, le ahorramos tiempo y pasos innecesarios.',
     includes: [
       'Evaluación de elegibilidad para renovación sin entrevista (Dropbox)',
       'Actualización del DS-160 y verificación de vigencia',
       'Preparación de la documentación nueva requerida',
-      'Acompañamiento durante todo el trámite y el envío del expediente',
+      'Acompañamiento durante todo el proceso y el envío del expediente',
     ],
     requirements: [
       'Visa anterior (aunque esté vencida dentro del plazo elegible)',
@@ -157,19 +159,20 @@ export const services = [
       {
         question: '¿Puedo renovar si tuve alguna situación migratoria irregular en EE.UU.?',
         answer:
-          'Depende del tipo y tiempo de la irregularidad. Hay casos donde es posible renovar y otros donde no es recomendable intentarlo sin una estrategia clara. Antes de proceder, analizamos su historial con honestidad.',
+          'Depende del tipo y tiempo de la irregularidad. Hay casos donde es posible renovar y otros donde no es recomendable intentarlo sin una estrategia clara. Antes de proceder, analizamos su historial sin adornos y le decimos qué es realista.',
       },
     ],
   },
   {
     slug: 'visa-canadiense',
-    flag: '🇨🇦',
+    flag: 'CAN',
     title: 'Visa Canadiense',
     summary:
       'Visa de visitante y de estudios ante IRCC. Construimos su expediente para demostrar vínculos con México, solvencia y propósito claro de viaje.',
     megaDesc: 'Visitante (TRV), estudios, vínculos con México',
     tags: ['Visa de visitante TRV', 'Estudios', 'Formulario IRCC'],
-    metaTitle: 'Visa Canadiense de Visitante (TRV) y Estudios | IRCC',
+    relatedArticles: ['eta-vs-visa-canada'],
+    metaTitle: 'Asesoría Visa Canadiense de Visitante (TRV) y Estudios | IRCC',
     metaDescription:
       'Asesoría para la visa canadiense de visitante (TRV) y de estudios ante IRCC desde México. Construimos el expediente de vínculos, solvencia y propósito de viaje.',
     intro:
@@ -215,16 +218,17 @@ export const services = [
   },
   {
     slug: 'eta-canada',
-    flag: '🇨🇦',
+    flag: 'CAN',
     title: 'ETA Canadá',
     fee: { display: '$500 MXN', displayUSD: 'aprox. 28 USD' },
     summary:
       'Solicitud electrónica con revisión previa. Nos aseguramos de que cada dato sea correcto antes de enviar y le informamos del estado en tiempo real.',
     megaDesc: 'Autorización electrónica, tiempos reales',
     tags: ['Aplicación electrónica', 'Revisión previa', 'Seguimiento de estado'],
-    metaTitle: 'ETA Canadá para Mexicanos | Autorización de viaje',
+    relatedArticles: ['eta-vs-visa-canada'],
+    metaTitle: 'ETA Canadá para Mexicanos | Asesoría y Autorización de Viaje',
     metaDescription:
-      'Tramite su ETA (Autorización Electrónica de Viaje) para Canadá con revisión previa. Verificamos cada dato antes de enviar y damos seguimiento al estado de su solicitud.',
+      'Asesoría para la ETA (Autorización Electrónica de Viaje) a Canadá con revisión previa. Verificamos cada dato antes de enviar y damos seguimiento al estado de su solicitud.',
     intro:
       'La ETA parece simple, pero un dato mal capturado puede convertir un trámite de minutos en semanas de complicaciones. Revisamos cada campo antes de enviar y le informamos del estado real de su autorización en todo momento.',
     includes: [
@@ -239,7 +243,7 @@ export const services = [
     ],
     faqs: [
       {
-        question: '¿Todos los mexicanos pueden tramitar ETA?',
+        question: '¿Todos los mexicanos califican para la ETA?',
         answer:
           'No siempre. Según su historial y perfil, Canadá puede requerir una visa de visitante en lugar de ETA. Lo confirmamos antes de iniciar para no perder tiempo ni dinero.',
       },
@@ -267,13 +271,14 @@ export const services = [
   },
   {
     slug: 'pasaporte-mexicano',
-    flag: '🇲🇽',
+    flag: 'MEX',
     title: 'Pasaporte Mexicano',
     fee: { display: '$500 MXN', displayUSD: 'aprox. 28 USD' },
     summary:
       'Primera vez, renovación o caso urgente. Revisamos su documentación antes de la cita para que no haya sorpresas en la SRE.',
     megaDesc: 'Primera vez, renovación, casos urgentes',
     tags: ['Primera vez', 'Renovación', 'Casos urgentes'],
+    relatedArticles: ['renovacion-pasaporte-mexicano'],
     metaTitle: 'Pasaporte Mexicano: Primera Vez, Renovación y Urgentes',
     metaDescription:
       'Asesoría para el pasaporte mexicano: primera vez, renovación y casos urgentes. Revisamos su documentación antes de la cita en la SRE para evitar sorpresas.',
@@ -304,10 +309,10 @@ export const services = [
       {
         question: '¿Cuánto tiempo tarda en emitirse el pasaporte?',
         answer:
-          'En condiciones normales, entre tres y diez días hábiles después de la cita. En casos urgentes por viaje próximo, puede tramitarse en 24 a 72 horas según disponibilidad de la delegación SRE. Le orientamos sobre cómo solicitarlo.',
+          'En condiciones normales, entre tres y diez días hábiles después de la cita. En casos urgentes por viaje próximo, puede emitirse en 24 a 72 horas según disponibilidad de la delegación SRE. Le orientamos sobre cómo solicitarlo.',
       },
       {
-        question: '¿Puedo tramitar el pasaporte si soy de otro estado?',
+        question: '¿Puedo renovar el pasaporte desde otro estado?',
         answer:
           'Sí. Puede acudir a cualquier delegación de la SRE en el país, no necesariamente en su estado de nacimiento. Le indicamos qué oficina conviene más según su ubicación y disponibilidad de citas.',
       },
@@ -320,13 +325,14 @@ export const services = [
   },
   {
     slug: 'pasaporte-estadounidense',
-    flag: '🇺🇸',
+    flag: 'USA',
     title: 'Pasaporte Estadounidense',
     fee: { display: '$500 MXN', displayUSD: 'aprox. 28 USD' },
     summary:
       'Renovación por correo (DS-82) y primera solicitud (DS-11) para ciudadanos americanos. Revisamos que su documentación esté completa antes de enviar.',
     megaDesc: 'DS-82, DS-11, documentación para ciudadanos',
     tags: ['Renovación DS-82', 'Primera solicitud DS-11', 'Ciudadanos americanos'],
+    relatedArticles: [] as string[],
     metaTitle: 'Pasaporte Estadounidense: DS-82 y DS-11 | Ciudadanos',
     metaDescription:
       'Asesoría para el pasaporte estadounidense: renovación por correo (DS-82) y primera solicitud (DS-11). Revisamos su documentación completa antes de enviar.',
@@ -355,7 +361,7 @@ export const services = [
           'Sí. Orientamos el proceso y la documentación; el trámite se realiza ante las autoridades estadounidenses correspondientes.',
       },
       {
-        question: '¿Puedo tramitar el pasaporte americano estando en México?',
+        question: '¿Puedo renovar el pasaporte americano estando en México?',
         answer:
           'Sí, pero el trámite debe hacerse ante una embajada o consulado de EE.UU. en México. Le orientamos sobre qué oficina corresponde según su ubicación y cómo preparar el expediente correctamente.',
       },
@@ -377,7 +383,7 @@ export const additionalDestinations = ['Visa Australia', 'Visa China'];
 
 export const processSteps = [
   {
-    title: 'Evaluación honesta',
+    title: 'Primera evaluación',
     text: 'Analizamos su caso real y le decimos qué es posible, qué no y qué riesgos hay que considerar. Sin rodeos.',
   },
   {
@@ -390,7 +396,7 @@ export const processSteps = [
   },
   {
     title: 'Acompañamiento',
-    text: 'Estamos con usted hasta que el proceso concluya. Y seguimos disponibles cuando necesite renovar o iniciar otro trámite.',
+    text: 'Estamos con usted hasta que el proceso concluya. Y seguimos disponibles cuando necesite renovar o iniciar otro proceso.',
   },
 ];
 
@@ -404,7 +410,7 @@ export const trustItems = [
     text: 'Usted sabe en qué etapa está su expediente, qué sigue y quién responde por cada decisión.',
   },
   {
-    title: 'Honestidad jurídica',
+    title: 'Claridad jurídica',
     text: 'No prometemos decisiones consulares. Preparamos el caso con rigor y explicamos los límites reales.',
   },
 ];
@@ -458,22 +464,22 @@ export const faqs = [
   {
     question: '¿En qué se diferencia Legatum de una gestoría?',
     answer:
-      'Una gestoría hace el trámite. Nosotros analizamos su caso, definimos la estrategia, le explicamos cada paso y respondemos por el proceso de principio a fin.',
+      'Una gestoría entrega su trámite. Nosotros respondemos por su caso: lo analizamos, definimos la estrategia, anticipamos los riesgos y lo acompañamos hasta que el proceso concluye. La diferencia no está en los papeles, está en el criterio.',
+  },
+  {
+    question: '¿Garantizan que me aprueben la visa?',
+    answer:
+      'No, y desconfíe de quien lo prometa: la decisión es exclusiva de la autoridad consular. Lo que sí está en nuestras manos —y es donde se gana o se pierde un caso— es que usted llegue con el expediente impecable, las respuestas claras y nada librado al azar.',
+  },
+  {
+    question: '¿Cuánto cuesta y cómo conozco el monto antes de contratar?',
+    answer:
+      'Nuestros honorarios de referencia son $2,000–$3,000 MXN. Tras la evaluación inicial le presentamos por escrito el alcance y el monto exacto antes de que usted decida. Sin cargos que aparecen después. (Los derechos gubernamentales —MRV, SRE, IRCC— son adicionales y no reembolsables; por eso un expediente bien preparado protege esa inversión.)',
   },
   {
     question: '¿Pueden ayudarme si no soy empresario ni de alto perfil?',
     answer:
       'Sí. Atendemos personas, familias, profesionistas y empresas con el mismo nivel de seriedad y claridad, sin importar el perfil.',
-  },
-  {
-    question: '¿Garantizan que me aprueben la visa?',
-    answer:
-      'No. La decisión final corresponde a la autoridad consular. Lo que sí garantizamos es que usted llegue preparado, con la documentación en orden y sabiendo qué esperar.',
-  },
-  {
-    question: '¿Cómo conozco el costo antes de contratar?',
-    answer:
-      'Después de la evaluación inicial le presentamos por escrito el alcance del trabajo y el honorario. Usted decide con toda la información sobre la mesa.',
   },
   {
     question: '¿Atienden a todo México y desde el extranjero?',
@@ -483,12 +489,12 @@ export const faqs = [
   {
     question: '¿Cómo empiezo?',
     answer:
-      'Cuéntenos su caso por WhatsApp. El mismo día hábil recibe una orientación honesta sobre su situación y los siguientes pasos.',
+      'Cuéntenos su caso por WhatsApp. El mismo día hábil recibe una orientación sobre su situación y los siguientes pasos.',
   },
 
   // Visa americana
   {
-    question: '¿Cuánto cuesta tramitar la visa americana B1/B2?',
+    question: '¿Cuánto cuestan los derechos para la visa americana B1/B2?',
     answer:
       'El pago de derechos consulares ante la Embajada de Estados Unidos es de $185 USD, no reembolsable independientemente del resultado. Ese monto no incluye los honorarios de asesoría. Tras la evaluación inicial le presentamos por escrito el costo total del servicio antes de que usted decida contratar.',
   },
@@ -571,7 +577,7 @@ export const faqs = [
   {
     question: '¿Cuánto cuesta renovar el pasaporte mexicano?',
     answer:
-      'En México, el pasaporte de 6 años tiene un costo de $2,440 MXN (aproximadamente). En consulados de Estados Unidos, los costos son alrededor de $99 USD (3 años), $133 USD (6 años) o $203 USD (10 años). Los montos se actualizan periódicamente; verifique con nosotros la tarifa vigente al momento de tramitar.',
+      'En México, el pasaporte de 6 años tiene un costo de $2,440 MXN (aproximadamente). En consulados de Estados Unidos, los costos son alrededor de $99 USD (3 años), $133 USD (6 años) o $203 USD (10 años). Los montos se actualizan periódicamente; verifique con nosotros la tarifa vigente al momento de solicitarlo.',
   },
   {
     question: '¿Cuánto tiempo tarda la renovación del pasaporte mexicano?',

@@ -1,0 +1,41 @@
+---
+import { site } from '../data/site';
+---
+
+<section class="section section-cream objeciones" id="objeciones" aria-labelledby="obj-title">
+  <div class="shell">
+    <div class="obj-header">
+      <span class="eyebrow">Antes de decidir</span>
+      <h2 id="obj-title">Lo que casi todos preguntan primero.</h2>
+    </div>
+    <div class="obj-grid">
+      <article class="obj-card reveal">
+        <h3>¿Para qué contratar a alguien si el formulario lo lleno yo?</h3>
+        <p>Puede hacerlo. El formulario es el punto de partida, no el trámite. El resultado lo determina cómo está construido el expediente, qué responde en la entrevista y qué tan preparado llega ante un oficial que evalúa en dos minutos. El margen de error es cero y no hay segunda oportunidad en la misma solicitud.</p>
+      </article>
+      <article class="obj-card reveal d1">
+        <h3>¿Me garantizan que me aprueben la visa?</h3>
+        <p>No, y desconfíe de quien lo haga. La decisión es exclusiva de la autoridad consular. Lo que sí está en nuestras manos —y es donde se gana o se pierde— es que usted llegue con el expediente impecable, las respuestas claras y nada librado al azar.</p>
+      </article>
+      <article class="obj-card reveal d2">
+        <h3>¿Es legal contratar a un asesor para esto?</h3>
+        <p>Completamente. La asesoría migratoria privada es un servicio legal. Usted asiste a su cita, usted firma sus documentos y usted es quien obtiene la visa. Legatum prepara el expediente; la autoridad decide. No hay intermediación prohibida en ningún trámite que manejamos.</p>
+      </article>
+    </div>
+    <div class="obj-footer">
+      <a href={site.whatsapp} target="_blank" rel="noopener noreferrer" class="text-link" data-wa-location="objeciones">¿Otra pregunta? Cuéntenos su caso →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .objeciones { border-top: 1px solid var(--line); }
+  .obj-header { text-align: center; margin-bottom: 2.8rem; }
+  .obj-header h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-top: .35em; max-width: 32ch; margin-inline: auto; }
+  .obj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .obj-card { padding: 32px 28px; background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--gold); }
+  .obj-card h3 { font-family: var(--sans); font-size: clamp(.95rem, 1.3vw, 1.08rem); font-weight: 600; color: var(--navy); margin-bottom: .9rem; line-height: 1.4; }
+  .obj-card p { color: var(--muted); font-size: .93rem; line-height: 1.65; }
+  .obj-footer { text-align: center; margin-top: 2.4rem; }
+  @media (max-width: 860px) { .obj-grid { grid-template-columns: 1fr; } }
+</style>

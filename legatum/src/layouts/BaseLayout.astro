@@ -2,6 +2,7 @@
 import { Font } from 'astro:assets';
 import SEO from '../components/SEO.astro';
 import Clarity from '../components/analytics/Clarity.astro';
+import LeadMagnetPopup from '../components/LeadMagnetPopup.astro';
 import '../styles/global.css';
 
 type Props = {
@@ -24,10 +25,12 @@ type Props = {
     <SEO {...Astro.props} />
     <slot name="head" />
     <Clarity />
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
     <slot />
+    <LeadMagnetPopup />
     <script src="/scripts/site.js" defer></script>
   </body>
 </html>

@@ -2,6 +2,7 @@
 import { getImage } from 'astro:assets';
 import heroImage from '../assets/brand/hero-arquitectura.png';
 import Footer from '../components/Footer.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
 import Navbar from '../components/Navbar.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -10,6 +11,7 @@ import CoverageSection from '../sections/CoverageSection.astro';
 import CTASection from '../sections/CTASection.astro';
 import FAQSection from '../sections/FAQSection.astro';
 import FirmSection from '../sections/FirmSection.astro';
+import ObjecionesSection from '../sections/ObjecionesSection.astro';
 import Hero from '../sections/Hero.astro';
 import MethodSection from '../sections/MethodSection.astro';
 import PrinciplesTicker from '../sections/PrinciplesTicker.astro';
@@ -51,7 +53,9 @@ const optimizedHero = await getImage({
     <FirmSection />
     <CoverageSection />
     <TrustSection />
+    <NewsletterForm />
     <TestimonialsSection />
+    <ObjecionesSection />
     <FAQSection />
     <ResourcesSection />
     <ContactSection />
