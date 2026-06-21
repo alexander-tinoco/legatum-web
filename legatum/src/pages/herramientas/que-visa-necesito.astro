@@ -1,27 +1,28 @@
 ---
-import Footer from '../components/Footer.astro';
-import Navbar from '../components/Navbar.astro';
-import WhatsAppFloat from '../components/WhatsAppFloat.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../data/site';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Footer from '../../components/Footer.astro';
+import Navbar from '../../components/Navbar.astro';
+import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
 
-const canonical = `${site.url}/que-visa-necesito/`;
+const canonical = `${site.url}/herramientas/que-visa-necesito/`;
 ---
 
 <BaseLayout
-  title="¿Qué visa necesito? Auto-diagnóstico en 3 preguntas | Legatum Internacional"
-  description="Responda 3 preguntas y sepa si necesita visa americana, ETA canadiense, visa de visitante u otro proceso. Orientación directa, sin rodeos."
+  title={`¿Qué visa necesito? | Diagnóstico en 3 preguntas | ${site.name}`}
+  description="Tres preguntas para saber qué proceso le corresponde: visa americana, ETA canadiense, visa de visitante u otro. El resultado llega en segundos."
   canonical={canonical}
 >
   <Navbar />
   <main id="main-content">
     <section class="qv-hero section-navy">
       <div class="shell">
-        <span class="eyebrow">Herramienta de orientación · Legatum Internacional</span>
+        <Breadcrumb crumbs={[{ label: 'Herramientas', href: '/herramientas/' }, { label: '¿Qué visa necesito?' }]} variant="dark" />
+        <span class="eyebrow">Herramienta de orientación</span>
         <h1>¿Qué visa necesita?</h1>
         <p class="qv-lead">
-          Responda 3 preguntas y reciba una orientación inicial sobre el proceso que corresponde a su caso.
-          Sin tecnicismos, sin compromisos.
+          Tres preguntas para saber qué proceso le corresponde antes de hablar con el especialista.
         </p>
       </div>
     </section>
@@ -43,7 +44,7 @@ const canonical = `${site.url}/que-visa-necesito/`;
                 <strong>Canadá</strong>
                 <span>Turismo, tránsito o negocios</span>
               </button>
-              <button class="quiz-option" data-next="other" data-value="otro">
+              <button class="quiz-option" data-result="other" data-value="otro">
                 <strong>Otro país</strong>
                 <span>Australia, China, Europa, etc.</span>
               </button>
@@ -107,12 +108,12 @@ const canonical = `${site.url}/que-visa-necesito/`;
             <p class="quiz-step-label">Pregunta 3 de 3</p>
             <h2>¿Hace cuánto venció su visa?</h2>
             <div class="quiz-options">
-              <button class="quiz-option" data-result="renovacion_sin_entrevista" data-value="menos4">
-                <strong>Menos de 4 años</strong>
+              <button class="quiz-option" data-result="renovacion_sin_entrevista" data-value="menos1">
+                <strong>Menos de 1 año</strong>
                 <span>Puede calificar para renovación sin entrevista</span>
               </button>
-              <button class="quiz-option" data-result="renovacion_entrevista" data-value="mas4">
-                <strong>Más de 4 años</strong>
+              <button class="quiz-option" data-result="renovacion_entrevista" data-value="mas1">
+                <strong>Más de 1 año</strong>
                 <span>Generalmente requiere entrevista presencial</span>
               </button>
             </div>
@@ -191,7 +192,7 @@ const canonical = `${site.url}/que-visa-necesito/`;
 
             <div class="quiz-result" data-result-id="renovacion_sin_entrevista" hidden>
               <h2>Puede calificar para renovación sin entrevista</h2>
-              <p>El programa Interview Waiver permite renovar la visa sin ir al consulado si la visa vencida hace menos de 48 meses y se cumplen otros criterios. El expediente se envía por mensajería.</p>
+              <p>El programa Interview Waiver permite renovar la visa sin ir al consulado si la visa venció hace menos de 12 meses y se cumplen otros criterios. El expediente se envía por mensajería.</p>
               <p>La evaluación del caso es igual de rigurosa que con entrevista — la diferencia es operativa, no de estándar.</p>
               <div class="result-actions">
                 <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="quiz_resultado" data-wa-service="visa-americana">
@@ -203,7 +204,7 @@ const canonical = `${site.url}/que-visa-necesito/`;
 
             <div class="quiz-result" data-result-id="renovacion_entrevista" hidden>
               <h2>Necesita renovación con entrevista presencial</h2>
-              <p>Cuando la visa vence hace más de 4 años, el proceso regular incluye entrevista consular. Es una nueva solicitud con DS-160, pago de MRV y cita en el consulado.</p>
+              <p>Cuando la visa vence hace más de 1 año, el proceso regular incluye entrevista consular. Es una nueva solicitud con DS-160, pago de MRV y cita en el consulado.</p>
               <div class="result-actions">
                 <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="quiz_resultado" data-wa-service="visa-americana">
                   Evaluar mi caso por WhatsApp
@@ -219,7 +220,7 @@ const canonical = `${site.url}/que-visa-necesito/`;
                 <a class="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-wa-location="quiz_resultado" data-wa-service="visa-americana">
                   Evaluar mi caso por WhatsApp
                 </a>
-                <a class="btn btn-ghost" href="/checklist-arraigo/">Ver checklist de arraigo →</a>
+                <a class="btn btn-ghost" href="/herramientas/checklist-arraigo/">Ver checklist de arraigo →</a>
               </div>
             </div>
 

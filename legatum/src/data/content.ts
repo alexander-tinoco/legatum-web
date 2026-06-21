@@ -9,7 +9,7 @@ export const processSteps = [
   },
   {
     title: 'Preparación y ejecución',
-    text: 'Preparamos formularios, reunimos el expediente y, si aplica, lo preparamos para la entrevista. Nada queda al azar.',
+    text: 'Preparamos formularios, construimos el expediente y, si aplica, lo preparamos para la entrevista. Cada pieza revisada antes de su cita.',
   },
   {
     title: 'Acompañamiento',

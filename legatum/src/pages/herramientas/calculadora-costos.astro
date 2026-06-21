@@ -13,8 +13,8 @@ const honMax = fees.maxMXN;
 ---
 
 <BaseLayout
-  title={`Calculadora de costos | Cuánto cuesta tramitar la visa americana | ${site.name}`}
-  description="Estime el costo total de su trámite de visa americana: tarifa MRV (~$185 USD), honorarios profesionales, traslado al consulado según su ciudad, fotografías y pasaporte. Desglose completo en MXN. Sin compromiso."
+  title={`Calculadora de costos | Visa americana y canadiense | ${site.name}`}
+  description="Cuánto vas a gastar en la visa americana o canadiense: tarifa de gobierno, honorarios, traslado al consulado o VAC y pasaporte. Desglose en MXN sin rodeos."
   canonical={canonical}
 >
   <Navbar />
@@ -27,12 +27,11 @@ const honMax = fees.maxMXN;
           crumbs={[{ label: 'Herramientas', href: '/herramientas/' }, { label: 'Calculadora de costos' }]}
           variant="dark"
         />
-        <span class="eyebrow cc-ey">Herramienta gratuita · Planifique su inversión</span>
-        <h1 class="cc-title cc-h1">¿Cuánto cuesta tramitar la visa americana?</h1>
+        <span class="eyebrow cc-ey">Herramienta gratuita</span>
+        <h1 class="cc-title cc-h1">¿Cuánto cuesta tramitar tu visa?</h1>
         <p class="cc-lead cc-p">
-          Seleccione su situación y vea en segundos el desglose real de su inversión:
-          tarifa MRV, honorarios, traslado al consulado y más.
-          Todo en MXN — antes de decidir, sin sorpresas.
+          Visa americana o canadiense. Elige tu ciudad y tipo de trámite para ver en qué vas a gastar:
+          desde la tarifa de gobierno hasta el traslado al consulado o VAC.
         </p>
       </div>
     </section>
@@ -41,20 +40,51 @@ const honMax = fees.maxMXN;
     <section class="section section-paper cc-section">
       <div class="shell">
         <a class="page-back reveal" href="/herramientas/">← Herramientas</a>
+
+        <!--
+          .cc-layout actúa como contenedor de modo.
+          JS añade .mode-americana o .mode-canadiense aquí;
+          el CSS se encarga del show/hide de .cc-us-only / .cc-ca-only / .cc-us-row / .cc-ca-row.
+        -->
         <div class="cc-layout">
 
-          <!-- Preguntas -->
+          <!-- ── PREGUNTAS ─────────────────────────────── -->
           <div class="cc-form">
 
+            <!-- 01: Tipo de visa -->
             <div class="cc-group reveal">
               <h2 class="cc-group-title">
                 <span class="cc-num">01</span>
+                ¿Para qué visa es el trámite?
+              </h2>
+              <div class="cc-opts" role="group" aria-label="Tipo de visa">
+                <label class="cc-opt" data-group="visa" data-value="americana">
+                  <input type="radio" name="visa" value="americana" class="cc-radio" />
+                  <span class="cc-opt-text">
+                    <strong>Visa americana (B1/B2)</strong>
+                    <small>Turismo, negocios o tránsito a Estados Unidos</small>
+                  </span>
+                </label>
+                <label class="cc-opt" data-group="visa" data-value="canadiense">
+                  <input type="radio" name="visa" value="canadiense" class="cc-radio" />
+                  <span class="cc-opt-text">
+                    <strong>Visa canadiense</strong>
+                    <small>Visitante, permiso de estudios o de trabajo</small>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- 02: Ciudad -->
+            <div class="cc-group reveal d1">
+              <h2 class="cc-group-title">
+                <span class="cc-num">02</span>
                 ¿En qué ciudad vives?
               </h2>
-              <p class="cc-group-hint">Lo usamos para estimar el traslado al consulado más cercano.</p>
+              <p class="cc-group-hint" id="cc-ciudad-hint">Lo usamos para estimar el traslado al consulado más cercano.</p>
               <select class="cc-select" id="cc-ciudad" aria-label="Ciudad de residencia">
                 <option value="" disabled selected>Selecciona tu ciudad…</option>
-                <optgroup label="Ciudades con consulado propio">
+                <optgroup label="Ciudades principales">
                   <option value="cdmx">Ciudad de México</option>
                   <option value="gdl">Guadalajara</option>
                   <option value="mty">Monterrey</option>
@@ -92,9 +122,65 @@ const honMax = fees.maxMXN;
               <p class="cc-city-note" id="cc-city-note"></p>
             </div>
 
-            <div class="cc-group reveal d1">
+            <!-- 03a (americana): tipo de trámite -->
+            <div class="cc-group reveal d2 cc-us-only">
               <h2 class="cc-group-title">
-                <span class="cc-num">02</span>
+                <span class="cc-num">03</span>
+                ¿Qué tipo de trámite es?
+              </h2>
+              <div class="cc-opts" role="group" aria-label="Tipo de trámite">
+                <label class="cc-opt" data-group="tramite" data-value="primera">
+                  <input type="radio" name="tramite" value="primera" class="cc-radio" />
+                  <span class="cc-opt-text">
+                    <strong>Primera solicitud de visa B1/B2</strong>
+                    <small>Nunca he tenido visa americana</small>
+                  </span>
+                </label>
+                <label class="cc-opt" data-group="tramite" data-value="renovacion">
+                  <input type="radio" name="tramite" value="renovacion" class="cc-radio" />
+                  <span class="cc-opt-text">
+                    <strong>Renovación de visa</strong>
+                    <small>Tuve visa americana (vigente o vencida)</small>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- 03b (canadiense): tipo de visa -->
+            <div class="cc-group reveal d2 cc-ca-only">
+              <h2 class="cc-group-title">
+                <span class="cc-num">03</span>
+                ¿Qué tipo de visa canadiense necesitas?
+              </h2>
+              <div class="cc-opts" role="group" aria-label="Tipo de visa canadiense">
+                <label class="cc-opt" data-group="tipoCa" data-value="trv">
+                  <input type="radio" name="tipoCa" value="trv" class="cc-radio" />
+                  <span class="cc-opt-text">
+                    <strong>TRV — Visa de visitante</strong>
+                    <small>Turismo o negocios · Cuota IRCC: ~CAD $185 (~$3,150 MXN)</small>
+                  </span>
+                </label>
+                <label class="cc-opt" data-group="tipoCa" data-value="estudios">
+                  <input type="radio" name="tipoCa" value="estudios" class="cc-radio" />
+                  <span class="cc-opt-text">
+                    <strong>Permiso de estudios (Study Permit)</strong>
+                    <small>Cuota IRCC: ~CAD $150 (~$2,550 MXN)</small>
+                  </span>
+                </label>
+                <label class="cc-opt" data-group="tipoCa" data-value="trabajo">
+                  <input type="radio" name="tipoCa" value="trabajo" class="cc-radio" />
+                  <span class="cc-opt-text">
+                    <strong>Permiso de trabajo (Work Permit)</strong>
+                    <small>Cuota IRCC: ~CAD $155 (~$2,635 MXN)</small>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- 04: Pasaporte (compartido) -->
+            <div class="cc-group reveal d2">
+              <h2 class="cc-group-title">
+                <span class="cc-num">04</span>
                 ¿Tienes pasaporte mexicano vigente?
               </h2>
               <div class="cc-opts" role="group" aria-label="Situación del pasaporte">
@@ -122,24 +208,26 @@ const honMax = fees.maxMXN;
               </div>
             </div>
 
-            <div class="cc-group reveal d2">
+            <!-- 05 (canadiense): biometría -->
+            <div class="cc-group reveal d3 cc-ca-only">
               <h2 class="cc-group-title">
-                <span class="cc-num">03</span>
-                ¿Qué tipo de trámite es?
+                <span class="cc-num">05</span>
+                ¿Ya tienes biometría registrada en Canadá?
               </h2>
-              <div class="cc-opts" role="group" aria-label="Tipo de trámite">
-                <label class="cc-opt" data-group="tramite" data-value="primera">
-                  <input type="radio" name="tramite" value="primera" class="cc-radio" />
+              <p class="cc-group-hint">Las huellas y fotografía biométrica son obligatorias para mexicanos. Son válidas por 10 años desde el registro.</p>
+              <div class="cc-opts" role="group" aria-label="Situación de biometría">
+                <label class="cc-opt" data-group="biometria" data-value="nueva">
+                  <input type="radio" name="biometria" value="nueva" class="cc-radio" />
                   <span class="cc-opt-text">
-                    <strong>Primera solicitud de visa B1/B2</strong>
-                    <small>Nunca he tenido visa americana</small>
+                    <strong>No — es mi primera solicitud</strong>
+                    <small>Requiero registrar biometría · ~CAD $85 (~$1,450 MXN)</small>
                   </span>
                 </label>
-                <label class="cc-opt" data-group="tramite" data-value="renovacion">
-                  <input type="radio" name="tramite" value="renovacion" class="cc-radio" />
+                <label class="cc-opt" data-group="biometria" data-value="vigente">
+                  <input type="radio" name="biometria" value="vigente" class="cc-radio" />
                   <span class="cc-opt-text">
-                    <strong>Renovación de visa</strong>
-                    <small>Tuve visa americana (vigente o vencida)</small>
+                    <strong>Sí — biometría vigente (últimos 10 años)</strong>
+                    <small>No necesito registrar biometría nuevamente</small>
                   </span>
                 </label>
               </div>
@@ -147,47 +235,79 @@ const honMax = fees.maxMXN;
 
           </div>
 
-          <!-- Panel de costos -->
+          <!-- ── PANEL DE COSTOS ────────────────────────── -->
           <div class="cc-panel reveal d1">
-            <div class="cc-panel-inner" id="cc-panel">
+            <div class="cc-panel-inner">
 
               <h2 class="cc-panel-title">Desglose de costos</h2>
 
               <div class="cc-items">
 
-                <div class="cc-item">
+                <!-- Americana: MRV (fijo) -->
+                <div class="cc-item cc-us-row">
                   <div class="cc-item-left">
                     <span class="cc-item-label">Tarifa gobierno (MRV)</span>
                     <span class="cc-item-sub">~$185 USD · pago directo al Dep. de Estado de EE.UU.</span>
                   </div>
-                  <span class="cc-item-amount" id="cc-val-mrv">$3,500</span>
+                  <span class="cc-item-amount">$3,500</span>
                 </div>
 
+                <!-- Canadiense: IRCC (depende del tipo) -->
+                <div class="cc-item cc-ca-row">
+                  <div class="cc-item-left">
+                    <span class="cc-item-label">Derechos IRCC (gobierno canadiense)</span>
+                    <span class="cc-item-sub" id="cc-sub-ircc">Seleccione el tipo de visa</span>
+                  </div>
+                  <span class="cc-item-amount cc-pending" id="cc-val-ircc">—</span>
+                </div>
+
+                <!-- Canadiense: Biometría (depende del historial) -->
+                <div class="cc-item cc-ca-row">
+                  <div class="cc-item-left">
+                    <span class="cc-item-label">Biometría (huellas + foto)</span>
+                    <span class="cc-item-sub" id="cc-sub-biometria">Seleccione su situación</span>
+                  </div>
+                  <span class="cc-item-amount cc-pending" id="cc-val-biometria">—</span>
+                </div>
+
+                <!-- Canadiense: Cuota VAC (fijo) -->
+                <div class="cc-item cc-ca-row">
+                  <div class="cc-item-left">
+                    <span class="cc-item-label">Cuota VAC (VFS Global)</span>
+                    <span class="cc-item-sub">Centro de solicitud de visas — servicio de tramitación</span>
+                  </div>
+                  <span class="cc-item-amount">$1,100</span>
+                </div>
+
+                <!-- Compartido: Honorarios (estático) -->
                 <div class="cc-item">
                   <div class="cc-item-left">
                     <span class="cc-item-label">Honorarios profesionales</span>
                     <span class="cc-item-sub">Se confirman tras la evaluación inicial</span>
                   </div>
-                  <span class="cc-item-amount cc-range" id="cc-val-hon">$2,000 – $3,000</span>
+                  <span class="cc-item-amount cc-range">$2,000 – $3,000</span>
                 </div>
 
-                <div class="cc-item" id="cc-row-traslado">
+                <!-- Compartido: Traslado (depende de ciudad) -->
+                <div class="cc-item">
                   <div class="cc-item-left">
-                    <span class="cc-item-label">Traslado al consulado</span>
+                    <span class="cc-item-label" id="cc-label-traslado">Traslado al consulado</span>
                     <span class="cc-item-sub" id="cc-sub-traslado">Seleccione su ciudad</span>
                   </div>
                   <span class="cc-item-amount cc-pending" id="cc-val-traslado">—</span>
                 </div>
 
+                <!-- Compartido: Fotografías (estático) -->
                 <div class="cc-item">
                   <div class="cc-item-left">
                     <span class="cc-item-label">Fotografías</span>
                     <span class="cc-item-sub">2 fotos tamaño pasaporte</span>
                   </div>
-                  <span class="cc-item-amount" id="cc-val-fotos">$100</span>
+                  <span class="cc-item-amount">$100</span>
                 </div>
 
-                <div class="cc-item" id="cc-row-pasaporte">
+                <!-- Compartido: Pasaporte (depende del estado) -->
+                <div class="cc-item">
                   <div class="cc-item-left">
                     <span class="cc-item-label">Pasaporte mexicano</span>
                     <span class="cc-item-sub" id="cc-sub-pasaporte">Seleccione su situación</span>
@@ -205,13 +325,13 @@ const honMax = fees.maxMXN;
                 </div>
               </div>
 
-              <p class="cc-disclaimer">
-                Los montos son estimaciones de referencia en MXN. La tarifa MRV (~$185 USD) varía
-                con el tipo de cambio. El especialista le confirma el desglose exacto por escrito
-                — antes de cualquier compromiso.
+              <p class="cc-disclaimer" id="cc-disclaimer">
+                Los montos son estimaciones de referencia en MXN.
+                El especialista le confirma el desglose exacto por escrito — antes de cualquier compromiso.
               </p>
 
-              <a id="cc-wa" href={`https://wa.me/${phone}?text=${encodeURIComponent('Hola, usé la calculadora de costos de Legatum y me gustaría conocer el costo exacto de mi trámite.')}`}
+              <a id="cc-wa"
+                href={`https://wa.me/${phone}?text=${encodeURIComponent('Hola, usé la calculadora de costos de Legatum y me gustaría conocer el costo exacto de mi trámite.')}`}
                 class="btn btn-whatsapp cc-cta"
                 target="_blank"
                 rel="noopener noreferrer">
@@ -267,6 +387,20 @@ const honMax = fees.maxMXN;
     gap: clamp(32px, 5vw, 64px);
     align-items: start;
   }
+
+  /*
+    Visibilidad por modo: JS añade .mode-americana o .mode-canadiense
+    en .cc-layout. El CSS se encarga del resto — sin manipulación de
+    display en JS y sin style="display:none" en el HTML.
+  */
+  .cc-us-only, .cc-us-row,
+  .cc-ca-only, .cc-ca-row { display: none; }
+
+  .mode-americana .cc-us-only,
+  .mode-americana .cc-us-row { display: flex; }
+
+  .mode-canadiense .cc-ca-only,
+  .mode-canadiense .cc-ca-row { display: flex; }
 
   /* ── Formulario ────────────────────────────────────── */
   .cc-form { display: flex; flex-direction: column; gap: clamp(28px, 4vw, 40px); }
@@ -470,8 +604,10 @@ const honMax = fees.maxMXN;
 </style>
 
 <script define:vars={{ phone, honMin, honMax }}>
-const CITIES = {
-  cdmx:  { label: 'Ciudad de México',         traslado: 500,  note: 'Consulado a transporte local (metro/taxi)' },
+// ── DATA ─────────────────────────────────────────────────────────────────────
+
+const CITIES_US = {
+  cdmx:  { label: 'Ciudad de México',         traslado: 500,  note: 'Consulado en tu ciudad — solo transporte local' },
   gdl:   { label: 'Guadalajara',               traslado: 350,  note: 'Consulado en tu ciudad — solo transporte local' },
   mty:   { label: 'Monterrey',                 traslado: 350,  note: 'Consulado en tu ciudad — solo transporte local' },
   tij:   { label: 'Tijuana',                   traslado: 350,  note: 'Consulado en tu ciudad — solo transporte local' },
@@ -503,78 +639,223 @@ const CITIES = {
   otro:  { label: 'Otra ciudad',               traslado: 2500, note: 'Estimado promedio — incluye transporte y hospedaje' },
 };
 
-const MRV     = 3500;
-const FOTOS   = 100;
-const PASAPORTE_COSTO = 2590;
+const CITIES_CA = {
+  cdmx:  { label: 'Ciudad de México',         traslado: 500,  note: 'VAC VFS Global en CDMX — solo transporte local' },
+  gdl:   { label: 'Guadalajara',               traslado: 350,  note: 'VAC VFS Global en Guadalajara — solo transporte local' },
+  mty:   { label: 'Monterrey',                 traslado: 350,  note: 'VAC VFS Global en Monterrey — solo transporte local' },
+  tij:   { label: 'Tijuana',                   traslado: 350,  note: 'VAC VFS Global en Tijuana — solo transporte local' },
+  jua:   { label: 'Ciudad Juárez',             traslado: 900,  note: 'Viaje a Tijuana para biometría en VAC (~4h en bus)' },
+  hmo:   { label: 'Hermosillo',                traslado: 1200, note: 'Viaje a Tijuana para biometría en VAC' },
+  mid:   { label: 'Mérida',                    traslado: 2000, note: 'Vuelo o bus a CDMX para biometría en VAC' },
+  mat:   { label: 'Matamoros',                 traslado: 700,  note: 'Viaje a Monterrey para biometría en VAC (~2.5h en bus)' },
+  nla:   { label: 'Nuevo Laredo',              traslado: 700,  note: 'Viaje a Monterrey para biometría en VAC (~2.5h en bus)' },
+  nol:   { label: 'Nogales',                   traslado: 1200, note: 'Viaje a Tijuana para biometría en VAC' },
+  ags:   { label: 'Aguascalientes',            traslado: 1600, note: 'Viaje a Guadalajara para biometría en VAC (~2h en bus)' },
+  chi:   { label: 'Chihuahua',                 traslado: 2000, note: 'Viaje a Tijuana o CDMX para biometría en VAC' },
+  cul:   { label: 'Culiacán',                  traslado: 2200, note: 'Viaje a Guadalajara o Tijuana para biometría en VAC' },
+  dgo:   { label: 'Durango',                   traslado: 2500, note: 'Viaje a Guadalajara o Monterrey para biometría en VAC' },
+  leo:   { label: 'León / Guanajuato',         traslado: 1200, note: 'Viaje a Guadalajara para biometría en VAC (~1.5h en bus)' },
+  lp:    { label: 'La Paz / Los Cabos',        traslado: 3500, note: 'Vuelo a Tijuana o CDMX + hospedaje para biometría' },
+  lmo:   { label: 'Los Mochis',                traslado: 2800, note: 'Viaje a Guadalajara o Tijuana para biometría en VAC' },
+  maz:   { label: 'Mazatlán',                  traslado: 2000, note: 'Viaje a Guadalajara para biometría en VAC (~5h en bus)' },
+  mor:   { label: 'Cuernavaca / Morelos',      traslado: 800,  note: 'Viaje a CDMX para biometría en VAC (~1.5h en bus)' },
+  oax:   { label: 'Oaxaca',                    traslado: 2000, note: 'Viaje a CDMX para biometría en VAC (~5h en bus)' },
+  pue:   { label: 'Puebla',                    traslado: 900,  note: 'Viaje a CDMX para biometría en VAC (~2h en bus)' },
+  qro:   { label: 'Querétaro',                 traslado: 1200, note: 'Viaje a CDMX para biometría en VAC (~3h en bus)' },
+  sal:   { label: 'Saltillo',                  traslado: 700,  note: 'Viaje a Monterrey para biometría en VAC (~1.5h en bus)' },
+  slp:   { label: 'San Luis Potosí',           traslado: 1800, note: 'Viaje a Monterrey o CDMX para biometría en VAC' },
+  tam:   { label: 'Tampico',                   traslado: 1600, note: 'Viaje a Monterrey para biometría en VAC (~3h en bus)' },
+  tor:   { label: 'Torreón / Gómez Palacio',   traslado: 1900, note: 'Viaje a Monterrey para biometría en VAC (~4h en bus)' },
+  ver:   { label: 'Veracruz',                  traslado: 1500, note: 'Viaje a CDMX para biometría en VAC (~5h en bus)' },
+  can:   { label: 'Cancún / Playa del Carmen', traslado: 2000, note: 'Vuelo a CDMX para biometría en VAC' },
+  zac:   { label: 'Zacatecas',                 traslado: 2000, note: 'Viaje a Guadalajara para biometría en VAC (~4h en bus)' },
+  otro:  { label: 'Otra ciudad',               traslado: 2500, note: 'Estimado promedio — incluye transporte al VAC más cercano' },
+};
 
-const fmt = (n) => '$' + n.toLocaleString('es-MX');
+const IRCC_FEES = { trv: 3150, estudios: 2550, trabajo: 2635 };
+const IRCC_LABELS = {
+  trv:      'TRV Visitante (~CAD $185)',
+  estudios: 'Permiso de Estudios (~CAD $150)',
+  trabajo:  'Permiso de Trabajo (~CAD $155)',
+};
 
-let state = { ciudad: null, pasaporte: null, tramite: null };
+const C = { mrv: 3500, biometria: 1450, vac: 1100, fotos: 100, pasaporte: 2590 };
 
-function update() {
-  const city = state.ciudad ? CITIES[state.ciudad] : null;
+const COPY = {
+  ciudadHint: {
+    americana:  'Lo usamos para estimar el traslado al consulado americano más cercano.',
+    canadiense: 'Lo usamos para estimar el traslado al VAC (Centro de Solicitud de Visas de Canadá) más cercano.',
+  },
+  trasladoLabel: {
+    americana:  'Traslado al consulado',
+    canadiense: 'Traslado al VAC (biometría)',
+  },
+  disclaimer: {
+    americana:  'Los montos son estimaciones de referencia en MXN. La tarifa MRV (~$185 USD) varía con el tipo de cambio. El especialista confirma el desglose exacto por escrito — antes de cualquier compromiso.',
+    canadiense: 'Los montos son estimaciones de referencia en MXN. Las cuotas IRCC se pagan en CAD y varían con el tipo de cambio. El especialista confirma el desglose exacto por escrito — antes de cualquier compromiso.',
+  },
+};
 
-  // Traslado
-  const traslado = city ? city.traslado : null;
-  document.getElementById('cc-val-traslado').textContent = traslado !== null ? fmt(traslado) : '—';
-  document.getElementById('cc-val-traslado').className = 'cc-item-amount' + (traslado === null ? ' cc-pending' : '');
-  document.getElementById('cc-sub-traslado').textContent = city ? city.note : 'Seleccione su ciudad';
+const WA_LABELS = {
+  pasaporte: { si: 'con pasaporte vigente', renovar: 'necesita renovar pasaporte', no: 'sin pasaporte' },
+  tramite:   { primera: 'primera solicitud', renovacion: 'renovación de visa' },
+  tipoCa:    { trv: 'TRV Visitante', estudios: 'Permiso de Estudios', trabajo: 'Permiso de Trabajo' },
+  biometria: { nueva: 'primera solicitud (requiere biometría)', vigente: 'biometría vigente' },
+};
 
-  // Pasaporte
-  let pasaporteCosto = null;
-  let pasaporteSub = 'Seleccione su situación';
-  if (state.pasaporte === 'si') {
-    pasaporteCosto = 0;
-    pasaporteSub = 'Ya cuentas con él';
-  } else if (state.pasaporte === 'renovar' || state.pasaporte === 'no') {
-    pasaporteCosto = PASAPORTE_COSTO;
-    pasaporteSub = 'Pasaporte mexicano 10 años (estimado)';
-  }
-  document.getElementById('cc-val-pasaporte').textContent = pasaporteCosto !== null ? (pasaporteCosto === 0 ? 'Incluido' : fmt(pasaporteCosto)) : '—';
-  document.getElementById('cc-val-pasaporte').className = 'cc-item-amount' + (pasaporteCosto === null ? ' cc-pending' : '');
-  document.getElementById('cc-sub-pasaporte').textContent = pasaporteSub;
+// ── DOM REFS (cached once at init) ───────────────────────────────────────────
 
-  // Total
-  const totalEl     = document.getElementById('cc-total');
-  const currencyEl  = document.getElementById('cc-total-currency');
-  if (traslado !== null && pasaporteCosto !== null) {
-    const base = MRV + FOTOS + traslado + pasaporteCosto;
-    const min  = base + honMin;
-    const max  = base + honMax;
-    totalEl.textContent    = `${fmt(min)} – ${fmt(max)}`;
-    currencyEl.textContent = 'MXN · estimado referencial';
+const layout       = document.querySelector('.cc-layout');
+const form         = document.querySelector('.cc-form');
+const elCiudad     = document.getElementById('cc-ciudad');
+const elCityNote   = document.getElementById('cc-city-note');
+const elCiudadHint = document.getElementById('cc-ciudad-hint');
+const elLabelTras  = document.getElementById('cc-label-traslado');
+const elSubTras    = document.getElementById('cc-sub-traslado');
+const elValTras    = document.getElementById('cc-val-traslado');
+const elSubIrcc    = document.getElementById('cc-sub-ircc');
+const elValIrcc    = document.getElementById('cc-val-ircc');
+const elSubBio     = document.getElementById('cc-sub-biometria');
+const elValBio     = document.getElementById('cc-val-biometria');
+const elSubPas     = document.getElementById('cc-sub-pasaporte');
+const elValPas     = document.getElementById('cc-val-pasaporte');
+const elTotal      = document.getElementById('cc-total');
+const elCurrency   = document.getElementById('cc-total-currency');
+const elDisclaimer = document.getElementById('cc-disclaimer');
+const elWa         = document.getElementById('cc-wa');
+
+// ── STATE ────────────────────────────────────────────────────────────────────
+
+const state = { visa: null, ciudad: null, pasaporte: null, tramite: null, tipoCa: null, biometria: null };
+
+// ── HELPERS ──────────────────────────────────────────────────────────────────
+
+const fmt = n => '$' + n.toLocaleString('es-MX');
+
+function setAmount(el, value, zeroText = null) {
+  if (value === null) {
+    el.textContent = '—';
+    el.className   = 'cc-item-amount cc-pending';
   } else {
-    totalEl.textContent    = '—';
-    currencyEl.textContent = '';
+    el.textContent = (value === 0 && zeroText) ? zeroText : fmt(value);
+    el.className   = 'cc-item-amount';
   }
-
-  // WhatsApp message
-  const cityLabel   = city ? city.label : 'no especificada';
-  const pasLabel    = state.pasaporte === 'si' ? 'con pasaporte vigente' : state.pasaporte === 'renovar' ? 'necesita renovar pasaporte' : state.pasaporte === 'no' ? 'sin pasaporte' : 'no especificado';
-  const tramLabel   = state.tramite === 'primera' ? 'primera solicitud' : state.tramite === 'renovacion' ? 'renovación de visa' : 'no especificado';
-  const totalText   = traslado !== null && pasaporteCosto !== null
-    ? ` Estimado total: ${fmt(MRV + FOTOS + traslado + pasaporteCosto + honMin)} – ${fmt(MRV + FOTOS + traslado + pasaporteCosto + honMax)} MXN.`
-    : '';
-  const msg = `Hola, usé la calculadora de Legatum. Mi situación: ciudad ${cityLabel}, ${pasLabel}, ${tramLabel}.${totalText} Me gustaría confirmar el costo exacto de mi trámite.`;
-  document.getElementById('cc-wa').href = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
 }
 
-// Ciudad
-document.getElementById('cc-ciudad').addEventListener('change', (e) => {
+function setTotal(base) {
+  if (base === null) {
+    elTotal.textContent    = '—';
+    elCurrency.textContent = '';
+  } else {
+    elTotal.textContent    = `${fmt(base + honMin)} – ${fmt(base + honMax)}`;
+    elCurrency.textContent = 'MXN · estimado referencial';
+  }
+}
+
+// ── PURE FUNCTIONS ───────────────────────────────────────────────────────────
+
+function pasaporteCosto() {
+  if (state.pasaporte === 'si')     return 0;
+  if (state.pasaporte)              return C.pasaporte;
+  return null;
+}
+
+function buildWAMsg(city) {
+  const cityLabel = city?.label ?? 'no especificada';
+  if (state.visa === 'americana') {
+    const pas  = WA_LABELS.pasaporte[state.pasaporte]  ?? 'no especificado';
+    const tram = WA_LABELS.tramite[state.tramite]       ?? 'no especificado';
+    return `Hola, usé la calculadora de Legatum para visa americana. Ciudad: ${cityLabel}, ${pas}, ${tram}. Me gustaría confirmar el costo exacto.`;
+  }
+  const tipo = WA_LABELS.tipoCa[state.tipoCa]    ?? 'no especificado';
+  const bio  = WA_LABELS.biometria[state.biometria] ?? 'no especificado';
+  return `Hola, usé la calculadora de Legatum para visa canadiense. Ciudad: ${cityLabel}, tipo: ${tipo}, ${bio}. Me gustaría confirmar el costo exacto.`;
+}
+
+// ── RENDER ───────────────────────────────────────────────────────────────────
+
+function render() {
+  if (!state.visa) return;
+
+  const isCA   = state.visa === 'canadiense';
+  const cities = isCA ? CITIES_CA : CITIES_US;
+  const city   = state.ciudad ? cities[state.ciudad] : null;
+  const pasCost = pasaporteCosto();
+
+  // Modo CSS: una sola operación en el padre, el CSS hace todo el show/hide
+  layout.classList.toggle('mode-americana',  !isCA);
+  layout.classList.toggle('mode-canadiense', isCA);
+
+  // Textos contextuales
+  elCiudadHint.textContent = COPY.ciudadHint[state.visa];
+  elLabelTras.textContent  = COPY.trasladoLabel[state.visa];
+  elDisclaimer.textContent = COPY.disclaimer[state.visa];
+
+  // Traslado
+  elCityNote.textContent = city?.note ?? '';
+  setAmount(elValTras, city?.traslado ?? null);
+  elSubTras.textContent  = city?.note ?? 'Seleccione su ciudad';
+
+  // Pasaporte
+  const pasSub = { si: 'Ya cuentas con él', renovar: 'Pasaporte mexicano 10 años (estimado)', no: 'Pasaporte mexicano 10 años (estimado)' };
+  setAmount(elValPas, pasCost, 'Incluido');
+  elSubPas.textContent = pasSub[state.pasaporte] ?? 'Seleccione su situación';
+
+  if (isCA) renderCA(city, pasCost);
+  else      renderUS(city, pasCost);
+
+  elWa.href = `https://wa.me/${phone}?text=${encodeURIComponent(buildWAMsg(city))}`;
+}
+
+function renderUS(city, pasCost) {
+  const traslado = city?.traslado ?? null;
+  const ready    = traslado !== null && pasCost !== null;
+  setTotal(ready ? C.mrv + C.fotos + traslado + pasCost : null);
+}
+
+function renderCA(city, pasCost) {
+  const irccCost = IRCC_FEES[state.tipoCa] ?? null;
+  const bioCost  = state.biometria === 'nueva' ? C.biometria : state.biometria === 'vigente' ? 0 : null;
+  const traslado = city?.traslado ?? null;
+
+  setAmount(elValIrcc, irccCost);
+  elSubIrcc.textContent = IRCC_LABELS[state.tipoCa] ?? 'Seleccione el tipo de visa';
+
+  setAmount(elValBio, bioCost, 'No aplica');
+  elSubBio.textContent = { nueva: 'Primera solicitud — ~CAD $85', vigente: 'Ya registrada y vigente' }[state.biometria] ?? 'Seleccione su situación';
+
+  const ready = irccCost !== null && bioCost !== null && traslado !== null && pasCost !== null;
+  setTotal(ready ? irccCost + (bioCost || 0) + C.vac + C.fotos + traslado + pasCost : null);
+}
+
+// ── EVENTS ───────────────────────────────────────────────────────────────────
+
+elCiudad.addEventListener('change', e => {
   state.ciudad = e.target.value;
-  document.getElementById('cc-city-note').textContent = CITIES[e.target.value]?.note ?? '';
-  update();
+  render();
 });
 
-// Radios
-document.querySelectorAll('.cc-opt').forEach((label) => {
-  label.addEventListener('click', () => {
-    const group = label.dataset.group;
-    const value = label.dataset.value;
-    state[group] = value;
-    document.querySelectorAll(`.cc-opt[data-group="${group}"]`).forEach((l) => l.classList.remove('is-selected'));
-    label.classList.add('is-selected');
-    update();
-  });
+// Event delegation: un solo listener para todos los .cc-opt del formulario
+form.addEventListener('click', e => {
+  const opt = e.target.closest('.cc-opt[data-group]');
+  if (!opt) return;
+
+  const { group, value } = opt.dataset;
+
+  // Deseleccionar anteriores del mismo grupo y marcar el actual
+  form.querySelectorAll(`.cc-opt[data-group="${group}"]`).forEach(l => l.classList.remove('is-selected'));
+  opt.classList.add('is-selected');
+
+  // Al cambiar de tipo de visa, limpiar el estado específico del anterior
+  if (group === 'visa' && value !== state.visa) {
+    state.tramite   = null;
+    state.tipoCa    = null;
+    state.biometria = null;
+    form.querySelectorAll('.cc-opt[data-group="tramite"], .cc-opt[data-group="tipoCa"], .cc-opt[data-group="biometria"]')
+        .forEach(l => l.classList.remove('is-selected'));
+  }
+
+  state[group] = value;
+  render();
 });
 </script>

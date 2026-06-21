@@ -118,7 +118,7 @@ export const services = [
     metaDescription:
       'Asesoría para la visa canadiense de visitante (TRV) y de estudios ante IRCC desde México. Construimos el expediente de vínculos, solvencia y propósito de viaje.',
     intro:
-      'IRCC evalúa su solicitud sobre papel: no hay entrevista donde explicarse. Por eso el expediente lo es todo. Preparamos su Temporary Resident Visa o su permiso de estudios para que cada documento comunique solvencia, vínculos con México y un propósito de viaje creíble.',
+      'IRCC evalúa su solicitud sobre papel: no hay entrevista donde explicarse ni segunda oportunidad de aclarar. Preparamos su visa de visitante (TRV) o permiso de estudios para que cada documento comunique solvencia, vínculos con México y un propósito de viaje que no deje espacio para la duda.',
     includes: [
       'Llenado de formularios y aplicación en el portal de IRCC',
       'Carta de explicación y expediente de vínculos con México',

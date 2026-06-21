@@ -1,12 +1,13 @@
 ---
-import Footer from '../components/Footer.astro';
-import Navbar from '../components/Navbar.astro';
-import WaIcon from '../components/WaIcon.astro';
-import WhatsAppFloat from '../components/WhatsAppFloat.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../data/site';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Footer from '../../components/Footer.astro';
+import Navbar from '../../components/Navbar.astro';
+import WaIcon from '../../components/WaIcon.astro';
+import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
 
-const canonical = `${site.url}/checklist-arraigo/`;
+const canonical = `${site.url}/herramientas/checklist-arraigo/`;
 
 const schema = {
   '@context': 'https://schema.org',
@@ -24,8 +25,8 @@ const schema = {
 ---
 
 <BaseLayout
-  title="Checklist de arraigo para visa americana | Legatum Internacional"
-  description="Lista completa de documentos para demostrar arraigo en su solicitud de visa americana B1/B2. Descárguela sin costo y evalúe si su expediente está listo."
+  title={`Checklist de arraigo | Visa americana B1/B2 | ${site.name}`}
+  description="Lista de documentos de arraigo para la solicitud de visa americana B1/B2: laboral, familiar, patrimonial y propósito de viaje. Revísela antes de agendar su cita consular."
   canonical={canonical}
 >
   <Fragment slot="head">
@@ -36,11 +37,12 @@ const schema = {
 
     <section class="cl-hero section-navy">
       <div class="shell">
-        <span class="eyebrow cl-ey">Recurso sin costo · Legatum Internacional</span>
+        <Breadcrumb crumbs={[{ label: 'Herramientas', href: '/herramientas/' }, { label: 'Checklist de arraigo' }]} variant="dark" />
+        <span class="eyebrow cl-ey">Recurso gratuito</span>
         <h1 class="cl-h1">Checklist de arraigo para visa americana B1/B2</h1>
         <p class="cl-lead">
-          El arraigo es el factor que más solicitudes pierde. Esta lista le permite evaluar
-          en menos de 5 minutos si su expediente está listo para la entrevista consular.
+          El arraigo concentra la mayoría de los rechazos. Use esta lista para revisar
+          su expediente antes de agendar la entrevista consular.
         </p>
       </div>
     </section>

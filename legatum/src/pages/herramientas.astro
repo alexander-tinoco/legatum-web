@@ -11,24 +11,38 @@ const canonical = `${site.url}/herramientas/`;
 const tools = [
   {
     label: 'Simulador de Visa Americana',
-    desc: 'Responde 10 preguntas y recibe un diagnóstico de tu perfil: probabilidad estimada, fortalezas, puntos débiles y un plan de acción personalizado.',
+    desc: 'Diez preguntas sobre tu situación y obtienes un diagnóstico concreto: qué tan sólido es tu perfil, qué lo debilita y qué conviene resolver antes de solicitar.',
     href: '/herramientas/simulador-visa/',
     tag: 'Disponible',
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>`,
   },
   {
     label: 'Calculadora de Costos del Trámite',
-    desc: 'Selecciona tu ciudad y situación para obtener un desglose detallado de todos los gastos: tarifa gobierno, honorarios, traslado, fotografías y pasaporte.',
+    desc: 'Visa americana o canadiense. Elige tu ciudad y tipo de trámite para ver en qué vas a gastar: tarifa de gobierno, honorarios, traslado al consulado o VAC, y pasaporte.',
     href: '/herramientas/calculadora-costos/',
     tag: 'Disponible',
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="1"/><path d="M8 6h8M8 10h8M8 14h5"/><circle cx="17" cy="17" r="3"/><path d="m19 19-1.5-1.5"/></svg>`,
+  },
+  {
+    label: '¿Qué visa necesito?',
+    desc: 'Tres preguntas para saber qué proceso te corresponde: visa americana, ETA canadiense, visa de visitante u otro. Sin rodeos.',
+    href: '/herramientas/que-visa-necesito/',
+    tag: 'Disponible',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>`,
+  },
+  {
+    label: 'Checklist de arraigo',
+    desc: 'Revisa tu expediente de arraigo antes de la entrevista consular: laboral, familiar, patrimonial y propósito de viaje. Cuatro áreas, un solo diagnóstico.',
+    href: '/herramientas/checklist-arraigo/',
+    tag: 'Disponible',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
   },
 ];
 ---
 
 <BaseLayout
-  title={`Herramientas gratuitas para tu visa | ${site.name}`}
-  description="Recursos gratuitos de Legatum Internacional para preparar tu solicitud de visa americana: simulador de probabilidades, checklist de arraigo y más."
+  title={`Herramientas gratuitas | Visa americana y canadiense | ${site.name}`}
+  description="Simulador de probabilidades, calculadora de costos, checklist de arraigo y más recursos gratuitos para preparar tu trámite de visa americana o canadiense."
   canonical={canonical}
 >
   <Navbar />
@@ -37,11 +51,11 @@ const tools = [
     <section class="ht-hero section-navy">
       <div class="shell">
         <Breadcrumb crumbs={[{ label: 'Herramientas' }]} variant="dark" />
-        <span class="eyebrow ht-ey">Recursos sin costo · Legatum Internacional</span>
-        <h1 class="ht-title ht-h1">Herramientas para tu visa americana</h1>
+        <span class="eyebrow ht-ey">Herramientas gratuitas</span>
+        <h1 class="ht-title ht-h1">Entiende tu caso antes de empezar.</h1>
         <p class="ht-lead">
-          Recursos prácticos basados en los criterios reales del proceso consular.
-          Úsalos para entender tu situación antes de hablar con un especialista.
+          Cada herramienta está construida con los mismos criterios que usamos
+          al preparar los expedientes. Úsalas para llegar a tu primera consulta con claridad.
         </p>
       </div>
     </section>
