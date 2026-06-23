@@ -1,0 +1,22 @@
+<script is:inline>
+  (function () {
+    function loadGA() {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-PH0H88G46M';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-PH0H88G46M');
+    }
+    if (document.readyState === 'complete') {
+      ('requestIdleCallback' in window ? requestIdleCallback : setTimeout)(loadGA, 1);
+    } else {
+      window.addEventListener('load', function () {
+        ('requestIdleCallback' in window ? requestIdleCallback : setTimeout)(loadGA, 1);
+      }, { once: true });
+    }
+  })();
+</script>

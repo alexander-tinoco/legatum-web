@@ -2,6 +2,7 @@
 import { Font } from 'astro:assets';
 import SEO from '../components/SEO.astro';
 import Clarity from '../components/analytics/Clarity.astro';
+import GoogleAnalytics from '../components/analytics/GoogleAnalytics.astro';
 import LeadMagnetPopup from '../components/LeadMagnetPopup.astro';
 import '../styles/global.css';
 
@@ -28,6 +29,7 @@ const { hidePopup = false } = Astro.props;
     <SEO {...Astro.props} />
     <slot name="head" />
     <Clarity />
+    <GoogleAnalytics />
   </head>
   <body>
     <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
