@@ -4,6 +4,14 @@
 /scripts/*
   Cache-Control: public, max-age=86400
 
+/testimonio.mp4
+  Cache-Control: public, max-age=2592000
+  Accept-Ranges: bytes
+  Content-Type: video/mp4
+
+/lp/*.webp
+  Cache-Control: public, max-age=2592000
+
 /og-image.png
   Cache-Control: public, max-age=604800
 
@@ -31,5 +39,5 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
-  Content-Security-Policy: default-src 'none'; script-src 'self' 'unsafe-inline' https://*.clarity.ms https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.clarity.ms https://c.bing.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://*.clarity.ms https://c.bing.com https://challenges.cloudflare.com https://turnstile-siteverify-legatum.alexander-tinoco-gh.workers.dev; frame-src https://challenges.cloudflare.com; manifest-src 'self'; frame-ancestors 'none'; form-action 'self' https://api.web3forms.com; base-uri 'self'; object-src 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'none'; script-src 'self' 'unsafe-inline' https://*.clarity.ms https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.clarity.ms https://c.bing.com; font-src 'self'; media-src 'self'; connect-src 'self' https://api.web3forms.com https://*.clarity.ms https://c.bing.com https://challenges.cloudflare.com https://turnstile-siteverify-legatum.alexander-tinoco-gh.workers.dev; frame-src https://challenges.cloudflare.com; manifest-src 'self'; frame-ancestors 'none'; form-action 'self' https://api.web3forms.com; base-uri 'self'; object-src 'none'; upgrade-insecure-requests
   X-DNS-Prefetch-Control: off
