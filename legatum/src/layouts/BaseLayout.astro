@@ -12,7 +12,10 @@ type Props = {
   ogType?: string;
   pubDate?: string;
   author?: string;
+  hidePopup?: boolean;
 };
+
+const { hidePopup = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -29,7 +32,7 @@ type Props = {
   <body>
     <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
     <slot />
-    <LeadMagnetPopup />
+    {!hidePopup && <LeadMagnetPopup />}
     <script src="/scripts/site.js" defer></script>
   </body>
 </html>

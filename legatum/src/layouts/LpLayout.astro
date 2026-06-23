@@ -1,5 +1,6 @@
 ---
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import WaIcon from '../components/WaIcon.astro';
 import BaseLayout from './BaseLayout.astro';
 
 interface Props {
@@ -10,12 +11,14 @@ interface Props {
   footerDisclaimer: string;
   footerServiceHref: string;
   footerServiceLabel: string;
+  whatsappUrl: string;
+  stickyLabel?: string;
 }
 
-const { title, description, canonical, schema, footerDisclaimer, footerServiceHref, footerServiceLabel } = Astro.props;
+const { title, description, canonical, schema, footerDisclaimer, footerServiceHref, footerServiceLabel, whatsappUrl, stickyLabel = 'Evaluar mi caso gratis' } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} canonical={canonical}>
+<BaseLayout title={title} description={description} canonical={canonical} hidePopup={true}>
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     <meta name="robots" content="noindex, nofollow" />
@@ -49,6 +52,11 @@ const { title, description, canonical, schema, footerDisclaimer, footerServiceHr
     </footer>
   </main>
   <WhatsAppFloat />
+
+  <!-- Barra sticky de WhatsApp — solo móvil, siempre a un clic para tráfico de Ads -->
+  <a class="lp-sticky-wa" href={whatsappUrl} target="_blank" rel="noopener noreferrer" data-wa-location="sticky-movil">
+    <WaIcon /><span>{stickyLabel}</span>
+  </a>
 </BaseLayout>
 
 <style is:global>
@@ -60,7 +68,7 @@ const { title, description, canonical, schema, footerDisclaimer, footerServiceHr
   .lp-logo .wordmark small { font-size: .5rem; letter-spacing: .38em; color: var(--gold-300); }
   .lp-disclaimer-tag { font-size: .68rem; color: rgba(196,168,130,.65); letter-spacing: .05em; border: 1px solid rgba(196,168,130,.2); padding: 5px 11px; line-height: 1; }
 
-  .lp-hero { padding-block: clamp(80px, 11vw, 136px); }
+  .lp-hero { padding-block: clamp(40px, 6vw, 72px); }
   .lp-ey        { animation: hero-enter .65s var(--ease) .1s both; }
   .lp-h1        { animation: hero-enter .75s var(--ease) .26s both; }
   .lp-lead-anim { animation: hero-enter .65s var(--ease) .46s both; }
@@ -95,7 +103,9 @@ const { title, description, canonical, schema, footerDisclaimer, footerServiceHr
   .lp-fee-cta { width: 100%; justify-content: center; margin-top: 1.6rem; }
   .lp-fee-micro { margin-top: .8rem; text-align: center; color: var(--muted); font-size: .72rem; line-height: 1.5; }
 
-  .lp-final { padding-block: clamp(72px, 10vw, 120px); }
+  .lp-final { padding-block: clamp(64px, 9vw, 100px); }
+  .lp-final-wa-only { max-width: 600px; }
+  .lp-final-wa-only h2 { color: var(--white); }
   .lp-final .eyebrow { color: var(--gold-300); }
   .lp-final-head { max-width: 640px; margin-bottom: clamp(36px, 5vw, 52px); }
   .lp-final-head h2 { color: var(--white); margin-top: .35em; }
@@ -119,15 +129,63 @@ const { title, description, canonical, schema, footerDisclaimer, footerServiceHr
   .lp-footer-nav { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; }
   .lp-footer-nav a { color: var(--gold); font-size: .77rem; }
 
+  /* ── Barra sticky de WhatsApp (móvil) ── */
+  .lp-sticky-wa { display: none; }
+
+  /* ── Badge de precio compacto (cerca del hero) ── */
+  .lp-price-badge { display: inline-flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; margin-top: 1.8rem; padding: 12px 20px; background: rgba(196,168,130,.1); border: 1px solid rgba(196,168,130,.32); border-radius: 4px; }
+  .lp-price-badge .lab { color: var(--gold-300); font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .lp-price-badge .amt { color: var(--white); font-family: var(--serif); font-size: 1.45rem; font-weight: 600; }
+  .lp-price-badge .usd { color: rgba(245,240,232,.6); font-size: .8rem; }
+
+  /* ── Imágenes de sección ── */
+  .lp-img-section { display: grid; gap: clamp(32px, 5vw, 56px); }
+  .lp-section-img { width: 100%; height: 340px; object-fit: cover; border-radius: 8px; box-shadow: 0 20px 50px rgba(12,24,46,.13); margin-top: clamp(28px, 4vw, 44px); }
+  .lp-service-img { width: 100%; height: 300px; object-fit: cover; border-radius: 8px; box-shadow: 0 20px 50px rgba(12,24,46,.12); margin-top: 2rem; }
+
+  /* ── Hero: dos columnas — texto izquierda, video derecha ── */
+  .lp-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
+
+  /* ── Hero: dos columnas — texto izquierda, video derecha ── */
+  .lp-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
+
+  /* ── Video testimonio en el hero (autoplay silenciado) ── */
+  .lp-hero-video { width: 100%; border-radius: 12px; overflow: hidden; background: #0c182e; box-shadow: 0 34px 80px rgba(8,16,30,.5); border: 1px solid var(--line-light); }
+  .lp-hero-video video { display: block; width: 100%; height: auto; }
+  .lp-hero-video-cap { text-align: center; color: rgba(245,240,232,.6); font-size: .76rem; letter-spacing: .03em; padding: 9px 8px; margin: 0; }
+
+  /* ── Video testimonio (sección) ── */
+  .lp-video-sec { text-align: center; }
+  .lp-video-wrap { max-width: 420px; margin: clamp(28px,4vw,40px) auto 0; border-radius: 10px; overflow: hidden; background: #0c182e; box-shadow: 0 30px 70px rgba(12,24,46,.4); border: 1px solid var(--line-light); }
+  .lp-video-wrap video { display: block; width: 100%; height: auto; }
+  .lp-video-cap { margin-top: 1.4rem; color: rgba(245,240,232,.62); font-size: .85rem; }
+
   @media (max-width: 1000px) {
     .lp-svc-grid { grid-template-columns: 1fr; }
     .lp-fee-card { position: static; }
+  }
+  @media (max-width: 860px) {
+    .lp-hero-grid { grid-template-columns: 1fr; }
+    .lp-hero-video { max-width: 500px; margin: 2rem auto 0; }
   }
   @media (max-width: 760px) {
     .lp-hero .hero-metrics { gap: 20px 28px; }
     .lp-mid-cta-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
     .lp-final-form { max-width: 100%; }
     .lp-final-form .form-grid { grid-template-columns: 1fr; }
+
+    /* Botón WhatsApp pegajoso abajo para tráfico de Google Ads */
+    .lp-sticky-wa {
+      display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 95;
+      align-items: center; justify-content: center; gap: 10px;
+      padding: 15px 18px; background: #1f7a4d; color: var(--white);
+      font-size: 1rem; font-weight: 700; letter-spacing: .01em;
+      box-shadow: 0 -10px 30px rgba(8,16,30,.28); text-decoration: none;
+    }
+    .lp-sticky-wa svg { width: 22px; height: 22px; flex: 0 0 auto; }
+    .lp-sticky-wa::after { content: " →"; }
+    .whatsapp-float { display: none; }      /* evita doble botón en móvil */
+    #main-content { padding-bottom: 66px; }  /* espacio para la barra sticky */
   }
   @media (max-width: 560px) {
     .lp-header-inner { flex-direction: column; align-items: flex-start; }
