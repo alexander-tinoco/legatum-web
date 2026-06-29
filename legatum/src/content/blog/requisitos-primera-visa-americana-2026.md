@@ -3,7 +3,6 @@ title: "Requisitos para la primera visa americana en 2026"
 description: "Guía completa de los documentos y condiciones para la primera visa americana B1/B2 en 2026. Lo que el consulado realmente evalúa y cómo prepararse."
 pubDate: 2026-06-13
 dateModified: 2026-06-19
-author: "Alexander Tinoco Sánchez"
 tags: ["visa americana", "primera vez", "requisitos", "B1/B2", "DS-160"]
 pillarService: "visa-americana"
 faqs:

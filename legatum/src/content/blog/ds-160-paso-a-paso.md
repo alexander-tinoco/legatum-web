@@ -3,7 +3,6 @@ title: "DS-160 paso a paso: por qué cada campo importa"
 description: "Guía institucional para llenar correctamente el formulario DS-160 de visa americana. Cada sección explicada con el contexto que los consulados buscan."
 pubDate: 2026-04-21
 dateModified: 2026-06-19
-author: "Alexander Tinoco Sánchez"
 tags: ["visa americana", "DS-160", "documentación", "entrevista consular"]
 pillarService: "visa-americana"
 faqs:

@@ -3,7 +3,6 @@ title: "ETA vs. visa de visitante: cuál le corresponde"
 description: "Mexicanos que viajan a Canadá enfrentan dos autorizaciones distintas. Conocer cuál le aplica evita rechazos en el aeropuerto y gestiones mal encaminadas."
 pubDate: 2026-05-19
 dateModified: 2026-06-19
-author: "Alexander Tinoco Sánchez"
 pillarService: "eta-canada"
 tags: ["visa canadiense", "ETA", "viaje a Canadá", "IRCC"]
 faqs:

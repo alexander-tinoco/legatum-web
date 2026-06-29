@@ -3,7 +3,6 @@ title: "Qué esperar en la entrevista consular y cómo responder"
 description: "La entrevista consular dura entre 2 y 5 minutos. La mayoría de las personas la teme más de lo que debería. Lo que importa es saber qué evalúa el oficial y cómo responder con claridad."
 pubDate: 2026-05-05
 dateModified: 2026-06-19
-author: "Alexander Tinoco Sánchez"
 tags: ["visa americana", "entrevista consular", "B1/B2", "preparación"]
 pillarService: "visa-americana"
 faqs:

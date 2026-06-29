@@ -3,7 +3,6 @@ title: "Demostrar arraigo: el factor que casi nadie prepara bien"
 description: "El arraigo es la razón número uno de negativas de visa americana. No se trata de cuánto dinero tiene, sino de qué tan creíble es su intención de regresar a México."
 pubDate: 2026-04-07
 dateModified: 2026-06-19
-author: "Alexander Tinoco Sánchez"
 tags: ["visa americana", "arraigo", "B1/B2", "entrevista consular"]
 pillarService: "visa-americana"
 faqs:

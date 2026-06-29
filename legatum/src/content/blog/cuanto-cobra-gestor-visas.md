@@ -3,7 +3,6 @@ title: "¿Cuánto cobra un gestor de visas en México? Lo que conviene saber"
 description: "Los honorarios de un gestor de visas en México varían mucho. Entender qué incluye el servicio, qué no, y cómo distinguir una propuesta seria de una que no lo es."
 pubDate: 2026-06-11
 dateModified: 2026-06-19
-author: "Alexander Tinoco Sánchez"
 tags: ["gestor de visas", "honorarios", "asesoría migratoria", "visa americana"]
 pillarService: "visa-americana"
 faqs:

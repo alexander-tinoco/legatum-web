@@ -35,13 +35,13 @@ export const fees = {
 };
 
 export const founder = {
-  name: 'Alexander Tinoco Sánchez',
-  role: 'Especialista y fundador',
-  image: '/equipo/alexander-tinoco.webp',
+  name: 'Legatum Internacional',
+  role: 'Firma especialista en movilidad internacional',
+  image: '',
   shortBio:
-    'Fundador de LEGATUM INTERNACIONAL. Especialista en movilidad internacional dedicado a la preparación rigurosa de expedientes de visas, pasaportes y procesos consulares.',
+    'Firma especializada en movilidad internacional dedicada a la preparación rigurosa de expedientes de visas, pasaportes y procesos consulares.',
   longBio:
-    'Alexander Tinoco Sánchez es el fundador y especialista responsable de cada caso en LEGATUM INTERNACIONAL. Su trabajo parte de una convicción simple: un trámite migratorio bien preparado no se improvisa. Por eso cada expediente se construye con criterio jurídico, honestidad sobre los riesgos reales y acompañamiento directo en cada etapa, sin intermediarios ni promesas que no dependan de nosotros.',
+    'En LEGATUM INTERNACIONAL cada caso es atendido por especialistas con una convicción simple: un trámite migratorio bien preparado no se improvisa. Por eso cada expediente se construye con criterio jurídico, honestidad sobre los riesgos reales y acompañamiento directo en cada etapa, sin intermediarios ni promesas que no dependan de nosotros.',
 };
 
 export const navItems = [

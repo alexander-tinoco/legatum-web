@@ -3,7 +3,6 @@ title: "Renovación de visa americana sin entrevista: ¿califico?"
 description: "El programa de renovación sin entrevista (Interview Waiver) permite renovar la visa B1/B2 sin volver al consulado si se cumplen ciertos requisitos. Aquí se explica cuándo aplica y cómo funciona."
 pubDate: 2026-06-19
 dateModified: 2026-06-19
-author: "Alexander Tinoco Sánchez"
 tags: ["visa americana", "renovación", "sin entrevista", "Interview Waiver", "B1/B2"]
 pillarService: "visa-americana"
 faqs:

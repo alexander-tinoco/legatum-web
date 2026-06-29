@@ -3,7 +3,6 @@ title: "Visa americana para empresarios y personas con negocio propio"
 description: "Tener negocio propio no dificulta la visa americana. Lo que importa es documentar el arraigo empresarial de forma correcta. Qué presentar y cómo argumentarlo."
 pubDate: 2026-06-17
 dateModified: 2026-06-19
-author: "Alexander Tinoco Sánchez"
 tags: ["visa americana", "empresarios", "negocio propio", "arraigo", "B1/B2"]
 pillarService: "visa-americana"
 faqs:

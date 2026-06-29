@@ -3,7 +3,6 @@ title: "Visa americana negada: qué hacer después del rechazo"
 description: "Un rechazo de visa B1/B2 no es definitivo. Entender por qué la negaron y cómo fortalecer el expediente es el primer paso antes de volver a solicitar."
 pubDate: 2026-06-09
 dateModified: 2026-06-19
-author: "Alexander Tinoco Sánchez"
 tags: ["visa americana", "visa negada", "214b", "B1/B2"]
 pillarService: "visa-americana"
 faqs:

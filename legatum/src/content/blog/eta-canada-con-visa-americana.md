@@ -3,7 +3,6 @@ title: "ETA para Canadá si tengo visa americana: cómo funciona en 2026"
 description: "Los mexicanos con visa americana vigente pueden entrar a Canadá con una ETA en lugar de visa de visitante. Aquí se explica exactamente cuándo aplica, cómo solicitarla y qué errores evitar."
 pubDate: 2026-06-15
 dateModified: 2026-06-19
-author: "Alexander Tinoco Sánchez"
 tags: ["ETA", "visa americana", "viaje a Canadá", "IRCC", "B1/B2"]
 pillarService: "eta-canada"
 faqs:

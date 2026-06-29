@@ -3,7 +3,6 @@ title: "Renovación de pasaporte mexicano: requisitos 2026"
 description: "Los requisitos para renovar el pasaporte mexicano cambian con frecuencia. Esta guía refleja el proceso vigente en 2026 para adultos y menores, con y sin urgencia."
 pubDate: 2026-06-02
 dateModified: 2026-06-19
-author: "Alexander Tinoco Sánchez"
 tags: ["pasaporte mexicano", "SRE", "renovación", "trámites 2026"]
 pillarService: "pasaporte-mexicano"
 faqs:
